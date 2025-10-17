@@ -1,3 +1,5 @@
+<!-- this is the home page -->
+
 @extends('layouts.app')
 
 @section('content')
