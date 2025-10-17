@@ -6,7 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    protected $fillable = ['name','phone','email'];
+    protected $fillable = ['name', 'phone', 'email', 'password'];
+
+    protected $hidden = ['password'];
+
+    protected $casts = [
+        'password' => 'hashed',
+    ];
 
     public function orders()
     {

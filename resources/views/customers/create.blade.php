@@ -14,10 +14,6 @@
                     <form action="{{ route('customers.store') }}" method="POST">
                         @csrf
 
-                        <div class="alert alert-info">
-                            <i class="bi bi-info-circle"></i> Register a new customer to track their orders and build your customer database.
-                        </div>
-
                         <div class="mb-3">
                             <label for="name" class="form-label">
                                 Customer Name <span class="text-danger">*</span>

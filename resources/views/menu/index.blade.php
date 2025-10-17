@@ -9,13 +9,6 @@
         </a>
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
     <div class="card shadow-sm">
         <div class="card-body">
             @if($menuItems->isEmpty())
@@ -83,16 +76,33 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        Are you sure you want to delete <strong>{{ $item->name }}</strong>?
-                                                        This action cannot be undone.
+                                                        <p>Are you sure you want to delete <strong>{{ $item->name }}</strong>?</p>
+                                                        
+                                                        @if($item->orderItems()->count() > 0)
+                                                            <div class="alert alert-warning mb-0">
+                                                                <i class="bi bi-exclamation-triangle-fill"></i>
+                                                                <strong>Warning:</strong> This item has {{ $item->orderItems()->count() }} order(s) and cannot be deleted.
+                                                                Consider setting stock to 0 instead.
+                                                            </div>
+                                                        @else
+                                                            <p class="text-muted mb-0">This action cannot be undone.</p>
+                                                        @endif
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                        <form action="{{ route('menu.destroy', $item) }}" method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                                        </form>
+                                                        @if($item->orderItems()->count() > 0)
+                                                            <button type="button" class="btn btn-danger" disabled title="Cannot delete - has orders">
+                                                                <i class="bi bi-lock"></i> Cannot Delete
+                                                            </button>
+                                                        @else
+                                                            <form action="{{ route('menu.destroy', $item) }}" method="POST" class="d-inline">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger">
+                                                                    <i class="bi bi-trash"></i> Delete
+                                                                </button>
+                                                            </form>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -112,6 +122,79 @@
     </div>
 </div>
 
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">
+                    <i class="bi bi-check-circle-fill"></i> Success
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">{{ session('success') }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">
+                    <i class="bi bi-exclamation-triangle-fill"></i> Error
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">{{ session('error') }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Clean up backdrop for ALL modals on this page
+        document.querySelectorAll('.modal').forEach(function(modalElement) {
+            modalElement.addEventListener('hidden.bs.modal', function () {
+                document.body.classList.remove('modal-open');
+                document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
+            });
+        });
+    });
+</script>
+
+@if(session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modalElement = document.getElementById('successModal');
+        const successModal = new bootstrap.Modal(modalElement);
+        successModal.show();
+    });
+</script>
+@endif
+
+@if(session('error'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modalElement = document.getElementById('errorModal');
+        const errorModal = new bootstrap.Modal(modalElement);
+        errorModal.show();
+    });
+</script>
+@endif
+
 @endsection

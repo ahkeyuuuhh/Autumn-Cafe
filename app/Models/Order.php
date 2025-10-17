@@ -8,6 +8,11 @@ class Order extends Model
 {
     protected $fillable = ['customer_id','total_amount','status','ordered_at'];
 
+    protected $casts = [
+        'ordered_at' => 'datetime',
+        'total_amount' => 'decimal:2',
+    ];
+
     public function items()
     {
         return $this->hasMany(OrderItem::class);

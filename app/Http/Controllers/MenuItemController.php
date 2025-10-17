@@ -105,12 +105,29 @@ class MenuItemController extends Controller
      */
     public function destroy(MenuItem $menu)
     {
-        // Delete image if exists
-        if ($menu->image && \Storage::disk('public')->exists($menu->image)) {
-            \Storage::disk('public')->delete($menu->image);
+        try {
+            // Check if menu item has any orders
+            if ($menu->orderItems()->count() > 0) {
+                return redirect()->route('menu.index')
+                    ->with('error', 'Cannot delete this menu item because it has existing orders. Consider marking it as out of stock instead.');
+            }
+            
+            // Delete image if exists
+            if ($menu->image && \Storage::disk('public')->exists($menu->image)) {
+                \Storage::disk('public')->delete($menu->image);
+            }
+            
+            $menu->delete();
+            return redirect()->route('menu.index')
+                ->with('success', 'Menu item deleted successfully.');
+                
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Handle foreign key constraint error
+            return redirect()->route('menu.index')
+                ->with('error', 'Cannot delete this menu item because it is referenced in existing orders.');
+        } catch (\Exception $e) {
+            return redirect()->route('menu.index')
+                ->with('error', 'Failed to delete menu item: ' . $e->getMessage());
         }
-        
-        $menu->delete();
-        return redirect()->route('menu.index')->with('success', 'Menu item deleted successfully.');
     }
 }

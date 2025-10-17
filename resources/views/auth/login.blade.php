@@ -86,30 +86,6 @@
     </div>
 
     <div class="auth-body">
-      @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-          <i class="bi bi-check-circle-fill"></i> {{ session('success') }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-      @endif
-
-      @if(session('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <i class="bi bi-exclamation-triangle-fill"></i> {{ session('error') }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-      @endif
-
-      @if($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <i class="bi bi-exclamation-triangle-fill"></i> 
-          @foreach($errors->all() as $error)
-            {{ $error }}
-          @endforeach
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-      @endif
-
       <form action="{{ route('login') }}" method="POST">
         @csrf
 
@@ -173,6 +149,82 @@
       <small class="text-muted">🍂 Autumn Café Admin Portal 🍂</small>
     </div>
   </div>
+
+  <!-- Success Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header bg-success text-white">
+                  <h5 class="modal-title" id="successModalLabel">
+                      <i class="bi bi-check-circle-fill"></i> Success
+                  </h5>
+                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <p class="mb-0">{{ session('success') }}</p>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Error Modal -->
+  <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header bg-danger text-white">
+                  <h5 class="modal-title" id="errorModalLabel">
+                      <i class="bi bi-exclamation-triangle-fill"></i> Error
+                  </h5>
+                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  @if(session('error'))
+                      <p class="mb-0">{{ session('error') }}</p>
+                  @elseif($errors->any())
+                      @foreach($errors->all() as $error)
+                          <p class="mb-0">{{ $error }}</p>
+                      @endforeach
+                  @endif
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  @if(session('success'))
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const modalElement = document.getElementById('successModal');
+          const successModal = new bootstrap.Modal(modalElement);
+          successModal.show();
+          
+          modalElement.addEventListener('hidden.bs.modal', function () {
+              document.body.classList.remove('modal-open');
+              document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
+          });
+      });
+  </script>
+  @endif
+
+  @if(session('error') || $errors->any())
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const modalElement = document.getElementById('errorModal');
+          const errorModal = new bootstrap.Modal(modalElement);
+          errorModal.show();
+          
+          modalElement.addEventListener('hidden.bs.modal', function () {
+              document.body.classList.remove('modal-open');
+              document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
+          });
+      });
+  </script>
+  @endif
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
