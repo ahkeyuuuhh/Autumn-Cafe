@@ -16,6 +16,19 @@ Route::get('/customer/login', [App\Http\Controllers\CustomerAuthController::clas
 Route::post('/customer/login', [App\Http\Controllers\CustomerAuthController::class, 'login']);
 Route::post('/customer/logout', [App\Http\Controllers\CustomerAuthController::class, 'logout'])->name('customer.logout');
 
+// Cashier Authentication Routes
+Route::get('/cashier/register', [App\Http\Controllers\CashierAuthController::class, 'showRegister'])->name('cashier.register');
+Route::post('/cashier/register', [App\Http\Controllers\CashierAuthController::class, 'register']);
+Route::get('/cashier/login', [App\Http\Controllers\CashierAuthController::class, 'showLogin'])->name('cashier.login');
+Route::post('/cashier/login', [App\Http\Controllers\CashierAuthController::class, 'login']);
+Route::post('/cashier/logout', [App\Http\Controllers\CashierAuthController::class, 'logout'])->name('cashier.logout');
+
+// Cashier Protected Routes
+Route::middleware(['web'])->group(function () {
+    Route::get('/cashier/dashboard', [App\Http\Controllers\CashierDashboardController::class, 'index'])->name('cashier.dashboard');
+    Route::post('/cashier/order/{id}/status', [App\Http\Controllers\CashierDashboardController::class, 'updateOrderStatus'])->name('cashier.order.status');
+});
+
 // Customer Public Routes
 Route::get('/', [App\Http\Controllers\CustomerMenuController::class, 'index'])->name('customer.menu');
 Route::post('/cart/add', [App\Http\Controllers\CustomerMenuController::class, 'addToCart'])->name('cart.add');
