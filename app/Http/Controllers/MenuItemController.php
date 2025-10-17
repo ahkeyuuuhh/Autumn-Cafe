@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MenuItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class MenuItemController extends Controller
 {
@@ -11,7 +13,8 @@ class MenuItemController extends Controller
      */
     public function index()
     {
-        //
+        $menuItems = MenuItem::orderBy('category')->orderBy('name')->get();
+        return view('menu.index', compact('menuItems'));
     }
 
     /**
@@ -19,7 +22,7 @@ class MenuItemController extends Controller
      */
     public function create()
     {
-        //
+        return view('menu.create');
     }
 
     /**
@@ -32,43 +35,82 @@ class MenuItemController extends Controller
             'price' => 'required|numeric|min:0',
             'description' => 'nullable|string',
             'category' => 'nullable|string',
-            'stock' => 'nullable|integer|min:0',
+            'stock' => 'required|integer|min:0',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
-        $validated['slug'] = Str::slug($validated['name']).'-'.time();
+        
+        $validated['slug'] = Str::slug($validated['name']) . '-' . time();
+        
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('menu-items', 'public');
+        }
+        
         MenuItem::create($validated);
-        return redirect()->route('menu.index')->with('success','Menu item added.');
+        
+        return redirect()->route('menu.index')->with('success', 'Menu item created successfully.');
     }
-
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(MenuItem $menu)
     {
-        //
+        return view('menu.show', compact('menu'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(MenuItem $menu)
     {
-        //
+        return view('menu.edit', compact('menu'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, MenuItem $menu)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'description' => 'nullable|string',
+            'category' => 'nullable|string',
+            'stock' => 'required|integer|min:0',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ]);
+        
+        // Update slug only if name changed
+        if ($menu->name !== $validated['name']) {
+            $validated['slug'] = Str::slug($validated['name']) . '-' . time();
+        }
+        
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($menu->image && \Storage::disk('public')->exists($menu->image)) {
+                \Storage::disk('public')->delete($menu->image);
+            }
+            $validated['image'] = $request->file('image')->store('menu-items', 'public');
+        }
+        
+        $menu->update($validated);
+        
+        return redirect()->route('menu.index')->with('success', 'Menu item updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(MenuItem $menu)
     {
-        //
+        // Delete image if exists
+        if ($menu->image && \Storage::disk('public')->exists($menu->image)) {
+            \Storage::disk('public')->delete($menu->image);
+        }
+        
+        $menu->delete();
+        return redirect()->route('menu.index')->with('success', 'Menu item deleted successfully.');
     }
 }
