@@ -72,38 +72,69 @@
     <!-- Filters and Search -->
     <div class="card shadow-sm mb-4">
         <div class="card-body">
-            <form method="GET" action="{{ route('transactions.index') }}" class="row g-3">
+            <form method="GET" action="{{ route('transactions.index') }}" class="row g-3" id="filterForm">
                 <div class="col-md-4">
-                    <label class="form-label small text-muted">Search</label>
+                    <label class="form-label small text-muted">
+                        <i class="bi bi-search"></i> Search Transactions
+                    </label>
                     <input type="text" 
                            name="search" 
                            class="form-control" 
-                           placeholder="Search by Order ID or Customer..."
-                           value="{{ request('search') }}">
+                           placeholder="Search by Order ID, Customer Name or Email..."
+                           value="{{ request('search') }}"
+                           title="Examples: Type '5' for Order #5, 'John' for customer names, or 'gmail.com' for emails">
+                    <small class="text-muted">
+                        <i class="bi bi-info-circle"></i> 
+                        Try: Order # (e.g., "5"), Name (e.g., "John"), or Email
+                    </small>
                 </div>
-                <div class="col-md-3">
-                    <label class="form-label small text-muted">Status</label>
+                <div class="col-md-2">
+                    <label class="form-label small text-muted">
+                        <i class="bi bi-funnel"></i> Status
+                    </label>
                     <select name="status" class="form-select">
-                        <option value="all" {{ request('status') === 'all' ? 'selected' : '' }}>All Status</option>
+                        <option value="all" {{ request('status') === 'all' || !request('status') ? 'selected' : '' }}>All Status</option>
                         <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>Pending</option>
                         <option value="paid" {{ request('status') === 'paid' ? 'selected' : '' }}>Paid</option>
                         <option value="completed" {{ request('status') === 'completed' ? 'selected' : '' }}>Completed</option>
                         <option value="cancelled" {{ request('status') === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                     </select>
                 </div>
-                <div class="col-md-3">
-                    <label class="form-label small text-muted">Sort By Date</label>
+                <div class="col-md-2">
+                    <label class="form-label small text-muted">
+                        <i class="bi bi-sort-down"></i> Sort By Date
+                    </label>
                     <select name="sort" class="form-select">
-                        <option value="desc" {{ request('sort') === 'desc' ? 'selected' : '' }}>Newest First</option>
+                        <option value="desc" {{ request('sort') === 'desc' || !request('sort') ? 'selected' : '' }}>Newest First</option>
                         <option value="asc" {{ request('sort') === 'asc' ? 'selected' : '' }}>Oldest First</option>
                     </select>
                 </div>
                 <div class="col-md-2 d-flex align-items-end">
                     <button type="submit" class="btn btn-primary w-100">
-                        <i class="bi bi-funnel"></i> Filter
+                        <i class="bi bi-search"></i> Search
                     </button>
                 </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <a href="{{ route('transactions.index') }}" class="btn btn-secondary w-100">
+                        <i class="bi bi-x-circle"></i> Clear
+                    </a>
+                </div>
             </form>
+            
+            @if(request('search') || (request('status') && request('status') != 'all'))
+                <div class="mt-3">
+                    <small class="text-muted">
+                        <i class="bi bi-info-circle"></i> 
+                        Showing filtered results
+                        @if(request('search'))
+                            for: <strong>"{{ request('search') }}"</strong>
+                        @endif
+                        @if(request('status') && request('status') != 'all')
+                            with status: <strong>{{ ucfirst(request('status')) }}</strong>
+                        @endif
+                    </small>
+                </div>
+            @endif
         </div>
     </div>
 
@@ -113,10 +144,17 @@
             @if($orders->isEmpty())
                 <div class="text-center py-5">
                     <i class="bi bi-inbox fs-1 text-muted d-block mb-3"></i>
-                    <p class="text-muted">No transactions found. Start taking orders!</p>
-                    <a href="{{ route('orders.create') }}" class="btn btn-primary mt-2">
-                        <i class="bi bi-plus-circle"></i> Create First Order
-                    </a>
+                    @if(request('search') || (request('status') && request('status') != 'all'))
+                        <p class="text-muted">No transactions found matching your search criteria.</p>
+                        <a href="{{ route('transactions.index') }}" class="btn btn-secondary mt-2">
+                            <i class="bi bi-arrow-left"></i> View All Transactions
+                        </a>
+                    @else
+                        <p class="text-muted">No transactions found. Start taking orders!</p>
+                        <a href="{{ route('orders.create') }}" class="btn btn-primary mt-2">
+                            <i class="bi bi-plus-circle"></i> Create First Order
+                        </a>
+                    @endif
                 </div>
             @else
                 <div class="table-responsive">
@@ -232,6 +270,23 @@
     });
 </script>
 @endif
+
+<script>
+    // Auto-refresh every 30 seconds for smooth user experience
+    let autoRefreshTimer = setTimeout(function() {
+        // Only refresh if no modal is open
+        if (!document.querySelector('.modal.show')) {
+            window.location.reload();
+        } else {
+            // Try again in 10 seconds if modal is open
+            setTimeout(function() {
+                if (!document.querySelector('.modal.show')) {
+                    window.location.reload();
+                }
+            }, 10000);
+        }
+    }, 30000); // 30 seconds
+</script>
 
 <!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">

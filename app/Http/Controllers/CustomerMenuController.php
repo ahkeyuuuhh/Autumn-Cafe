@@ -13,15 +13,38 @@ class CustomerMenuController extends Controller
     /**
      * Display menu items for customers
      */
-    public function index()
+    public function index(Request $request)
     {
-        $menuItems = MenuItem::where('stock', '>', 0)
-            ->orderBy('category')
+        $query = MenuItem::where('stock', '>', 0);
+        
+        // Search filter
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('description', 'LIKE', "%{$search}%");
+            });
+        }
+        
+        // Category filter
+        if ($request->has('category') && $request->category != '' && $request->category != 'all') {
+            $query->where('category', $request->category);
+        }
+        
+        $menuItems = $query->orderBy('category')
             ->orderBy('name')
             ->get()
             ->groupBy('category');
+        
+        // Get all unique categories for the filter
+        $categories = MenuItem::where('stock', '>', 0)
+            ->distinct()
+            ->pluck('category')
+            ->filter()
+            ->sort()
+            ->values();
             
-        return view('customer.menu.index', compact('menuItems'));
+        return view('customer.menu.index', compact('menuItems', 'categories'));
     }
 
     /**

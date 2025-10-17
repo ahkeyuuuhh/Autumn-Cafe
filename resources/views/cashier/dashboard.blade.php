@@ -54,11 +54,14 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{ route('cashier.dashboard') }}">
                 <i class="bi bi-cup-hot-fill me-2"></i>Autumn Café - Cashier
             </a>
-            <div class="ms-auto d-flex align-items-center">
-                <span class="text-white me-3">
+            <div class="ms-auto d-flex align-items-center gap-2">
+                <a href="{{ route('cashier.order.create') }}" class="btn btn-success btn-sm">
+                    <i class="bi bi-plus-circle me-1"></i>Create New Order
+                </a>
+                <span class="text-white me-2">
                     <i class="bi bi-person-circle me-2"></i>{{ session('cashier_name') }}
                 </span>
                 <form action="{{ route('cashier.logout') }}" method="POST" class="d-inline">
@@ -119,7 +122,7 @@
                             @foreach($pendingOrders as $order)
                                 <tr>
                                     <td><strong>#{{ $order->id }}</strong></td>
-                                    <td>{{ $order->customer->name }}</td>
+                                    <td>{{ $order->customer ? $order->customer->name : 'Walk-in Customer' }}</td>
                                     <td>
                                         <small>
                                             @foreach($order->items as $item)
@@ -131,7 +134,7 @@
                                     <td>{{ $order->ordered_at->format('M d, Y h:i A') }}</td>
                                     <td>
                                         <button class="btn btn-sm btn-primary" 
-                                                onclick="showStatusModal({{ $order->id }}, '{{ $order->customer->name }}')">
+                                                onclick="showStatusModal({{ $order->id }}, '{{ $order->customer ? $order->customer->name : 'Walk-in Customer' }}')">
                                             <i class="bi bi-pencil-square me-1"></i>Update Status
                                         </button>
                                     </td>
@@ -168,7 +171,7 @@
                             @foreach($recentTransactions as $transaction)
                                 <tr>
                                     <td><strong>#{{ $transaction->id }}</strong></td>
-                                    <td>{{ $transaction->customer->name }}</td>
+                                    <td>{{ $transaction->customer ? $transaction->customer->name : 'Walk-in Customer' }}</td>
                                     <td><strong>₱{{ number_format($transaction->total_amount, 2) }}</strong></td>
                                     <td>
                                         @if($transaction->status == 'paid')
@@ -270,6 +273,29 @@
                 document.body.style.paddingRight = '';
             });
         });
+
+        // Auto-refresh every 30 seconds for smooth user experience
+        let autoRefreshTimer;
+        function startAutoRefresh() {
+            autoRefreshTimer = setTimeout(function() {
+                // Only refresh if no modal is open
+                if (!document.querySelector('.modal.show')) {
+                    window.location.reload();
+                } else {
+                    // Try again in 10 seconds if modal is open
+                    clearTimeout(autoRefreshTimer);
+                    autoRefreshTimer = setTimeout(function() {
+                        if (!document.querySelector('.modal.show')) {
+                            window.location.reload();
+                        } else {
+                            startAutoRefresh();
+                        }
+                    }, 10000);
+                }
+            }, 30000); // 30 seconds
+        }
+        
+        startAutoRefresh();
     </script>
 </body>
 </html>

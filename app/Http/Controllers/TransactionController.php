@@ -20,13 +20,18 @@ class TransactionController extends Controller
         }
 
         // Search by order ID or customer name
-        if ($request->has('search') && $request->search) {
+        if ($request->has('search') && $request->search != '') {
             $search = $request->search;
             $query->where(function($q) use ($search) {
-                $q->where('id', 'like', "%{$search}%")
-                  ->orWhereHas('customer', function($q) use ($search) {
-                      $q->where('name', 'like', "%{$search}%");
-                  });
+                // If search is numeric, search by ID
+                if (is_numeric($search)) {
+                    $q->where('id', $search);
+                }
+                // Always search by customer name
+                $q->orWhereHas('customer', function($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                      ->orWhere('email', 'like', "%{$search}%");
+                });
             });
         }
 

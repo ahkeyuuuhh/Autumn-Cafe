@@ -27,6 +27,8 @@ Route::post('/cashier/logout', [App\Http\Controllers\CashierAuthController::clas
 Route::middleware(['web'])->group(function () {
     Route::get('/cashier/dashboard', [App\Http\Controllers\CashierDashboardController::class, 'index'])->name('cashier.dashboard');
     Route::post('/cashier/order/{id}/status', [App\Http\Controllers\CashierDashboardController::class, 'updateOrderStatus'])->name('cashier.order.status');
+    Route::get('/cashier/order/create', [App\Http\Controllers\CashierDashboardController::class, 'createOrder'])->name('cashier.order.create');
+    Route::post('/cashier/order/store', [App\Http\Controllers\CashierDashboardController::class, 'storeOrder'])->name('cashier.order.store');
 });
 
 // Customer Public Routes

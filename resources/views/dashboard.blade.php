@@ -281,4 +281,11 @@
 
 <!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<script>
+    // Auto-refresh every 30 seconds for smooth user experience
+    setTimeout(function() {
+        window.location.reload();
+    }, 30000); // 30 seconds
+</script>
 @endsection
