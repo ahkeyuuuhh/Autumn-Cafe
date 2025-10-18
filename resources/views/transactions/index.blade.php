@@ -54,16 +54,16 @@
         <div class="col-lg-2 col-md-4">
             <div class="card border-0 shadow-sm">
                 <div class="card-body text-center">
-                    <p class="text-muted mb-1 small">Paid</p>
-                    <h4 class="fw-bold mb-0 text-info">{{ $stats['paid'] }}</h4>
+                    <p class="text-muted mb-1 small">Completed</p>
+                    <h4 class="fw-bold mb-0 text-success">{{ $stats['completed'] }}</h4>
                 </div>
             </div>
         </div>
         <div class="col-lg-2 col-md-4">
             <div class="card border-0 shadow-sm">
                 <div class="card-body text-center">
-                    <p class="text-muted mb-1 small">Completed</p>
-                    <h4 class="fw-bold mb-0 text-success">{{ $stats['completed'] }}</h4>
+                    <p class="text-muted mb-1 small">Cancelled</p>
+                    <h4 class="fw-bold mb-0 text-danger">{{ $stats['cancelled'] }}</h4>
                 </div>
             </div>
         </div>
@@ -95,7 +95,6 @@
                     <select name="status" class="form-select">
                         <option value="all" {{ request('status') === 'all' || !request('status') ? 'selected' : '' }}>All Status</option>
                         <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>Pending</option>
-                        <option value="paid" {{ request('status') === 'paid' ? 'selected' : '' }}>Paid</option>
                         <option value="completed" {{ request('status') === 'completed' ? 'selected' : '' }}>Completed</option>
                         <option value="cancelled" {{ request('status') === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                     </select>
@@ -204,7 +203,6 @@
                                         @php
                                             $statusColors = [
                                                 'pending' => 'warning',
-                                                'paid' => 'info',
                                                 'completed' => 'success',
                                                 'cancelled' => 'danger'
                                             ];
@@ -272,20 +270,20 @@
 @endif
 
 <script>
-    // Auto-refresh every 30 seconds for smooth user experience
+    // Auto-refresh every 10 seconds for smooth user experience
     let autoRefreshTimer = setTimeout(function() {
         // Only refresh if no modal is open
         if (!document.querySelector('.modal.show')) {
             window.location.reload();
         } else {
-            // Try again in 10 seconds if modal is open
+            // Try again in 5 seconds if modal is open
             setTimeout(function() {
                 if (!document.querySelector('.modal.show')) {
                     window.location.reload();
                 }
-            }, 10000);
+            }, 5000);
         }
-    }, 30000); // 30 seconds
+    }, 10000); // 10 seconds
 </script>
 
 <!-- Bootstrap Icons -->

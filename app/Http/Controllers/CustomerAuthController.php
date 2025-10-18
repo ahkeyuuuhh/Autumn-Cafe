@@ -63,6 +63,11 @@ class CustomerAuthController extends Controller
             'password.min' => 'Password must be at least 8 characters.',
         ]);
 
+        // Sanitize inputs before storing
+        $validated['name'] = strip_tags(trim($validated['name']));
+        $validated['email'] = strtolower(strip_tags(trim($validated['email'])));
+        $validated['phone'] = preg_replace('/[^0-9+]/', '', $validated['phone']);
+
         // Create customer with hashed password
         $customer = Customer::create([
             'name' => $validated['name'],
@@ -96,10 +101,12 @@ class CustomerAuthController extends Controller
             'email' => [
                 'required',
                 'email',
+                'max:255',
             ],
             'password' => [
                 'required',
                 'string',
+                'max:255',
             ],
             'remember' => [
                 'nullable',
@@ -107,11 +114,15 @@ class CustomerAuthController extends Controller
             ],
         ]);
 
-        // Find customer by email
-        $customer = Customer::where('email', $validated['email'])->first();
+        // Sanitize email input
+        $email = strtolower(strip_tags(trim($validated['email'])));
+
+        // Find customer by email using parameterized query (Eloquent ORM - safe from SQL injection)
+        $customer = Customer::where('email', $email)->first();
 
         // Check if customer exists and password is correct
         if (!$customer || !Hash::check($validated['password'], $customer->password)) {
+            // Use generic error message to prevent user enumeration
             return back()
                 ->withErrors(['email' => 'The provided credentials do not match our records.'])
                 ->withInput($request->except('password'));
@@ -119,14 +130,14 @@ class CustomerAuthController extends Controller
 
         // Log customer in
         session(['customer_id' => $customer->id]);
-        session(['customer_name' => $customer->name]);
+        session(['customer_name' => htmlspecialchars($customer->name, ENT_QUOTES, 'UTF-8')]);
 
         if ($request->remember) {
             session(['customer_remember' => true]);
         }
 
         return redirect()->route('customer.menu')
-            ->with('success', 'Welcome back, ' . $customer->name . '!');
+            ->with('success', 'Welcome back, ' . htmlspecialchars($customer->name, ENT_QUOTES, 'UTF-8') . '!');
     }
 
     /**
@@ -139,5 +150,60 @@ class CustomerAuthController extends Controller
 
         return redirect()->route('customer.login')
             ->with('success', 'You have been logged out successfully.');
+    }
+
+    /**
+     * Show customer account settings page
+     */
+    public function showSettings()
+    {
+        if (!session('customer_id')) {
+            return redirect()->route('customer.login')
+                ->with('error', 'Please login to access account settings.');
+        }
+
+        $customer = Customer::findOrFail(session('customer_id'));
+        return view('customer.settings', compact('customer'));
+    }
+
+    /**
+     * Update customer account settings
+     */
+    public function updateSettings(Request $request)
+    {
+        if (!session('customer_id')) {
+            return redirect()->route('customer.login')
+                ->with('error', 'Please login to update account settings.');
+        }
+
+        $customer = Customer::findOrFail(session('customer_id'));
+
+        $validated = $request->validate([
+            'email' => [
+                'required',
+                'string',
+                'email:rfc,dns',
+                'max:255',
+                'unique:customers,email,' . $customer->id,
+                'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+            ],
+            'phone' => [
+                'required',
+                'string',
+                'regex:/^(\+63|0)[0-9]{10}$/',
+                'unique:customers,phone,' . $customer->id,
+            ],
+        ]);
+
+        // Sanitize inputs before updating
+        $validated['email'] = strtolower(strip_tags(trim($validated['email'])));
+        $validated['phone'] = preg_replace('/[^0-9+]/', '', $validated['phone']);
+
+        $customer->update([
+            'email' => $validated['email'],
+            'phone' => $validated['phone'],
+        ]);
+
+        return back()->with('success', 'Account settings updated successfully!');
     }
 }

@@ -511,7 +511,47 @@
                 e.preventDefault();
                 matchWarning.style.display = 'block';
                 passwordConfirm.focus();
+                return false;
             }
+            
+            // Sanitize inputs before submission to prevent XSS
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const phoneInput = document.getElementById('phone');
+            
+            // Remove HTML tags and trim whitespace
+            nameInput.value = sanitizeText(nameInput.value);
+            emailInput.value = sanitizeText(emailInput.value).toLowerCase();
+            phoneInput.value = phoneInput.value.replace(/[^0-9+]/g, '');
+        });
+        
+        // Sanitize text input to prevent XSS
+        function sanitizeText(input) {
+            const div = document.createElement('div');
+            div.textContent = input;
+            let sanitized = div.innerHTML;
+            
+            // Remove script tags
+            sanitized = sanitized.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+            
+            // Remove event handlers
+            sanitized = sanitized.replace(/on\w+\s*=\s*["'][^"']*["']/gi, '');
+            
+            // Remove javascript: protocol
+            sanitized = sanitized.replace(/javascript:/gi, '');
+            
+            return sanitized.trim();
+        }
+        
+        // Real-time input sanitization
+        document.getElementById('name').addEventListener('input', function(e) {
+            // Remove dangerous characters in real-time
+            this.value = this.value.replace(/[<>]/g, '');
+        });
+        
+        document.getElementById('email').addEventListener('input', function(e) {
+            // Remove dangerous characters in real-time
+            this.value = this.value.replace(/[<>'"]/g, '');
         });
     </script>
 </body>

@@ -25,7 +25,7 @@ class CashierDashboardController extends Controller
 
         // Get recent transactions (last 20 orders)
         $recentTransactions = Order::with(['customer'])
-            ->whereIn('status', ['paid', 'completed'])
+            ->where('status', 'completed')
             ->orderBy('ordered_at', 'desc')
             ->limit(20)
             ->get();
@@ -34,7 +34,7 @@ class CashierDashboardController extends Controller
         $stats = [
             'pending_count' => $pendingOrders->count(),
             'today_revenue' => Order::whereDate('ordered_at', today())
-                ->whereIn('status', ['paid', 'completed'])
+                ->where('status', 'completed')
                 ->sum('total_amount'),
             'today_completed' => Order::whereDate('ordered_at', today())
                 ->where('status', 'completed')
@@ -52,7 +52,7 @@ class CashierDashboardController extends Controller
         }
 
         $request->validate([
-            'status' => 'required|in:paid,completed,cancelled',
+            'status' => 'required|in:pending,completed,cancelled',
         ]);
 
         $order = Order::findOrFail($id);

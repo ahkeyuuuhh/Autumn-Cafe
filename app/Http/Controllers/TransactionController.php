@@ -43,9 +43,8 @@ class TransactionController extends Controller
         // Get statistics
         $stats = [
             'total_orders' => Order::count(),
-            'total_revenue' => Order::sum('total_amount'),
+            'total_revenue' => Order::where('status', 'completed')->sum('total_amount'),
             'pending' => Order::where('status', 'pending')->count(),
-            'paid' => Order::where('status', 'paid')->count(),
             'completed' => Order::where('status', 'completed')->count(),
             'cancelled' => Order::where('status', 'cancelled')->count(),
         ];
@@ -69,7 +68,7 @@ class TransactionController extends Controller
     public function updateStatus(Request $request, Order $order)
     {
         $request->validate([
-            'status' => 'required|in:pending,paid,completed,cancelled'
+            'status' => 'required|in:pending,completed,cancelled'
         ]);
 
         $order->update(['status' => $request->status]);

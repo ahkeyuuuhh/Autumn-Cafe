@@ -15,6 +15,8 @@ Route::post('/customer/register', [App\Http\Controllers\CustomerAuthController::
 Route::get('/customer/login', [App\Http\Controllers\CustomerAuthController::class, 'showLoginForm'])->name('customer.login');
 Route::post('/customer/login', [App\Http\Controllers\CustomerAuthController::class, 'login']);
 Route::post('/customer/logout', [App\Http\Controllers\CustomerAuthController::class, 'logout'])->name('customer.logout');
+Route::get('/customer/settings', [App\Http\Controllers\CustomerAuthController::class, 'showSettings'])->name('customer.settings');
+Route::post('/customer/settings', [App\Http\Controllers\CustomerAuthController::class, 'updateSettings']);
 
 // Cashier Authentication Routes
 Route::get('/cashier/register', [App\Http\Controllers\CashierAuthController::class, 'showRegister'])->name('cashier.register');

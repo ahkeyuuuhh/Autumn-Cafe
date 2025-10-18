@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('customer_id')->nullable()->constrained()->nullOnDelete();
             $table->decimal('total_amount', 10, 2);
-            $table->string('status')->default('pending'); // pending, paid, completed, cancelled
+            $table->string('status')->default('pending'); // pending, completed, cancelled
             $table->timestamp('ordered_at')->useCurrent();
             $table->timestamps();
         });

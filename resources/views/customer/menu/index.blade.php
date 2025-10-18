@@ -334,6 +334,92 @@
             font-weight: bold;
             margin-left: auto;
         }
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.collapsed {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar:not(.collapsed) {
+                transform: translateX(0);
+            }
+            
+            .sidebar-toggle {
+                left: 20px;
+                top: 15px;
+                z-index: 1002;
+            }
+            
+            .sidebar-toggle.collapsed {
+                left: 20px;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .main-content.expanded {
+                margin-left: 0;
+            }
+            
+            .hero-section {
+                padding: 40px 0;
+            }
+            
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            
+            .menu-card {
+                margin-bottom: 20px;
+            }
+            
+            .search-filter-section {
+                padding: 15px;
+            }
+            
+            .category-pills {
+                flex-direction: column;
+            }
+            
+            .category-pill {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .btn-search, .btn-clear {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-section h1 {
+                font-size: 1.5rem;
+            }
+            
+            .hero-section p {
+                font-size: 0.9rem;
+            }
+            
+            .menu-card-body {
+                padding: 15px;
+            }
+            
+            .menu-name {
+                font-size: 1.1rem;
+            }
+            
+            .menu-price {
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -358,6 +444,13 @@
                     @endif
                 </a>
             </li>
+            @if(session('customer_id'))
+                <li>
+                    <a href="{{ route('customer.settings') }}">
+                        <i class="bi bi-gear"></i> Account Settings
+                    </a>
+                </li>
+            @endif
         </ul>
         
         <div class="user-info">
@@ -618,13 +711,13 @@
             }
         }
 
-        // Auto-refresh every 30 seconds for smooth user experience
+        // Auto-refresh every 10 seconds for smooth user experience
         setTimeout(function() {
             // Only refresh if no modal is open
             if (!document.querySelector('.modal.show')) {
                 window.location.reload();
             }
-        }, 30000); // 30 seconds
+        }, 10000); // 10 seconds
     </script>
 </div> <!-- Close main-content -->
 </body>

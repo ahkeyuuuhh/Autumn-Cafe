@@ -350,6 +350,38 @@
                 icon.classList.add('bi-eye');
             }
         });
+        
+        // Sanitize inputs before submission to prevent XSS
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const emailInput = document.getElementById('email');
+            
+            // Sanitize email input
+            emailInput.value = sanitizeText(emailInput.value).toLowerCase();
+        });
+        
+        // Sanitize text input to prevent XSS
+        function sanitizeText(input) {
+            const div = document.createElement('div');
+            div.textContent = input;
+            let sanitized = div.innerHTML;
+            
+            // Remove script tags
+            sanitized = sanitized.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+            
+            // Remove event handlers
+            sanitized = sanitized.replace(/on\w+\s*=\s*["'][^"']*["']/gi, '');
+            
+            // Remove javascript: protocol
+            sanitized = sanitized.replace(/javascript:/gi, '');
+            
+            return sanitized.trim();
+        }
+        
+        // Real-time input sanitization
+        document.getElementById('email').addEventListener('input', function(e) {
+            // Remove dangerous characters in real-time
+            this.value = this.value.replace(/[<>'"]/g, '');
+        });
     </script>
 </body>
 </html>

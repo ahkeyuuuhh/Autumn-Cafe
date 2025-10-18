@@ -174,10 +174,12 @@
                                     <td>{{ $transaction->customer ? $transaction->customer->name : 'Walk-in Customer' }}</td>
                                     <td><strong>₱{{ number_format($transaction->total_amount, 2) }}</strong></td>
                                     <td>
-                                        @if($transaction->status == 'paid')
-                                            <span class="badge badge-status bg-info">Paid</span>
-                                        @elseif($transaction->status == 'completed')
+                                        @if($transaction->status == 'completed')
                                             <span class="badge badge-status bg-success">Completed</span>
+                                        @elseif($transaction->status == 'cancelled')
+                                            <span class="badge badge-status bg-danger">Cancelled</span>
+                                        @else
+                                            <span class="badge badge-status bg-warning">Pending</span>
                                         @endif
                                     </td>
                                     <td>{{ $transaction->ordered_at->format('M d, Y h:i A') }}</td>
@@ -212,7 +214,6 @@
                             <label for="status" class="form-label">Select New Status</label>
                             <select class="form-select" id="status" name="status" required>
                                 <option value="">-- Choose Status --</option>
-                                <option value="paid">Paid</option>
                                 <option value="completed">Completed</option>
                                 <option value="cancelled">Cancelled</option>
                             </select>
@@ -274,7 +275,7 @@
             });
         });
 
-        // Auto-refresh every 30 seconds for smooth user experience
+        // Auto-refresh every 10 seconds for smooth user experience
         let autoRefreshTimer;
         function startAutoRefresh() {
             autoRefreshTimer = setTimeout(function() {
@@ -282,7 +283,7 @@
                 if (!document.querySelector('.modal.show')) {
                     window.location.reload();
                 } else {
-                    // Try again in 10 seconds if modal is open
+                    // Try again in 5 seconds if modal is open
                     clearTimeout(autoRefreshTimer);
                     autoRefreshTimer = setTimeout(function() {
                         if (!document.querySelector('.modal.show')) {
@@ -290,9 +291,9 @@
                         } else {
                             startAutoRefresh();
                         }
-                    }, 10000);
+                    }, 5000);
                 }
-            }, 30000); // 30 seconds
+            }, 10000); // 10 seconds
         }
         
         startAutoRefresh();
