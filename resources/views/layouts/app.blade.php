@@ -8,23 +8,28 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <style>
     :root {
-      --autumn-primary: #D2691E;
-      --autumn-secondary: #8B4513;
-      --autumn-accent: #CD853F;
-      --autumn-light: #F4A460;
-      --autumn-dark: #654321;
-      --autumn-bg: #FFF9F3;
-      --autumn-cream: #FFE8D6;
+      --beige: #dec3a6;
+      --pale-autumn: #d98b4c;
+      --autumn-primary: #bc5227;
+      --dark-autumn: #914420;
+      --green-brown: #914420;
+      --dark-brown: #352011;
+      --light: #faf3e9ff;
+      --light-beige: #f5e7d0;
+      --soft-apricot: #f2c198;
+      --dusty-rose: #e7b7a1;
+      --light-coral: #f08080;
+      --warm-cream:#fff3e2;
     }
     
     body { 
-      background: var(--autumn-bg); 
-      color: var(--autumn-dark);
+      background: var(--light-beige); 
+      color: var(--dark-autumn);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     
     .navbar { 
-      background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--autumn-secondary) 100%);
+      background: linear-gradient(135deg, var(--green-brown) 0%, var(--dark-brown) 100%);
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
     
@@ -56,6 +61,12 @@
     
     .nav-link:hover {
       background-color: rgba(255,255,255,0.1);
+    }
+
+    .centered-links {
+      justify-content:center;
+      align-items: center !important;
+      margin: 0 auto !important;
     }
     
     .modal-content {
@@ -90,7 +101,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto">
+        <ul class="navbar-nav centered-links me-auto">
           <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ route('menu.index') }}">Menu</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ route('orders.create') }}">New Order</a></li>

@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container-fluid py-4">
-    <!-- Welcome Header with Autumn Theme -->
-    <div class="welcome-header text-center mb-5 py-5 rounded-4 shadow-sm" style="background: linear-gradient(135deg, #FFF9F3 0%, #FFE8D6 100%); border: 2px solid #E67E22;">
+    <!-- HEADER -->
+    <div class="welcome-header text-center mb-5 py-5 rounded-4 shadow-sm">
         <h1 class="display-4 fw-bold mb-2" style="color: #8B4513;">
             <i class="bi bi-cup-hot-fill"></i> Welcome to Autumn Café Dashboard
         </h1>
@@ -11,7 +11,7 @@
         <small class="text-muted">{{ now()->format('l, F j, Y - g:i A') }}</small>
     </div>
 
-    <!-- Today's Statistics Row -->
+    <!-- STATISTICS -->
     <div class="row g-4 mb-4">
         <!-- Today's Orders -->
         <div class="col-lg-3 col-md-6">
@@ -33,7 +33,7 @@
             </div>
         </div>
 
-        <!-- Today's Sales -->
+        <!-- SALES ROW -->
         <div class="col-lg-3 col-md-6">
             <div class="stat-card card border-0 shadow-sm h-100 hover-card">
                 <div class="card-body">
@@ -53,7 +53,7 @@
             </div>
         </div>
 
-        <!-- Total Customers -->
+        <!-- TOTAL CUSTOMERS -->
         <div class="col-lg-3 col-md-6">
             <div class="stat-card card border-0 shadow-sm h-100 hover-card">
                 <div class="card-body">
@@ -73,7 +73,7 @@
             </div>
         </div>
 
-        <!-- Menu Items -->
+        <!-- MENU ITEMS -->
         <div class="col-lg-3 col-md-6">
             <div class="stat-card card border-0 shadow-sm h-100 hover-card">
                 <div class="card-body">
@@ -98,34 +98,34 @@
         </div>
     </div>
 
-    <!-- Quick Actions -->
+    <!-- QUICK ACTIONS -->
     <div class="row g-4 mb-4">
         <div class="col-12">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold mb-4">
+            <div class="card border-0 shadow-sm quick-action-card">
+                <div class="card-body quick-action-body">
+                    <h5 class="card-title fw-bold mb-4 quick-action-card-title">
                         <i class="bi bi-lightning-charge-fill text-warning"></i> Quick Actions
                     </h5>
                     <div class="row g-3">
-                        <div class="col-md-3">
+                        <div class="col-md-3 manage-menu-card">
                             <a href="{{ route('menu.index') }}" class="btn btn-outline-primary w-100 py-3 hover-btn">
                                 <i class="bi bi-cup-hot fs-4 d-block mb-2"></i>
                                 <span class="fw-semibold">Manage Menu</span>
                             </a>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 new-order-card">
                             <a href="{{ route('orders.create') }}" class="btn btn-outline-success w-100 py-3 hover-btn">
                                 <i class="bi bi-plus-circle fs-4 d-block mb-2"></i>
                                 <span class="fw-semibold">New Order</span>
                             </a>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 view-transactions-card">
                             <a href="{{ route('transactions.index') }}" class="btn btn-outline-info w-100 py-3 hover-btn">
                                 <i class="bi bi-receipt fs-4 d-block mb-2"></i>
                                 <span class="fw-semibold">View Transactions</span>
                             </a>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 manage-customers-card">
                             <a href="{{ route('customers.index') }}" class="btn btn-outline-secondary w-100 py-3 hover-btn">
                                 <i class="bi bi-people fs-4 d-block mb-2"></i>
                                 <span class="fw-semibold">Manage Customers</span>
@@ -137,48 +137,48 @@
         </div>
     </div>
 
-    <!-- All-Time Overview & Recent Orders -->
+    <!-- OVERVIEW AND RECENT ORDERS -->
     <div class="row g-4 mb-4">
-        <!-- All-Time Statistics -->
-        <div class="col-lg-4">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold mb-4">
+        <!-- ALL TIME STATISTICS -->
+        <div class="col-lg-4 overview-col">
+            <div class="card border-0 shadow-sm h-100 overview-card">
+                <div class="card-body overview-card-body">
+                    <h5 class="card-title fw-bold mb-4 overview-card-title">
                         <i class="bi bi-bar-chart-fill text-primary"></i> All-Time Overview
                     </h5>
                     <div class="mb-3 pb-3 border-bottom">
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="text-muted">Total Orders</span>
-                            <span class="fw-bold fs-5">{{ $stats['total_orders'] }}</span>
+                            <span class="fw-bold fs-5 totalOrders">{{ $stats['total_orders'] }}</span>
                         </div>
                     </div>
                     <div class="mb-3 pb-3 border-bottom">
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="text-muted">Total Revenue</span>
-                            <span class="fw-bold fs-5 text-success">₱{{ number_format($stats['total_sales'], 2) }}</span>
+                            <span class="fw-bold fs-5 text-success totalRev">₱{{ number_format($stats['total_sales'], 2) }}</span>
                         </div>
                     </div>
                     <div class="mb-3 pb-3 border-bottom">
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="text-muted">Average Order</span>
-                            <span class="fw-bold fs-5">₱{{ $stats['total_orders'] > 0 ? number_format($stats['total_sales'] / $stats['total_orders'], 2) : '0.00' }}</span>
+                            <span class="fw-bold fs-5 averageOrder">₱{{ $stats['total_orders'] > 0 ? number_format($stats['total_sales'] / $stats['total_orders'], 2) : '0.00' }}</span>
                         </div>
                     </div>
-                    <div class="mt-4 p-3 rounded-3" style="background: #FFF9F3;">
+                    <div class="mt-4 p-3 rounded-3 overview-bottom-card">
                         <div class="text-center">
                             <i class="bi bi-trophy-fill text-warning fs-2"></i>
-                            <p class="mb-0 mt-2 fw-semibold">Keep up the great work! 🍂</p>
+                            <p class="mb-0 mt-2 fw-semibold bottom-text">Keep up the great work! 🍂</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Recent Orders -->
-        <div class="col-lg-8">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold mb-4">
+        <!-- RECENTS ORDERS -->
+        <div class="col-lg-8 recent-orders-col">
+            <div class="card border-0 shadow-sm h-100 recent-orders-card">
+                <div class="card-body recent-orders-card-body">
+                    <h5 class="card-title fw-bold mb-4 recent-orders-card-title">
                         <i class="bi bi-clock-history text-info"></i> Recent Orders
                     </h5>
                     @if($stats['recent_orders']->isEmpty())
@@ -216,7 +216,7 @@
                             </table>
                         </div>
                         <div class="text-end mt-3">
-                            <a href="{{ route('transactions.index') }}" class="btn btn-sm btn-outline-primary">
+                            <a href="{{ route('transactions.index') }}" class="btn btn-sm btn-outline-primary view-all-trans-btn">
                                 View All <i class="bi bi-arrow-right"></i>
                             </a>
                         </div>
@@ -225,14 +225,23 @@
             </div>
         </div>
     </div>
-
-    <!-- Autumn Theme Decorative Element -->
-    <div class="text-center mt-5 mb-4">
-        <p class="text-muted">🍂 🍁 ☕ Autumn Café - Where Every Sip Tells a Story 🍂 🍁 ☕</p>
-    </div>
 </div>
 
 <style>
+     :root {
+      --beige: #dec3a6;
+      --pale-autumn: #d98b4c;
+      --autumn-primary: #bc5227;
+      --dark-autumn: #914420;
+      --green-brown: #914420;
+      --dark-brown: #352011;
+      --light: #faf3e9ff;
+      --light-beige: #f5e7d0;
+      --soft-apricot: #f2c198;
+      --dusty-rose: #e7b7a1;
+      --light-coral: #f08080;
+      --warm-cream:#fff3e2;
+    }
     .hover-card {
         transition: all 0.3s ease;
         border-left: 4px solid transparent;
@@ -258,6 +267,18 @@
     .welcome-header {
         position: relative;
         overflow: hidden;
+        background-color: var(--beige);
+        border: 2px dashed var(--dark-autumn) !important;
+        border-radius: 20px !important;
+    }
+
+    .welcome-header p {
+        color: var(--pale-autumn) !important;
+        font-weight: 500 !important; 
+    }
+    .welcome-header small {
+        color: var(--dark-brown) !important;
+        font-weight: 400 !important;
     }
     .welcome-header::before {
         content: '🍂';
@@ -276,6 +297,152 @@
         font-size: 100px;
         opacity: 0.1;
         transform: rotate(15deg);
+    }
+    .stat-card {
+        background-color: var(--warm-cream) !important;
+        border-radius: 20px !important;
+        border-top: 8px solid var(--dusty-rose) !important;
+    }
+    .stat-card p{
+        color: var(--dusty-rose) !important;
+        font-weight: 500 !important;
+    }
+    .stat-card h2 {
+        color: var(--soft-apricot) !important;
+    }
+    .stat-icon {
+        background-color: #e7b7a133 !important;
+        border-radius: 20px !important;
+    }
+    .stat-icon i {
+        color: var(--soft-apricot) !important;
+    }
+    .stat-card small {
+        color: var(--dusty-rose) !important;
+    }
+    .quick-action-card {
+        background-color: var(--warm-cream) !important;
+        border-radius: 20px !important;
+    }
+    .quick-action-card-title {
+        color: var(--autumn-primary) !important;
+    }
+    .manage-menu-card a{
+        border-radius: 20px !important;
+        border: none !important;
+        border-left: 8px solid var(--pale-autumn) !important;
+        background-color: var(--soft-apricot) !important;
+    }
+    .manage-menu-card i,
+    .manage-menu-card span  {
+        color: white !important;
+    }
+    .manage-menu-card a:hover{
+        background-color: var(--pale-autumn) !important;
+    }
+    .manage-menu-card a:hover i,
+    .manage-menu-card a:hover span {
+        color: white !important;
+    }
+    .new-order-card a {
+        border-radius: 20px !important;
+        border: none !important;
+        border-left: 8px solid var(--dark-autumn) !important;
+        background-color: var(--pale-autumn) !important;
+    }
+    .new-order-card i,
+    .new-order-card span{
+        color: white !important;
+    }
+    .new-order-card a:hover {
+        background-color: var(--dark-autumn) !important;
+    }
+    .new-order-card a:hover i,
+    .new-order-card a:hover span {
+        color: white !important;
+    }
+    .view-transactions-card a {
+        background-color: var(--dusty-rose) !important;
+        border-radius: 20px !important;
+        border: none !important;
+        border-left: 8px solid var(--light-coral) !important;
+    }
+    .view-transactions-card i,
+     .view-transactions-card span {
+        color: white !important;
+    }
+    .view-transactions-card a:hover {
+        background-color: var(--light-coral) !important
+    }
+    .view-transactions-card a:hover i,
+    .view-transactions-card a:hover span {
+        color: white !important;
+    }
+    .manage-customers-card a {
+        background-color: var(--autumn-primary) !important;
+        border-radius: 20px !important;
+        border: none !important;
+        border-left: 8px solid var(--dark-autumn) !important;
+    }
+    .manage-customers-card i,
+    .manage-customers-card span {
+        color: white !important;
+    }
+    .manage-customers-card a:hover {
+        background-color: var(--dark-autumn) !important;
+    }
+    .manage-customers-card a:hover i,
+    .manage-customers-card a:hover span {
+        color: white !important;
+    }
+    .overview-card {
+        background-color: var(--light) !important;
+        border-radius: 20px !important;
+        border-top: 8px solid var(--dusty-rose) !important;
+    }
+    .overview-card-title {
+        color: var(--pale-autumn) !important;
+    }
+    .overview-card-title i {
+        color: var(--pale-autumn) !important;
+    }
+    .totalOrders,.averageOrder {
+        color: var(--soft-apricot) !important;
+    }
+    .totalRev {
+        color: var(--autumn-primary) !important;
+    }
+    .bottom-text {
+        color: var(--pale-autumn) !important;
+    }
+    .overview-bottom-card {
+        background-color: var(--light-beige) !important;
+    }
+    .recent-orders-card {
+        background-color: var(--light) !important;
+        border-radius: 20px !important;
+        border-top: 8px solid var(--soft-apricot) !important;
+    }
+    .recent-orders-card-title {
+        color: var(--pale-autumn) !important;
+    }
+    .recent-orders-card-title i {
+        color: var(--pale-autumn) !important;
+    }
+    th {
+        color: var(--pale-autumn) !important;
+    }
+    .view-all-trans-btn {
+        border-radius: 20px !important;
+        background-color: var(--pale-autumn) !important;
+        border: none; 
+        padding: 8px 20px;
+        color: white;
+        text-decoration: none;
+        font-weight: 500 !important;
+    }
+    .view-all-trans-btn:hover {
+        background-color: var(--autumn-primary) !important;
     }
 </style>
 
