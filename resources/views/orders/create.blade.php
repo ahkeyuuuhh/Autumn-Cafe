@@ -12,6 +12,18 @@
             --autumn-cream: #FFF9F3;
             --autumn-brown: #3B2F2F;
             --autumn-light-orange: #F39C12;
+            --beige: #dec3a6;
+            --pale-autumn: #d98b4c;
+            --autumn-primary: #bc5227;
+            --dark-autumn: #914420;
+            --green-brown: #914420;
+            --dark-brown: #352011;
+            --light: #faf3e9ff;
+            --light-beige: #f5e7d0;
+            --soft-apricot: #f2c198;
+            --dusty-rose: #e7b7a1;
+            --light-coral: #f08080;
+            --warm-cream:#fff3e2;
         }
         
         body {
@@ -24,6 +36,9 @@
         .navbar {
             background: linear-gradient(135deg, var(--autumn-brown) 0%, #2C1810 100%);
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .container {
+             margin-top: 3rem !important;
         }
         
         .navbar-brand {
@@ -182,6 +197,28 @@
             color: var(--autumn-light-orange);
             transform: rotate(-20deg);
         }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem !important;
+            margin-bottom: 2rem !important;
+            border-radius: 8px !important;
+            background-color: var(--dark-autumn) !important;
+            color: white !important;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .back-btn:hover {
+            background-color: #6d3319 !important;
+            transform: translateX(-2px);
+            box-shadow: 0 4px 12px rgba(145, 68, 32, 0.25);
+        }
     </style>
 </head>
 <body>
@@ -189,63 +226,12 @@
     <div class="autumn-decoration leaf-1">🍂</div>
     <div class="autumn-decoration leaf-2">🍁</div>
     
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="{{ route('dashboard') }}">
-                <i class="bi bi-cup-hot-fill"></i> Autumn Café
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('dashboard') }}">
-                            <i class="bi bi-speedometer2"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('menu.index') }}">
-                            <i class="bi bi-cup-straw"></i> Menu
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('orders.index') }}">
-                            <i class="bi bi-cart-check"></i> Orders
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('transactions.index') }}">
-                            <i class="bi bi-receipt"></i> Transactions
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('customers.index') }}">
-                            <i class="bi bi-people"></i> Customers
-                        </a>
-                    </li>
-                </ul>
-                <div class="dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                        <i class="bi bi-person-circle"></i> {{ auth()->user()->name }}
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="dropdown-item">
-                                    <i class="bi bi-box-arrow-right"></i> Logout
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
-
+   
     <div class="container" style="position: relative; z-index: 1;">
+          <a href="{{ route('orders.index') }}" class="btn btn-secondary btn-sm shadow-sm back-btn">
+            <i class="bi bi-arrow-left"></i> Back to Order Management
+        </a>
+
         <!-- Page Header -->
         <div class="page-header">
             <h1 class="mb-2">

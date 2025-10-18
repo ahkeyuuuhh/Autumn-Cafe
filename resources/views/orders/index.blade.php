@@ -2,17 +2,56 @@
 
 @section('content')
 <style>
+    :root {
+      --beige: #dec3a6;
+      --pale-autumn: #d98b4c;
+      --autumn-primary: #bc5227;
+      --dark-autumn: #914420;
+      --green-brown: #914420;
+      --dark-brown: #352011;
+      --light: #faf3e9ff;
+      --light-beige: #f5e7d0;
+      --soft-apricot: #f2c198;
+      --dusty-rose: #e7b7a1;
+      --light-coral: #f08080;
+      --warm-cream:#fff3e2;
+    }
     .page-header {
-        background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--autumn-secondary) 100%);
-        color: white;
+        background-color: var(--warm-cream);
+        color: var(--pale-autumn);
+        border-left: 8px solid var(--pale-autumn) !important;
         padding: 30px;
-        border-radius: 15px;
+        border-radius: 20px;
         box-shadow: 0 8px 25px rgba(210, 105, 30, 0.3);
         margin-bottom: 30px;
     }
+
+    .page-header h1 {
+        color: var(--pale-autumn);
+        font-weight: 700;
+    }
+
+    .page-header p {
+        color: var(--dark-autumn);
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    .new-order-btn {
+        background-color: var(--soft-apricot) !important;
+        border-radius: 20px !important;
+        font-size: 18px !important;
+        color: var(--dark-autumn) !important;
+        font-weight: 600 !important;
+    }
+
+    .new-order-btn:hover {
+        background-color: var(--pale-autumn) !important;
+        color: white !important;
+    }
         
     .orders-table {
-        background: white;
+        background: var(--light);
         border-radius: 15px;
         box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         overflow: hidden;
@@ -27,6 +66,7 @@
         padding: 15px;
         font-weight: 600;
         border: none;
+        color: var(--pale-autumn);
     }
         
     .orders-table td {
@@ -115,7 +155,7 @@
             </h1>
             <p class="mb-0 opacity-75">View and manage all orders</p>
         </div>
-        <a href="{{ route('orders.create') }}" class="btn btn-light btn-lg">
+        <a href="{{ route('orders.create') }}" class="btn btn-light btn-lg new-order-btn">
             <i class="bi bi-plus-circle"></i> New Order
         </a>
     </div>

@@ -12,76 +12,195 @@
             --autumn-cream: #FFF9F3;
             --autumn-brown: #3B2F2F;
             --autumn-light-orange: #F39C12;
+            --beige: #dec3a6;
+            --pale-autumn: #d98b4c;
+            --autumn-primary: #bc5227;
+            --dark-autumn: #914420;
+            --green-brown: #914420;
+            --dark-brown: #352011;
+            --light: #faf3e9ff;
+            --light-beige: #f5e7d0;
+            --soft-apricot: #f2c198;
+            --dusty-rose: #e7b7a1;
+            --light-coral: #f08080;
+            --warm-cream: #fff3e2;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
             background: linear-gradient(135deg, #FFF9F3 0%, #FFE8D6 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
             min-height: 100vh;
-            padding-bottom: 50px;
+            padding: 2rem 0;
+            color: var(--autumn-brown);
+        }
+
+        .container {
+            max-width: 1000px;
         }
         
+        /* Improved navbar styling with better spacing and typography */
         .navbar {
             background: linear-gradient(135deg, var(--autumn-brown) 0%, #2C1810 100%);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+            padding: 1rem 0;
         }
         
         .navbar-brand {
-            font-weight: bold;
-            font-size: 1.5rem;
+            font-weight: 700;
+            font-size: 1.3rem;
             color: var(--autumn-light-orange) !important;
+            letter-spacing: -0.5px;
         }
         
         .navbar-brand i {
             color: var(--autumn-orange);
+            margin-right: 0.5rem;
         }
         
         .nav-link {
-            color: var(--autumn-cream) !important;
-            transition: all 0.3s;
+            color: rgba(255, 249, 243, 0.85) !important;
+            transition: all 0.25s ease;
+            font-weight: 500;
+            font-size: 0.95rem;
         }
         
         .nav-link:hover {
             color: var(--autumn-light-orange) !important;
         }
         
+        /* Enhanced back button with better styling */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem !important;
+            margin-bottom: 2rem !important;
+            border-radius: 8px !important;
+            background-color: var(--dark-autumn) !important;
+            color: white !important;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .back-btn:hover {
+            background-color: #6d3319 !important;
+            transform: translateX(-2px);
+            box-shadow: 0 4px 12px rgba(145, 68, 32, 0.25);
+        }
+        
+        /* Redesigned order header with better visual hierarchy */
         .order-header {
             background: linear-gradient(135deg, var(--autumn-orange) 0%, var(--autumn-light-orange) 100%);
             color: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(230, 126, 34, 0.3);
-            margin-bottom: 30px;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(230, 126, 34, 0.2);
+            margin-bottom: 2.5rem;
         }
         
+        .order-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .order-header .order-date {
+            font-size: 0.95rem;
+            opacity: 0.95;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .order-header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 1rem;
+        }
+        
+        /* Improved info cards with better spacing and borders */
         .order-info-card {
             background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--soft-apricot);
+            transition: all 0.25s ease;
         }
         
+        .order-info-card:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        }
+        
+        .order-info-card h4 {
+            color: var(--pale-autumn);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .order-info-card h4 i {
+            font-size: 1.3rem;
+        }
+        
+        /* Better info label and value styling */
         .info-label {
-            color: var(--autumn-brown);
-            font-weight: 600;
-            font-size: 0.9rem;
+            color: var(--soft-apricot);
+            font-weight: 700;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 5px;
+            letter-spacing: 0.8px;
+            margin-bottom: 0.5rem;
+            display: block;
         }
         
         .info-value {
-            color: #333;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
+            color: var(--pale-autumn);
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
+        .info-value i {
+            color: var(--pale-autumn);
+            opacity: 0.8;
+        }
+        
+        .info-value small {
+            display: block;
+            margin-left: 1.75rem;
+            font-size: 0.85rem;
+            color: var(--autumn-brown);
+            opacity: 0.8;
+            margin-top: 0.25rem;
+        }
+        
+        /* Enhanced items table styling */
         .items-table {
             background: white;
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-top: 5px solid var(--dusty-rose);
         }
         
         .items-table thead {
@@ -90,15 +209,18 @@
         }
         
         .items-table th {
-            padding: 15px;
-            font-weight: 600;
+            padding: 1.25rem;
+            font-weight: 700;
             border: none;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
         }
         
         .items-table td {
-            padding: 15px;
+            padding: 1.25rem;
             vertical-align: middle;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f5f0eb;
+            font-size: 0.95rem;
         }
         
         .items-table tbody tr:last-child td {
@@ -106,22 +228,72 @@
         }
         
         .items-table tbody tr:hover {
-            background-color: var(--autumn-cream);
+            background-color: #faf7f3;
         }
         
+        /* Improved total row styling */
         .total-row {
             background: linear-gradient(135deg, #FFF9F3 0%, #FFE8D6 100%);
-            font-weight: bold;
-            font-size: 1.2rem;
+            font-weight: 700;
             color: var(--autumn-brown);
         }
         
-        .status-badge {
-            padding: 8px 16px;
-            border-radius: 25px;
+        .total-row td {
+            padding: 1.5rem 1.25rem;
+            border-top: 2px solid #f0e8df;
+        }
+        
+        .total-cost-label {
+            color: var(--pale-autumn);
+            font-size: 1rem;
+        }
+        
+        .total-cost-value {
+            font-size: 1.4rem;
+            color: var(--autumn-orange);
+        }
+        
+        /* Better item image styling */
+        .item-image {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+            border: 2px solid #f5f0eb;
+        }
+        
+        .item-placeholder {
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #f5e7d0 0%, #f2c198 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #f0e8df;
+        }
+        
+        .item-name {
             font-weight: 600;
-            font-size: 0.9rem;
+            color: var(--autumn-brown);
+            margin-bottom: 0.25rem;
+        }
+        
+        .item-category {
+            font-size: 0.85rem;
+            color: var(--soft-apricot);
+        }
+        
+        /* Improved status badge styling */
+        .status-badge {
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
             display: inline-block;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
         }
         
         .status-pending {
@@ -144,65 +316,123 @@
             color: #721C24;
         }
         
+        /* Enhanced action buttons with better styling */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+        
         .action-buttons .btn {
-            padding: 10px 25px;
-            border-radius: 25px;
-            font-weight: 600;
-            transition: all 0.3s;
-            margin: 5px;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: all 0.25s ease;
+            border: none;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
         }
         
         .btn-primary {
             background: linear-gradient(135deg, var(--autumn-orange) 0%, var(--autumn-light-orange) 100%);
-            border: none;
+            color: white;
         }
         
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
+            box-shadow: 0 6px 16px rgba(230, 126, 34, 0.3);
+            color: white;
         }
         
         .btn-success {
             background: linear-gradient(135deg, #27AE60 0%, #229954 100%);
-            border: none;
+            color: white;
         }
         
         .btn-success:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+            box-shadow: 0 6px 16px rgba(39, 174, 96, 0.3);
+            color: white;
         }
         
         .btn-danger {
             background: linear-gradient(135deg, #E74C3C 0%, #C0392B 100%);
-            border: none;
+            color: white;
         }
         
         .btn-danger:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+            box-shadow: 0 6px 16px rgba(231, 76, 60, 0.3);
+            color: white;
         }
         
         .btn-secondary {
             background: #6C757D;
-            border: none;
+            color: white;
         }
         
         .btn-secondary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+            box-shadow: 0 6px 16px rgba(108, 117, 125, 0.3);
+            color: white;
         }
         
-        .item-image {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        /* Improved modal styling */
+        .modal-content {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
         }
         
+        .modal-header {
+            border-bottom: 2px solid #f5f0eb;
+            padding: 1.5rem;
+        }
+        
+        .modal-header.bg-danger {
+            background: linear-gradient(135deg, #E74C3C 0%, #C0392B 100%) !important;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+            font-size: 0.95rem;
+        }
+        
+        .modal-footer {
+            border-top: 1px solid #f5f0eb;
+            padding: 1.5rem;
+            gap: 0.75rem;
+        }
+        
+        .form-label {
+            font-weight: 700;
+            color: var(--autumn-brown);
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+        
+        .form-select {
+            border: 2px solid #f0e8df;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+        }
+        
+        .form-select:focus {
+            border-color: var(--autumn-orange);
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
+        }
+        
+        /* Decorative elements with better positioning */
         .autumn-decoration {
             position: fixed;
-            opacity: 0.1;
+            opacity: 0.08;
             pointer-events: none;
             z-index: 0;
         }
@@ -221,6 +451,45 @@
             font-size: 100px;
             color: var(--autumn-light-orange);
             transform: rotate(-30deg);
+        }
+        
+        /* Better responsive design */
+        @media (max-width: 768px) {
+            .order-header {
+                padding: 1.5rem;
+            }
+            
+            .order-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .order-header-right {
+                align-items: flex-start;
+            }
+            
+            .order-info-card {
+                padding: 1.5rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-buttons .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .items-table th,
+            .items-table td {
+                padding: 0.75rem;
+                font-size: 0.85rem;
+            }
+            
+            .item-image {
+                width: 50px;
+                height: 50px;
+            }
         }
         
         @media print {
@@ -244,77 +513,25 @@
     <!-- Autumn Decorations -->
     <div class="autumn-decoration leaf-1">🍂</div>
     <div class="autumn-decoration leaf-2">🍁</div>
-    
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark mb-4 no-print">
-        <div class="container">
-            <a class="navbar-brand" href="{{ route('dashboard') }}">
-                <i class="bi bi-cup-hot-fill"></i> Autumn Café
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('dashboard') }}">
-                            <i class="bi bi-speedometer2"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('menu.index') }}">
-                            <i class="bi bi-cup-straw"></i> Menu
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('orders.index') }}">
-                            <i class="bi bi-cart-check"></i> Orders
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('transactions.index') }}">
-                            <i class="bi bi-receipt"></i> Transactions
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('customers.index') }}">
-                            <i class="bi bi-people"></i> Customers
-                        </a>
-                    </li>
-                </ul>
-                <div class="dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                        <i class="bi bi-person-circle"></i> {{ auth()->user()->name }}
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="dropdown-item">
-                                    <i class="bi bi-box-arrow-right"></i> Logout
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
 
     <div class="container" style="position: relative; z-index: 1;">
+        <a href="{{ route('orders.index') }}" class="btn btn-secondary btn-sm shadow-sm back-btn">
+            <i class="bi bi-arrow-left"></i> Back to Order Management
+        </a>
+
         <!-- Order Header -->
         <div class="order-header">
             <div class="d-flex justify-content-between align-items-start">
                 <div>
-                    <h1 class="mb-2">
+                    <h1>
                         <i class="bi bi-receipt-cutoff"></i> Order #{{ $order->id }}
                     </h1>
-                    <p class="mb-0 opacity-75">
+                    <p class="order-date">
                         <i class="bi bi-calendar-event"></i> 
                         {{ $order->ordered_at->format('F d, Y \a\t h:i A') }}
                     </p>
                 </div>
-                <div>
+                <div class="order-header-right">
                     <span class="status-badge status-{{ $order->status }}">
                         {{ ucfirst($order->status) }}
                     </span>
@@ -326,24 +543,24 @@
             <!-- Customer Information -->
             <div class="col-md-6">
                 <div class="order-info-card">
-                    <h4 class="mb-4" style="color: var(--autumn-orange);">
+                    <h4>
                         <i class="bi bi-person-circle"></i> Customer Information
                     </h4>
                     
                     @if($order->customer)
                         <div>
-                            <div class="info-label">Customer Name</div>
+                            <span class="info-label">Customer Name</span>
                             <div class="info-value">
-                                <i class="bi bi-person-fill text-muted"></i>
+                                <i class="bi bi-person-fill"></i>
                                 {{ $order->customer->name }}
                             </div>
                         </div>
                         
                         @if($order->customer->phone)
                             <div>
-                                <div class="info-label">Phone Number</div>
+                                <span class="info-label">Phone Number</span>
                                 <div class="info-value">
-                                    <i class="bi bi-telephone-fill text-muted"></i>
+                                    <i class="bi bi-telephone-fill"></i>
                                     {{ $order->customer->phone }}
                                 </div>
                             </div>
@@ -351,15 +568,15 @@
                         
                         @if($order->customer->email)
                             <div>
-                                <div class="info-label">Email Address</div>
+                                <span class="info-label">Email Address</span>
                                 <div class="info-value">
-                                    <i class="bi bi-envelope-fill text-muted"></i>
+                                    <i class="bi bi-envelope-fill"></i>
                                     {{ $order->customer->email }}
                                 </div>
                             </div>
                         @endif
                     @else
-                        <p class="text-muted">
+                        <p style="color: var(--soft-apricot); font-weight: 600;">
                             <i class="bi bi-person-dash"></i> Walk-in Customer
                         </p>
                     @endif
@@ -369,30 +586,30 @@
             <!-- Order Summary -->
             <div class="col-md-6">
                 <div class="order-info-card">
-                    <h4 class="mb-4" style="color: var(--autumn-orange);">
+                    <h4>
                         <i class="bi bi-info-circle"></i> Order Summary
                     </h4>
                     
                     <div>
-                        <div class="info-label">Order Date & Time</div>
+                        <span class="info-label">Order Date & Time</span>
                         <div class="info-value">
-                            <i class="bi bi-clock-fill text-muted"></i>
-                            {{ $order->ordered_at->format('l, F d, Y') }}<br>
-                            <small class="ms-4">{{ $order->ordered_at->format('h:i:s A') }}</small>
+                            <i class="bi bi-clock-fill"></i>
+                            {{ $order->ordered_at->format('l, F d, Y') }}
+                            <small>{{ $order->ordered_at->format('h:i:s A') }}</small>
                         </div>
                     </div>
                     
                     <div>
-                        <div class="info-label">Total Items</div>
+                        <span class="info-label">Total Items</span>
                         <div class="info-value">
-                            <i class="bi bi-basket-fill text-muted"></i>
+                            <i class="bi bi-basket-fill"></i>
                             {{ $order->items->sum('quantity') }} item(s)
                         </div>
                     </div>
                     
                     <div>
-                        <div class="info-label">Total Cost</div>
-                        <div class="info-value" style="font-size: 1.5rem; color: var(--autumn-orange); font-weight: bold;">
+                        <span class="info-label">Total Cost</span>
+                        <div class="info-value" style="font-size: 1.3rem; color: var(--autumn-orange); font-weight: 700;">
                             <i class="bi bi-currency-dollar"></i>
                             ₱{{ number_format($order->total_amount, 2) }}
                         </div>
@@ -403,7 +620,7 @@
 
         <!-- Order Items -->
         <div class="mt-4">
-            <h4 class="mb-3" style="color: var(--autumn-brown);">
+            <h4 style="color: var(--dark-autumn); font-weight: 700; margin-bottom: 1.5rem;">
                 <i class="bi bi-cart3"></i> Items Ordered
             </h4>
             
@@ -421,27 +638,27 @@
                         @foreach($order->items as $item)
                             <tr>
                                 <td>
-                                    <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center gap-3">
                                         @if($item->menuItem && $item->menuItem->image)
                                             <img src="{{ $item->menuItem->image_url }}" 
                                                  alt="{{ $item->menuItem->name }}" 
-                                                 class="item-image me-3">
+                                                 class="item-image">
                                         @else
-                                            <div class="item-image me-3 d-flex align-items-center justify-content-center bg-light">
-                                                <i class="bi bi-cup-straw text-muted"></i>
+                                            <div class="item-placeholder">
+                                                <i class="bi bi-cup-straw" style="font-size: 1.5rem; color: var(--pale-autumn);"></i>
                                             </div>
                                         @endif
                                         <div>
-                                            <strong>{{ $item->menuItem->name ?? 'Item Deleted' }}</strong>
+                                            <div class="item-name">{{ $item->menuItem->name ?? 'Item Deleted' }}</div>
                                             @if($item->menuItem)
-                                                <br><small class="text-muted">{{ $item->menuItem->category }}</small>
+                                                <div class="item-category">{{ $item->menuItem->category }}</div>
                                             @endif
                                         </div>
                                     </div>
                                 </td>
                                 <td>₱{{ number_format($item->unit_price, 2) }}</td>
                                 <td class="text-center">
-                                    <span class="badge bg-secondary">{{ $item->quantity }}</span>
+                                    <span class="badge bg-secondary" style="padding: 0.5rem 0.75rem;">{{ $item->quantity }}</span>
                                 </td>
                                 <td class="text-end">
                                     <strong>₱{{ number_format($item->subtotal, 2) }}</strong>
@@ -450,10 +667,12 @@
                         @endforeach
                         <tr class="total-row">
                             <td colspan="3" class="text-end">
-                                <i class="bi bi-calculator"></i> <strong>TOTAL COST:</strong>
+                                <span class="total-cost-label">
+                                    <i class="bi bi-calculator"></i> <strong>TOTAL COST:</strong>
+                                </span>
                             </td>
                             <td class="text-end">
-                                <strong style="font-size: 1.3rem; color: var(--autumn-orange);">
+                                <strong class="total-cost-value">
                                     ₱{{ number_format($order->total_amount, 2) }}
                                 </strong>
                             </td>
@@ -464,11 +683,7 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="action-buttons text-center mt-4 no-print">
-            <a href="{{ route('orders.index') }}" class="btn btn-secondary">
-                <i class="bi bi-arrow-left"></i> Back to Orders
-            </a>
-            
+        <div class="action-buttons no-print">
             @if($order->status !== 'cancelled')
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#statusModal">
                     <i class="bi bi-pencil-square"></i> Update Status
@@ -502,14 +717,14 @@
                     @method('PUT')
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Current Status</label>
+                            <label class="form-label">Current Status</label>
                             <p class="mb-3">
                                 <span class="status-badge status-{{ $order->status }}">
                                     {{ ucfirst($order->status) }}
                                 </span>
                             </p>
                             
-                            <label for="status" class="form-label fw-bold">New Status</label>
+                            <label for="status" class="form-label">New Status</label>
                             <select name="status" id="status" class="form-select" required>
                                 <option value="pending" {{ $order->status === 'pending' ? 'selected' : '' }}>Pending</option>
                                 <option value="paid" {{ $order->status === 'paid' ? 'selected' : '' }}>Paid</option>
@@ -578,7 +793,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Clean up backdrop for ALL modals on this page
             document.querySelectorAll('.modal').forEach(function(modalElement) {
                 modalElement.addEventListener('hidden.bs.modal', function () {
                     document.body.classList.remove('modal-open');
@@ -601,4 +815,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
