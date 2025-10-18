@@ -7,46 +7,171 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
+        :root {
+            --autumn-primary: #D2691E;
+            --autumn-secondary: #8B4513;
+            --autumn-accent: #CD853F;
+            --autumn-light: #F4A460;
+            --autumn-dark: #654321;
+        }
+        
         body {
             background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        
         .navbar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--autumn-secondary) 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+        
+        .bg-autumn {
+            background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--autumn-secondary) 100%);
+        }
+        
         .stats-card {
             border-radius: 15px;
-            padding: 20px;
+            padding: 25px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
         }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
         .stats-card.pending {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #FFA726 0%, #FB8C00 100%);
             color: white;
         }
+        
         .stats-card.revenue {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, #66BB6A 0%, #43A047 100%);
             color: white;
         }
+        
         .stats-card.completed {
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            background: linear-gradient(135deg, #42A5F5 0%, #1E88E5 100%);
             color: white;
         }
+        
         .stats-card h3 {
             font-size: 2.5rem;
-            font-weight: bold;
+            font-weight: 700;
             margin: 10px 0;
         }
+        
+        .stats-card i {
+            opacity: 0.9;
+        }
+        
         .table-container {
             background: white;
             border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 25px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
             margin-bottom: 30px;
         }
+        
+        .table-container h4 {
+            color: var(--autumn-secondary);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .table {
+            margin-bottom: 0;
+        }
+        
+        .table thead {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid var(--autumn-light);
+        }
+        
+        .table thead th {
+            color: var(--autumn-dark);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            padding: 12px 15px;
+        }
+        
+        .table tbody tr {
+            border-bottom: 1px solid #f1f1f1;
+            transition: background-color 0.2s ease;
+        }
+        
+        .table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .table tbody td {
+            padding: 15px;
+            vertical-align: middle;
+        }
+        
         .badge-status {
-            padding: 8px 12px;
+            padding: 8px 15px;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--autumn-secondary) 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 8px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(210, 105, 30, 0.4);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #43A047 0%, #2E7D32 100%);
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 160, 71, 0.4);
+        }
+        
+        .modal-content {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .modal-header {
+            border-bottom: none;
+            border-radius: 15px 15px 0 0;
+            padding: 20px 25px;
+        }
+        
+        .modal-body {
+            padding: 25px;
+        }
+        
+        .modal-footer {
+            border-top: none;
+            padding: 20px 25px;
+        }
+        
+        .alert {
+            border-radius: 10px;
+            border: none;
         }
     </style>
 </head>
@@ -104,6 +229,7 @@
         <div class="table-container">
             <h4 class="mb-3">
                 <i class="bi bi-clock-history me-2"></i>Pending Orders
+                <span class="badge bg-warning text-dark ms-2">{{ $pendingOrders->count() }}</span>
             </h4>
             @if($pendingOrders->count() > 0)
                 <div class="table-responsive">
@@ -120,22 +246,23 @@
                         </thead>
                         <tbody>
                             @foreach($pendingOrders as $order)
-                                <tr>
+                                <tr style="cursor: pointer;" onclick="showOrderDetails({{ $order->id }})">
                                     <td><strong>#{{ $order->id }}</strong></td>
                                     <td>{{ $order->customer ? $order->customer->name : 'Walk-in Customer' }}</td>
                                     <td>
-                                        <small>
-                                            @foreach($order->items as $item)
-                                                {{ $item->quantity }}x {{ $item->menuItem->name }}<br>
-                                            @endforeach
+                                        <small class="text-muted">
+                                            {{ $order->items->count() }} item(s)
                                         </small>
                                     </td>
-                                    <td><strong>₱{{ number_format($order->total_amount, 2) }}</strong></td>
-                                    <td>{{ $order->ordered_at->format('M d, Y h:i A') }}</td>
+                                    <td><strong class="text-success">₱{{ number_format($order->total_amount, 2) }}</strong></td>
+                                    <td>
+                                        <small>{{ $order->ordered_at->format('M d, Y') }}</small><br>
+                                        <small class="text-muted">{{ $order->ordered_at->format('h:i A') }}</small>
+                                    </td>
                                     <td>
                                         <button class="btn btn-sm btn-primary" 
-                                                onclick="showStatusModal({{ $order->id }}, '{{ $order->customer ? $order->customer->name : 'Walk-in Customer' }}')">
-                                            <i class="bi bi-pencil-square me-1"></i>Update Status
+                                                onclick="event.stopPropagation(); showStatusModal({{ $order->id }}, '{{ $order->customer ? $order->customer->name : 'Walk-in Customer' }}')">
+                                            <i class="bi bi-pencil-square me-1"></i>Update
                                         </button>
                                     </td>
                                 </tr>
@@ -232,6 +359,64 @@
         </div>
     </div>
 
+    <!-- Order Details Modal -->
+    <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-autumn text-white">
+                    <h5 class="modal-title">
+                        <i class="bi bi-receipt me-2"></i>Order Details
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p class="mb-1"><strong>Order #:</strong> <span id="modalOrderId"></span></p>
+                            <p class="mb-1"><strong>Customer:</strong> <span id="modalCustomerName"></span></p>
+                            <p class="mb-1"><strong>Contact:</strong> <span id="modalCustomerContact"></span></p>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <p class="mb-1"><strong>Status:</strong> <span id="modalOrderStatus" class="badge bg-warning"></span></p>
+                            <p class="mb-1"><strong>Ordered At:</strong> <span id="modalOrderDate"></span></p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h6 class="mb-3"><i class="bi bi-basket me-2"></i>Order Items</h6>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th class="text-center">Quantity</th>
+                                    <th class="text-end">Price</th>
+                                    <th class="text-end">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="modalOrderItems">
+                                <!-- Items will be loaded here -->
+                            </tbody>
+                            <tfoot>
+                                <tr class="table-active">
+                                    <th colspan="3" class="text-end">Total Amount:</th>
+                                    <th class="text-end text-success" id="modalTotalAmount"></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="showStatusModalFromDetails()">
+                        <i class="bi bi-pencil-square me-1"></i>Update Status
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Success Modal -->
     <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
@@ -252,7 +437,88 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Store current order ID for status update
+        let currentOrderId = null;
+        let currentCustomerName = null;
+
+        // Show order details modal
+        function showOrderDetails(orderId) {
+            // Find the order data from the pending orders
+            const orderData = @json($pendingOrders);
+            const order = orderData.find(o => o.id === orderId);
+            
+            if (!order) return;
+            
+            // Store for later use
+            currentOrderId = orderId;
+            currentCustomerName = order.customer ? order.customer.name : 'Walk-in Customer';
+            
+            // Populate modal
+            document.getElementById('modalOrderId').textContent = '#' + order.id;
+            document.getElementById('modalCustomerName').textContent = currentCustomerName;
+            
+            // Customer contact
+            const contact = order.customer ? (order.customer.phone || order.customer.email || 'N/A') : 'N/A';
+            document.getElementById('modalCustomerContact').textContent = contact;
+            
+            // Status badge
+            const statusBadge = document.getElementById('modalOrderStatus');
+            statusBadge.textContent = 'Pending';
+            statusBadge.className = 'badge bg-warning';
+            
+            // Format date
+            const orderDate = new Date(order.ordered_at);
+            document.getElementById('modalOrderDate').textContent = orderDate.toLocaleString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+            
+            // Populate items table
+            const itemsContainer = document.getElementById('modalOrderItems');
+            itemsContainer.innerHTML = '';
+            
+            order.items.forEach(item => {
+                const subtotal = item.quantity * item.price;
+                const row = `
+                    <tr>
+                        <td>${item.menu_item.name}</td>
+                        <td class="text-center">${item.quantity}</td>
+                        <td class="text-end">₱${parseFloat(item.price).toFixed(2)}</td>
+                        <td class="text-end">₱${subtotal.toFixed(2)}</td>
+                    </tr>
+                `;
+                itemsContainer.innerHTML += row;
+            });
+            
+            // Total amount
+            document.getElementById('modalTotalAmount').textContent = '₱' + parseFloat(order.total_amount).toFixed(2);
+            
+            // Show modal
+            const orderModal = new bootstrap.Modal(document.getElementById('orderDetailsModal'));
+            orderModal.show();
+        }
+
+        // Show status modal from order details modal
+        function showStatusModalFromDetails() {
+            // Close order details modal
+            const orderModal = bootstrap.Modal.getInstance(document.getElementById('orderDetailsModal'));
+            if (orderModal) {
+                orderModal.hide();
+            }
+            
+            // Show status modal after a brief delay
+            setTimeout(() => {
+                showStatusModal(currentOrderId, currentCustomerName);
+            }, 300);
+        }
+
         function showStatusModal(orderId, customerName) {
+            currentOrderId = orderId;
+            currentCustomerName = customerName;
             document.getElementById('customerName').textContent = customerName;
             document.getElementById('statusForm').action = `/cashier/order/${orderId}/status`;
             const statusModal = new bootstrap.Modal(document.getElementById('statusModal'));

@@ -6,14 +6,8 @@
     <title>Account Settings - Autumn Café</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ asset('css/autumn-theme.css') }}">
     <style>
-        :root {
-            --autumn-orange: #E67E22;
-            --autumn-cream: #FFF9F3;
-            --autumn-brown: #3B2F2F;
-            --autumn-light-orange: #F39C12;
-        }
-        
         body {
             background: linear-gradient(135deg, #FFF9F3 0%, #FFE8D6 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -26,28 +20,30 @@
             top: 0;
             left: 0;
             height: 100vh;
-            width: 250px;
-            background: linear-gradient(180deg, var(--autumn-brown) 0%, #2C1810 100%);
-            box-shadow: 4px 0 15px rgba(0,0,0,0.2);
+            width: 280px;
+            background: linear-gradient(180deg, var(--autumn-secondary) 0%, var(--autumn-dark) 100%);
+            box-shadow: 4px 0 20px rgba(0,0,0,0.15);
             z-index: 1000;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             overflow-y: auto;
         }
         
         .sidebar.collapsed {
-            transform: translateX(-250px);
+            transform: translateX(-280px);
         }
         
         .sidebar-brand {
-            padding: 20px;
+            padding: 25px 20px;
             text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            background: rgba(0,0,0,0.1);
         }
         
         .sidebar-brand h3 {
-            color: var(--autumn-light-orange);
+            color: var(--autumn-accent);
             margin: 0;
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 1.5rem;
         }
         
         .sidebar-menu {
@@ -63,45 +59,54 @@
         .sidebar-menu a {
             display: flex;
             align-items: center;
-            padding: 15px 25px;
-            color: var(--autumn-cream);
+            padding: 16px 25px;
+            color: rgba(255, 255, 255, 0.85);
             text-decoration: none;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border-left: 3px solid transparent;
         }
         
         .sidebar-menu a:hover, .sidebar-menu a.active {
-            background: rgba(255,255,255,0.1);
+            background: rgba(210, 105, 30, 0.2);
             padding-left: 30px;
+            border-left-color: var(--autumn-accent);
+            color: white;
         }
         
         .sidebar-menu i {
-            margin-right: 10px;
-            font-size: 1.2rem;
+            margin-right: 12px;
+            font-size: 1.3rem;
         }
         
         .sidebar-toggle {
             position: fixed;
             top: 20px;
-            left: 270px;
+            left: 300px;
             z-index: 1001;
-            background: var(--autumn-orange);
+            background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--autumn-secondary) 100%);
             border: none;
             color: white;
-            padding: 10px 15px;
+            padding: 12px 16px;
             border-radius: 50%;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(210, 105, 30, 0.4);
+            transition: all 0.3s ease;
         }
         
         .sidebar-toggle.collapsed {
             left: 20px;
         }
         
+        .sidebar-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(210, 105, 30, 0.5);
+        }
+        
         .main-content {
-            margin-left: 250px;
-            transition: margin-left 0.3s ease;
-            padding: 40px;
+            margin-left: 280px;
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 50px;
         }
         
         .main-content.expanded {
@@ -109,42 +114,107 @@
         }
         
         .user-info {
-            padding: 15px 25px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: var(--autumn-cream);
+            padding: 20px 25px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            color: rgba(255, 255, 255, 0.85);
         }
         
         .settings-card {
             background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
             margin-bottom: 30px;
+            border: 1px solid rgba(210, 105, 30, 0.1);
+        }
+
+        .settings-card h5 {
+            color: var(--autumn-dark);
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid transparent;
+            border-image: linear-gradient(90deg, var(--autumn-primary) 0%, transparent 100%);
+            border-image-slice: 1;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--autumn-dark);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            border: 2px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 14px 18px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--autumn-primary);
+            box-shadow: 0 0 0 4px rgba(210, 105, 30, 0.1);
+            outline: none;
         }
         
         .page-header {
-            background: linear-gradient(135deg, var(--autumn-orange) 0%, var(--autumn-light-orange) 100%);
+            background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--autumn-secondary) 100%);
             color: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 25px rgba(230, 126, 34, 0.3);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 30px rgba(210, 105, 30, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+
+        .page-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0;
+            position: relative;
+            z-index: 1;
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, var(--autumn-orange) 0%, var(--autumn-light-orange) 100%);
+            background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--autumn-secondary) 100%);
             border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
+            padding: 14px 32px;
+            border-radius: 12px;
             font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(210, 105, 30, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(210, 105, 30, 0.4);
         }
         
         .btn-secondary {
-            background: var(--autumn-brown);
+            background: #6c757d;
             border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
+            padding: 14px 32px;
+            border-radius: 12px;
             font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
         }
         
         @media (max-width: 768px) {

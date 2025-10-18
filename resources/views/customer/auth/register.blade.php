@@ -6,14 +6,8 @@
     <title>Customer Registration - Autumn Café</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ asset('css/autumn-theme.css') }}">
     <style>
-        :root {
-            --autumn-orange: #E67E22;
-            --autumn-cream: #FFF9F3;
-            --autumn-brown: #3B2F2F;
-            --autumn-light-orange: #F39C12;
-        }
-        
         body {
             background: linear-gradient(135deg, #FFF9F3 0%, #FFE8D6 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -21,90 +15,142 @@
             display: flex;
             align-items: center;
             padding: 40px 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(210, 105, 30, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(139, 69, 19, 0.1) 0%, transparent 50%);
+            pointer-events: none;
         }
         
         .auth-container {
-            max-width: 500px;
+            max-width: 550px;
             margin: 0 auto;
         }
         
         .auth-card {
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            border-radius: 25px;
+            box-shadow: 0 15px 60px rgba(0,0,0,0.12);
             overflow: hidden;
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(210, 105, 30, 0.1);
         }
         
         .auth-header {
-            background: linear-gradient(135deg, var(--autumn-orange) 0%, var(--autumn-light-orange) 100%);
+            background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--autumn-secondary) 100%);
             color: white;
-            padding: 40px 30px;
+            padding: 50px 40px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
         
         .auth-header h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            font-weight: bold;
+            font-size: 2.3rem;
+            margin-bottom: 12px;
+            font-weight: 800;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
         }
         
         .auth-header p {
-            opacity: 0.9;
+            opacity: 0.95;
             margin: 0;
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 1;
         }
         
         .auth-body {
-            padding: 40px 30px;
+            padding: 40px 35px;
         }
         
         .form-label {
             font-weight: 600;
-            color: var(--autumn-brown);
-            margin-bottom: 8px;
+            color: var(--autumn-dark);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
         }
         
         .form-control, .form-select {
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 12px 15px;
-            transition: all 0.3s;
+            border: 2px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 14px 18px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
         }
         
         .form-control:focus, .form-select:focus {
-            border-color: var(--autumn-orange);
-            box-shadow: 0 0 0 0.2rem rgba(230, 126, 34, 0.25);
+            border-color: var(--autumn-primary);
+            box-shadow: 0 0 0 4px rgba(210, 105, 30, 0.1);
+            outline: none;
         }
         
         .input-group-text {
-            background: var(--autumn-cream);
-            border: 2px solid #e0e0e0;
+            background: #f8f9fa;
+            border: 2px solid #e8e8e8;
             border-right: none;
-            border-radius: 10px 0 0 10px;
-            color: var(--autumn-brown);
+            border-radius: 12px 0 0 12px;
+            color: var(--autumn-dark);
+            padding: 14px 15px;
         }
         
         .input-group .form-control {
             border-left: none;
-            border-radius: 0 10px 10px 0;
+            border-radius: 0 12px 12px 0;
         }
         
         .input-group:focus-within .input-group-text {
-            border-color: var(--autumn-orange);
+            border-color: var(--autumn-primary);
+            background: rgba(210, 105, 30, 0.05);
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, var(--autumn-orange) 0%, var(--autumn-light-orange) 100%);
+            background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--autumn-secondary) 100%);
             border: none;
-            padding: 14px 30px;
-            border-radius: 10px;
+            padding: 16px 32px;
+            border-radius: 12px;
             font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
+            font-size: 1.05rem;
+            box-shadow: 0 4px 15px rgba(210, 105, 30, 0.3);
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
         }
         
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(230, 126, 34, 0.4);
+            box-shadow: 0 6px 25px rgba(210, 105, 30, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
         }
         
         .password-requirements {

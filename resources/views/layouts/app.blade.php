@@ -8,15 +8,76 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <style>
     :root {
-      --primary: #E67E22; /* Pumpkin Orange */
-      --bg: #FFF9F3; /* Cream White */
-      --nav: #3B2F2F; /* Dark Roast */
+      --autumn-primary: #D2691E;
+      --autumn-secondary: #8B4513;
+      --autumn-accent: #CD853F;
+      --autumn-light: #F4A460;
+      --autumn-dark: #654321;
+      --autumn-bg: #FFF9F3;
+      --autumn-cream: #FFE8D6;
     }
-    body { background: var(--bg); color: #3B2F2F; }
-    .navbar { background: var(--nav); }
-    .btn-primary { background: var(--primary); border: none; }
-    .btn-primary:hover { background: #D35400; }
-    .dropdown-menu { border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    
+    body { 
+      background: var(--autumn-bg); 
+      color: var(--autumn-dark);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .navbar { 
+      background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--autumn-secondary) 100%);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .btn-primary { 
+      background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--autumn-secondary) 100%);
+      border: none;
+      border-radius: 8px;
+      padding: 8px 20px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover { 
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(210, 105, 30, 0.4);
+    }
+    
+    .dropdown-menu { 
+      border-radius: 12px; 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      border: none;
+    }
+    
+    .nav-link {
+      transition: all 0.3s ease;
+      border-radius: 6px;
+      margin: 0 5px;
+    }
+    
+    .nav-link:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+    
+    .modal-content {
+      border-radius: 15px;
+      border: none;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+    
+    .modal-header {
+      border-bottom: none;
+      border-radius: 15px 15px 0 0;
+      padding: 20px 25px;
+    }
+    
+    .modal-body {
+      padding: 25px;
+    }
+    
+    .modal-footer {
+      border-top: none;
+      padding: 20px 25px;
+    }
   </style>
 </head>
 <body>
