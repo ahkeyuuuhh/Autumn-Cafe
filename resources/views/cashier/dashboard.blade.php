@@ -176,28 +176,7 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('cashier.dashboard') }}">
-                <i class="bi bi-cup-hot-fill me-2"></i>Autumn Café - Cashier
-            </a>
-            <div class="ms-auto d-flex align-items-center gap-2">
-                <a href="{{ route('cashier.order.create') }}" class="btn btn-success btn-sm">
-                    <i class="bi bi-plus-circle me-1"></i>Create New Order
-                </a>
-                <span class="text-white me-2">
-                    <i class="bi bi-person-circle me-2"></i>{{ session('cashier_name') }}
-                </span>
-                <form action="{{ route('cashier.logout') }}" method="POST" class="d-inline">
-                    @csrf
-                    <button type="submit" class="btn btn-light btn-sm">
-                        <i class="bi bi-box-arrow-right me-1"></i>Logout
-                    </button>
-                </form>
-            </div>
-        </div>
-    </nav>
+    @include('components.cashier-nav')
 
     <div class="container-fluid py-4">
         <!-- Stats Cards -->
@@ -417,25 +396,42 @@
         </div>
     </div>
 
-    <!-- Success Modal -->
-    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-success text-white">
-                    <h5 class="modal-title"><i class="bi bi-check-circle me-2"></i>Success</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    {{ session('success') }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Modals -->
+    @include('components.modals')
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Universal Modal Cleanup
+        document.addEventListener('DOMContentLoaded', function() {
+            function cleanupModals() {
+                document.body.classList.remove('modal-open');
+                document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
+                document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
+            }
+            
+            document.querySelectorAll('.modal').forEach(function(modalElement) {
+                modalElement.addEventListener('hidden.bs.modal', function () {
+                    setTimeout(cleanupModals, 100);
+                });
+            });
+        });
+
+        // Show modals
+        @if(session('success'))
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = new bootstrap.Modal(document.getElementById('successModal'));
+                modal.show();
+            });
+        @endif
+
+        @if(session('error'))
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = new bootstrap.Modal(document.getElementById('errorModal'));
+                modal.show();
+            });
+        @endif
+    </script>
     <script>
         // Store current order ID for status update
         let currentOrderId = null;

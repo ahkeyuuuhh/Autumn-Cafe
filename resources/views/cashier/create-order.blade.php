@@ -7,19 +7,25 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
+        :root {
+            --autumn-primary: #bc5227;
+            --dark-autumn: #914420;
+            --autumn-accent: #d98b4c;
+            --warm-cream: #fff3e2;
+        }
+        
         body {
-            background-color: #f8f9fa;
+            background: linear-gradient(135deg, #FFF9F3 0%, #FFE8D6 100%);
+            min-height: 100vh;
         }
-        .navbar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
+        
         .page-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--dark-autumn) 100%);
             color: white;
             padding: 30px;
             border-radius: 15px;
             margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(188, 82, 39, 0.25);
         }
         .form-card {
             background: white;
@@ -36,8 +42,8 @@
             transition: all 0.3s;
         }
         .menu-item-card.selected {
-            border-color: #667eea;
-            background: #f0f4ff;
+            border-color: var(--autumn-primary);
+            background: var(--warm-cream);
         }
         .menu-item-image {
             width: 60px;
@@ -46,11 +52,12 @@
             border-radius: 8px;
         }
         .order-summary {
-            background: linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%);
+            background: linear-gradient(135deg, var(--warm-cream) 0%, #f5e7d0 100%);
             border-radius: 15px;
             padding: 25px;
             position: sticky;
             top: 20px;
+            box-shadow: 0 4px 15px rgba(188, 82, 39, 0.15);
         }
         .summary-item {
             padding: 10px 0;
@@ -62,10 +69,10 @@
         .total-row {
             font-size: 1.3rem;
             font-weight: bold;
-            color: #667eea;
+            color: var(--autumn-primary);
             margin-top: 15px;
             padding-top: 15px;
-            border-top: 2px solid #667eea;
+            border-top: 2px solid var(--autumn-primary);
         }
         .quantity-input {
             width: 80px;
@@ -74,11 +81,11 @@
             border-radius: 8px;
         }
         .quantity-input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: var(--autumn-primary);
+            box-shadow: 0 0 0 0.2rem rgba(188, 82, 39, 0.25);
         }
         .category-badge {
-            background: #667eea;
+            background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--dark-autumn) 100%);
             color: white;
             padding: 4px 10px;
             border-radius: 15px;
@@ -88,28 +95,7 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('cashier.dashboard') }}">
-                <i class="bi bi-cup-hot-fill me-2"></i>Autumn Café - Cashier
-            </a>
-            <div class="ms-auto d-flex align-items-center gap-2">
-                <a href="{{ route('cashier.dashboard') }}" class="btn btn-light btn-sm">
-                    <i class="bi bi-arrow-left me-1"></i>Back to Dashboard
-                </a>
-                <span class="text-white me-2">
-                    <i class="bi bi-person-circle me-2"></i>{{ session('cashier_name') }}
-                </span>
-                <form action="{{ route('cashier.logout') }}" method="POST" class="d-inline">
-                    @csrf
-                    <button type="submit" class="btn btn-light btn-sm">
-                        <i class="bi bi-box-arrow-right me-1"></i>Logout
-                    </button>
-                </form>
-            </div>
-        </div>
-    </nav>
+    @include('components.cashier-nav')
 
     <div class="container-fluid py-4">
         <!-- Page Header -->
@@ -342,72 +328,40 @@
         });
     </script>
 
-    <!-- Success Modal -->
-    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-success text-white">
-                    <h5 class="modal-title"><i class="bi bi-check-circle me-2"></i>Success</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    {{ session('success') }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Error Modal -->
-    <div class="modal fade" id="errorModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title"><i class="bi bi-exclamation-triangle me-2"></i>Error</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    @if(session('error'))
-                        {{ session('error') }}
-                    @elseif($errors->any())
-                        <strong>Validation Errors:</strong>
-                        <ul class="mb-0 mt-2">
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    @endif
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Modals -->
+    @include('components.modals')
 
     <script>
-        @if(session('success'))
-            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-            successModal.show();
-        @endif
-
-        @if(session('error') || $errors->any())
-            const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
-            errorModal.show();
-        @endif
-
-        // Clean up modal backdrops
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('hidden.bs.modal', function () {
-                const backdrops = document.querySelectorAll('.modal-backdrop');
-                backdrops.forEach(backdrop => backdrop.remove());
+        // Universal Modal Cleanup
+        document.addEventListener('DOMContentLoaded', function() {
+            function cleanupModals() {
                 document.body.classList.remove('modal-open');
                 document.body.style.overflow = '';
                 document.body.style.paddingRight = '';
+                document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
+            }
+            
+            document.querySelectorAll('.modal').forEach(function(modalElement) {
+                modalElement.addEventListener('hidden.bs.modal', function () {
+                    setTimeout(cleanupModals, 100);
+                });
             });
         });
+
+        // Show modals
+        @if(session('success'))
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = new bootstrap.Modal(document.getElementById('successModal'));
+                modal.show();
+            });
+        @endif
+
+        @if(session('error') || $errors->any())
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = new bootstrap.Modal(document.getElementById('errorModal'));
+                modal.show();
+            });
+        @endif
     </script>
 </body>
 </html>

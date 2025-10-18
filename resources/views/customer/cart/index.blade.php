@@ -152,41 +152,7 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="{{ route('customer.menu') }}">
-                <i class="bi bi-cup-hot-fill"></i> Autumn Café
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('customer.cart') }}">
-                            <i class="bi bi-cart3"></i> Cart
-                        </a>
-                    </li>
-                    @if(session('customer_id'))
-                        <li class="nav-item">
-                            <span class="nav-link">
-                                <i class="bi bi-person-circle"></i> {{ session('customer_name') }}
-                            </span>
-                        </li>
-                        <li class="nav-item">
-                            <form action="{{ route('customer.logout') }}" method="POST" class="d-inline">
-                                @csrf
-                                <button type="submit" class="nav-link btn btn-link">
-                                    <i class="bi bi-box-arrow-right"></i> Logout
-                                </button>
-                            </form>
-                        </li>
-                    @endif
-                </ul>
-            </div>
-        </div>
-    </nav>
+    @include('components.customer-nav')
 
     <!-- Page Header -->
     <div class="page-header">
@@ -310,77 +276,39 @@
         @endif
     </div>
 
-    <!-- Success Modal -->
-    <div class="modal fade" id="successModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-success text-white">
-                    <h5 class="modal-title">
-                        <i class="bi bi-check-circle-fill"></i> Success
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="mb-0">{{ session('success') }}</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Error Modal -->
-    <div class="modal fade" id="errorModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title">
-                        <i class="bi bi-exclamation-triangle-fill"></i> Error
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="mb-0">{{ session('error') }}</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Modals -->
+    @include('components.modals')
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Only show success modal for order confirmation, not cart updates
-        @if(session('success'))
-            window.addEventListener('DOMContentLoaded', function() {
-                const modalElement = document.getElementById('successModal');
-                const successModal = new bootstrap.Modal(modalElement);
-                successModal.show();
-                
-                // Clean up backdrop when modal is hidden
+        // Universal Modal Cleanup
+        document.addEventListener('DOMContentLoaded', function() {
+            function cleanupModals() {
+                document.body.classList.remove('modal-open');
+                document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
+                document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
+            }
+            
+            document.querySelectorAll('.modal').forEach(function(modalElement) {
                 modalElement.addEventListener('hidden.bs.modal', function () {
-                    document.body.classList.remove('modal-open');
-                    const backdrops = document.querySelectorAll('.modal-backdrop');
-                    backdrops.forEach(backdrop => backdrop.remove());
+                    setTimeout(cleanupModals, 100);
                 });
+            });
+        });
+
+        // Show modals
+        @if(session('success'))
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = new bootstrap.Modal(document.getElementById('successModal'));
+                modal.show();
             });
         @endif
 
-        // Show error modal
         @if(session('error'))
-            window.addEventListener('DOMContentLoaded', function() {
-                const modalElement = document.getElementById('errorModal');
-                const errorModal = new bootstrap.Modal(modalElement);
-                errorModal.show();
-                
-                // Clean up backdrop when modal is hidden
-                modalElement.addEventListener('hidden.bs.modal', function () {
-                    document.body.classList.remove('modal-open');
-                    const backdrops = document.querySelectorAll('.modal-backdrop');
-                    backdrops.forEach(backdrop => backdrop.remove());
-                });
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = new bootstrap.Modal(document.getElementById('errorModal'));
+                modal.show();
             });
         @endif
     </script>

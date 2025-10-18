@@ -14,110 +14,7 @@
             min-height: 100vh;
         }
         
-        /* Sidebar Styles */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: 280px;
-            background: linear-gradient(180deg, var(--autumn-secondary) 0%, var(--autumn-dark) 100%);
-            box-shadow: 4px 0 20px rgba(0,0,0,0.15);
-            z-index: 1000;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: auto;
-        }
-        
-        .sidebar.collapsed {
-            transform: translateX(-280px);
-        }
-        
-        .sidebar-brand {
-            padding: 25px 20px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.15);
-            background: rgba(0,0,0,0.1);
-        }
-        
-        .sidebar-brand h3 {
-            color: var(--autumn-accent);
-            margin: 0;
-            font-weight: 700;
-            font-size: 1.5rem;
-        }
-        
-        .sidebar-menu {
-            list-style: none;
-            padding: 20px 0;
-            margin: 0;
-        }
-        
-        .sidebar-menu li {
-            margin: 0;
-        }
-        
-        .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            padding: 16px 25px;
-            color: rgba(255, 255, 255, 0.85);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            border-left: 3px solid transparent;
-        }
-        
-        .sidebar-menu a:hover, .sidebar-menu a.active {
-            background: rgba(210, 105, 30, 0.2);
-            padding-left: 30px;
-            border-left-color: var(--autumn-accent);
-            color: white;
-        }
-        
-        .sidebar-menu i {
-            margin-right: 12px;
-            font-size: 1.3rem;
-        }
-        
-        .sidebar-toggle {
-            position: fixed;
-            top: 20px;
-            left: 300px;
-            z-index: 1001;
-            background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--autumn-secondary) 100%);
-            border: none;
-            color: white;
-            padding: 12px 16px;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(210, 105, 30, 0.4);
-            transition: all 0.3s ease;
-        }
-        
-        .sidebar-toggle.collapsed {
-            left: 20px;
-        }
-        
-        .sidebar-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(210, 105, 30, 0.5);
-        }
-        
-        .main-content {
-            margin-left: 280px;
-            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 50px;
-        }
-        
-        .main-content.expanded {
-            margin-left: 0;
-        }
-        
-        .user-info {
-            padding: 20px 25px;
-            border-top: 1px solid rgba(255,255,255,0.15);
-            color: rgba(255, 255, 255, 0.85);
-        }
+
         
         .settings-card {
             background: white;
@@ -216,74 +113,13 @@
             background: #5a6268;
             transform: translateY(-2px);
         }
-        
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                transform: translateX(-100%);
-            }
-            
-            .sidebar:not(.collapsed) {
-                transform: translateX(0);
-            }
-            
-            .sidebar-toggle {
-                left: 20px;
-            }
-            
-            .main-content {
-                margin-left: 0;
-                padding: 20px;
-            }
-        }
+
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-brand">
-            <h3><i class="bi bi-cup-hot-fill"></i> Autumn Café</h3>
-            <p class="text-muted small mb-0">Customer Portal</p>
-        </div>
-        
-        <ul class="sidebar-menu">
-            <li>
-                <a href="{{ route('customer.menu') }}">
-                    <i class="bi bi-shop"></i> Menu
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('customer.cart') }}">
-                    <i class="bi bi-cart3"></i> My Cart
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('customer.settings') }}" class="active">
-                    <i class="bi bi-gear"></i> Account Settings
-                </a>
-            </li>
-        </ul>
-        
-        <div class="user-info">
-            <div class="mb-3">
-                <i class="bi bi-person-circle"></i> {{ session('customer_name') }}
-            </div>
-            <form action="{{ route('customer.logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-sm btn-outline-light w-100">
-                    <i class="bi bi-box-arrow-right"></i> Logout
-                </button>
-            </form>
-        </div>
-    </div>
+    @include('components.customer-nav')
     
-    <!-- Sidebar Toggle Button -->
-    <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">
-        <i class="bi bi-list" id="toggleIcon"></i>
-    </button>
-    
-    <!-- Main Content -->
-    <div class="main-content" id="mainContent">
+    <div class="container mt-4">
         <!-- Page Header -->
         <div class="page-header">
             <h1><i class="bi bi-gear-fill"></i> Account Settings</h1>
@@ -358,91 +194,41 @@
         </div>
     </div>
 
-    <!-- Success Modal -->
-    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-success text-white">
-                    <h5 class="modal-title"><i class="bi bi-check-circle me-2"></i>Success</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    {{ session('success') }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Error Modal -->
-    <div class="modal fade" id="errorModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title"><i class="bi bi-exclamation-triangle me-2"></i>Error</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    @if(session('error'))
-                        {{ session('error') }}
-                    @elseif($errors->any())
-                        <strong>Validation Errors:</strong>
-                        <ul class="mb-0 mt-2">
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    @endif
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Modals -->
+    @include('components.modals')
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        @if(session('success'))
-            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-            successModal.show();
-        @endif
-
-        @if(session('error') || $errors->any())
-            const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
-            errorModal.show();
-        @endif
-
-        // Clean up modal backdrops
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('hidden.bs.modal', function () {
-                const backdrops = document.querySelectorAll('.modal-backdrop');
-                backdrops.forEach(backdrop => backdrop.remove());
+        // Universal Modal Cleanup
+        document.addEventListener('DOMContentLoaded', function() {
+            function cleanupModals() {
                 document.body.classList.remove('modal-open');
                 document.body.style.overflow = '';
                 document.body.style.paddingRight = '';
+                document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
+            }
+            
+            document.querySelectorAll('.modal').forEach(function(modalElement) {
+                modalElement.addEventListener('hidden.bs.modal', function () {
+                    setTimeout(cleanupModals, 100);
+                });
             });
         });
 
-        // Sidebar toggle functionality
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('mainContent');
-            const toggleBtn = document.getElementById('sidebarToggle');
-            const toggleIcon = document.getElementById('toggleIcon');
-            
-            sidebar.classList.toggle('collapsed');
-            mainContent.classList.toggle('expanded');
-            toggleBtn.classList.toggle('collapsed');
-            
-            if (sidebar.classList.contains('collapsed')) {
-                toggleIcon.className = 'bi bi-list';
-            } else {
-                toggleIcon.className = 'bi bi-x-lg';
-            }
-        }
+        // Show modals
+        @if(session('success'))
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = new bootstrap.Modal(document.getElementById('successModal'));
+                modal.show();
+            });
+        @endif
+
+        @if(session('error') || $errors->any())
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = new bootstrap.Modal(document.getElementById('errorModal'));
+                modal.show();
+            });
+        @endif
     </script>
 </div>
 </body>
