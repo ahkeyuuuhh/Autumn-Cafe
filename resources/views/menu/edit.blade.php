@@ -1,6 +1,53 @@
 @extends('layouts.app')
 
 @section('content')
+
+<style>
+    :root {
+        --beige: #dec3a6;
+        --pale-autumn: #d98b4c;
+        --autumn-primary: #bc5227;
+        --dark-autumn: #914420;
+        --green-brown: #914420;
+        --dark-brown: #352011;
+        --light: #faf3e9ff;
+        --light-beige: #f5e7d0;
+        --soft-apricot: #f2c198;
+        --dusty-rose: #e7b7a1;
+        --light-coral: #f08080;
+        --warm-cream:#fff3e2;
+    }
+    .card {
+        background-color: var(--light) !important;
+        border-radius: 20px !important;
+        border: 3px dashed var(--dark-autumn) !important;
+    }
+    .card-header {
+        border-top-right-radius: 20px !important;
+        border-top-left-radius: 20px !important;
+        background-color: var(--soft-apricot) !important;
+        border-bottom: 2px solid var(--dark-autumn);
+        font-size: 1rem !important;
+        font-weight: 900 !important;
+        color: var(--dark-autumn) !important;
+    }
+    label {
+        color: var(--dark-brown) !important;
+    }
+    .btn {
+        border-radius: 20px;
+        padding: 10px 20px;
+        font-weight: 500 !important;
+    }
+    .update-btn {
+        background-color: var(--soft-apricot) !important;
+        color: var(--dark-autumn) !important;
+    }
+    .update-btn:hover {
+        background-color: var(--pale-autumn) !important;
+        color: white !important;
+    }
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -121,7 +168,7 @@
                             <a href="{{ route('menu.index') }}" class="btn btn-secondary">
                                 <i class="bi bi-arrow-left"></i> Cancel
                             </a>
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary update-btn">
                                 <i class="bi bi-check-circle"></i> Update Menu Item
                             </button>
                         </div>
