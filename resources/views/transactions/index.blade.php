@@ -1,80 +1,359 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="fw-bold text-primary">
+<style>
+    :root {
+        --beige: #dec3a6;
+        --pale-autumn: #d98b4c;
+        --autumn-primary: #bc5227;
+        --dark-autumn: #914420;
+        --green-brown: #914420;
+        --dark-brown: #352011;
+        --light: #faf3e9ff;
+        --light-beige: #f5e7d0;
+        --soft-apricot: #f2c198;
+        --dusty-rose: #e7b7a1;
+        --light-coral: #f08080;
+        --warm-cream: #fff3e2;
+    }
+
+    .transactions-header {
+        position: relative;
+        overflow: hidden;
+        background-color: var(--beige);
+        border: 2px dashed var(--dark-autumn) !important;
+        border-radius: 20px !important;
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+
+    .transactions-header::before {
+        content: '🧾';
+        position: absolute;
+        top: -20px;
+        left: -20px;
+        font-size: 100px;
+        opacity: 0.1;
+        transform: rotate(-15deg);
+    }
+
+    .transactions-header::after {
+        content: '💰';
+        position: absolute;
+        bottom: -20px;
+        right: -20px;
+        font-size: 100px;
+        opacity: 0.1;
+        transform: rotate(15deg);
+    }
+
+    .transactions-header h1 {
+        color: var(--dark-autumn) !important;
+        position: relative;
+        z-index: 1;
+    }
+
+    .transactions-header .lead {
+        color: var(--pale-autumn) !important;
+        font-weight: 500;
+        position: relative;
+        z-index: 1;
+    }
+
+    .stat-card {
+        background-color: var(--warm-cream) !important;
+        border-radius: 20px !important;
+        border-top: 8px solid var(--dusty-rose) !important;
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        border-left-color: var(--pale-autumn);
+    }
+
+    .stat-card p {
+        color: var(--dusty-rose) !important;
+        font-weight: 500 !important;
+    }
+
+    .stat-card h3, .stat-card h4 {
+        color: var(--soft-apricot) !important;
+    }
+
+    .stat-icon {
+        background-color: #e7b7a133 !important;
+        border-radius: 20px !important;
+        transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover .stat-icon {
+        transform: rotate(10deg) scale(1.1);
+    }
+
+    .stat-icon i {
+        color: var(--soft-apricot) !important;
+    }
+
+    .stat-card small {
+        color: var(--dusty-rose) !important;
+    }
+
+    .filter-card {
+        background-color: var(--light) !important;
+        border-radius: 20px !important;
+        border-top: 8px solid var(--soft-apricot) !important;
+    }
+
+    .filter-card .card-body {
+        padding: 25px;
+    }
+
+    .form-label {
+        color: var(--pale-autumn) !important;
+        font-weight: 600;
+    }
+
+    .form-control, .form-select {
+        border: 2px solid var(--light-beige);
+        border-radius: 12px;
+        padding: 10px 15px;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: var(--pale-autumn);
+        box-shadow: 0 0 0 0.2rem rgba(217, 139, 76, 0.25);
+    }
+
+    .btn-primary {
+        background-color: var(--pale-autumn) !important;
+        border: none !important;
+        border-radius: 12px !important;
+        padding: 10px 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--autumn-primary) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-secondary {
+        background-color: var(--dusty-rose) !important;
+        border: none !important;
+        border-radius: 12px !important;
+        padding: 10px 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+        background-color: var(--light-coral) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .transactions-table-card {
+        background-color: var(--light) !important;
+        border-radius: 20px !important;
+        border-top: 8px solid var(--dusty-rose) !important;
+    }
+
+    .table {
+        margin-bottom: 0;
+    }
+
+    .table thead {
+        background-color: var(--light-beige) !important;
+    }
+
+    .table thead th {
+        color: var(--pale-autumn) !important;
+        font-weight: 700;
+        border: none;
+        padding: 15px;
+    }
+
+    .table tbody tr {
+        transition: all 0.3s ease;
+    }
+
+    .table tbody tr:hover {
+        background-color: var(--warm-cream) !important;
+        transform: scale(1.01);
+    }
+
+    .table tbody td {
+        padding: 15px;
+        vertical-align: middle;
+        border-color: var(--light-beige);
+    }
+
+    .badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+    }
+
+    .status-pending {
+        background-color: #FFF3CD !important;
+        color: #856404 !important;
+    }
+
+    .status-completed {
+        background-color: #D4EDDA !important;
+        color: #155724 !important;
+    }
+
+    .status-cancelled {
+        background-color: #F8D7DA !important;
+        color: #721C24 !important;
+    }
+
+    .btn-sm {
+        border-radius: 12px !important;
+        padding: 6px 12px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn-info {
+        background-color: var(--soft-apricot) !important;
+        border: none;
+    }
+
+    .btn-info:hover {
+        background-color: var(--pale-autumn) !important;
+        transform: translateY(-2px);
+    }
+
+    .empty-state {
+        padding: 60px 20px;
+        text-align: center;
+    }
+
+    .empty-state i {
+        color: var(--dusty-rose);
+        opacity: 0.5;
+    }
+
+    .empty-state p {
+        color: var(--pale-autumn);
+        font-size: 1.1rem;
+    }
+
+    .pagination .page-link {
+        color: var(--pale-autumn);
+        border: 2px solid var(--light-beige);
+        border-radius: 10px;
+        margin: 0 3px;
+        transition: all 0.3s ease;
+    }
+
+    .pagination .page-link:hover {
+        background-color: var(--light-beige);
+        color: var(--dark-autumn);
+        transform: translateY(-2px);
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: var(--pale-autumn);
+        border-color: var(--pale-autumn);
+        color: white;
+    }
+</style>
+
+<div class="container-fluid py-4">
+    <!-- HEADER -->
+    <div class="transactions-header text-center">
+        <h1 class="fw-bold mb-2">
             <i class="bi bi-receipt-cutoff"></i> Transaction History
         </h1>
-        <a href="{{ route('orders.create') }}" class="btn btn-primary">
-            <i class="bi bi-plus-circle"></i> New Order
-        </a>
+        <p class="lead mb-0">📊 Complete overview of all café transactions</p>
+        <small class="text-muted d-block mt-2">{{ now()->format('l, F j, Y - g:i A') }}</small>
     </div>
 
     <!-- Statistics Cards -->
-    <div class="row g-3 mb-4">
+    <div class="row g-4 mb-4">
         <div class="col-lg-3 col-md-6">
-            <div class="card border-0 shadow-sm">
+            <div class="stat-card card border-0 shadow-sm h-100">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-start">
                         <div>
-                            <p class="text-muted mb-1 small">Total Orders</p>
+                            <p class="mb-1 small">Total Orders</p>
                             <h3 class="fw-bold mb-0">{{ $stats['total_orders'] }}</h3>
                         </div>
-                        <div class="bg-primary bg-opacity-10 rounded-3 p-3">
-                            <i class="bi bi-receipt text-primary fs-3"></i>
+                        <div class="stat-icon rounded-3 p-3">
+                            <i class="bi bi-receipt fs-3"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="card border-0 shadow-sm">
+            <div class="stat-card card border-0 shadow-sm h-100">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-start">
                         <div>
-                            <p class="text-muted mb-1 small">Total Revenue</p>
-                            <h3 class="fw-bold mb-0 text-success">₱{{ number_format($stats['total_revenue'], 2) }}</h3>
+                            <p class="mb-1 small">Total Revenue</p>
+                            <h3 class="fw-bold mb-0">₱{{ number_format($stats['total_revenue'], 2) }}</h3>
                         </div>
-                        <div class="bg-success bg-opacity-10 rounded-3 p-3">
-                            <i class="bi bi-currency-dollar text-success fs-3"></i>
+                        <div class="stat-icon rounded-3 p-3">
+                            <i class="bi bi-currency-dollar fs-3"></i>
                         </div>
                     </div>
+                    <small>
+                        <i class="bi bi-graph-up-arrow"></i> All time earnings
+                    </small>
                 </div>
             </div>
         </div>
         <div class="col-lg-2 col-md-4">
-            <div class="card border-0 shadow-sm">
+            <div class="stat-card card border-0 shadow-sm h-100">
                 <div class="card-body text-center">
-                    <p class="text-muted mb-1 small">Pending</p>
-                    <h4 class="fw-bold mb-0 text-warning">{{ $stats['pending'] }}</h4>
+                    <p class="mb-1 small">Pending</p>
+                    <h4 class="fw-bold mb-0">{{ $stats['pending'] }}</h4>
+                    <small>
+                        <i class="bi bi-clock-history"></i> Waiting
+                    </small>
                 </div>
             </div>
         </div>
         <div class="col-lg-2 col-md-4">
-            <div class="card border-0 shadow-sm">
+            <div class="stat-card card border-0 shadow-sm h-100">
                 <div class="card-body text-center">
-                    <p class="text-muted mb-1 small">Completed</p>
-                    <h4 class="fw-bold mb-0 text-success">{{ $stats['completed'] }}</h4>
+                    <p class="mb-1 small">Completed</p>
+                    <h4 class="fw-bold mb-0">{{ $stats['completed'] }}</h4>
+                    <small>
+                        <i class="bi bi-check-circle"></i> Done
+                    </small>
                 </div>
             </div>
         </div>
         <div class="col-lg-2 col-md-4">
-            <div class="card border-0 shadow-sm">
+            <div class="stat-card card border-0 shadow-sm h-100">
                 <div class="card-body text-center">
-                    <p class="text-muted mb-1 small">Cancelled</p>
-                    <h4 class="fw-bold mb-0 text-danger">{{ $stats['cancelled'] }}</h4>
+                    <p class="mb-1 small">Cancelled</p>
+                    <h4 class="fw-bold mb-0">{{ $stats['cancelled'] }}</h4>
+                    <small>
+                        <i class="bi bi-x-circle"></i> Void
+                    </small>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Filters and Search -->
-    <div class="card shadow-sm mb-4">
+    <div class="filter-card card shadow-sm mb-4">
         <div class="card-body">
             <form method="GET" action="{{ route('transactions.index') }}" class="row g-3" id="filterForm">
                 <div class="col-md-4">
-                    <label class="form-label small text-muted">
+                    <label class="form-label small">
                         <i class="bi bi-search"></i> Search Transactions
                     </label>
                     <input type="text" 
@@ -83,13 +362,13 @@
                            placeholder="Search by Order ID, Customer Name or Email..."
                            value="{{ request('search') }}"
                            title="Examples: Type '5' for Order #5, 'John' for customer names, or 'gmail.com' for emails">
-                    <small class="text-muted">
+                    <small style="color: var(--pale-autumn);">
                         <i class="bi bi-info-circle"></i> 
                         Try: Order # (e.g., "5"), Name (e.g., "John"), or Email
                     </small>
                 </div>
                 <div class="col-md-2">
-                    <label class="form-label small text-muted">
+                    <label class="form-label small">
                         <i class="bi bi-funnel"></i> Status
                     </label>
                     <select name="status" class="form-select">
@@ -100,7 +379,7 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <label class="form-label small text-muted">
+                    <label class="form-label small">
                         <i class="bi bi-sort-down"></i> Sort By Date
                     </label>
                     <select name="sort" class="form-select">
@@ -122,7 +401,7 @@
             
             @if(request('search') || (request('status') && request('status') != 'all'))
                 <div class="mt-3">
-                    <small class="text-muted">
+                    <small style="color: var(--pale-autumn);">
                         <i class="bi bi-info-circle"></i> 
                         Showing filtered results
                         @if(request('search'))
@@ -138,18 +417,18 @@
     </div>
 
     <!-- Orders Table -->
-    <div class="card shadow-sm">
+    <div class="transactions-table-card card shadow-sm">
         <div class="card-body">
             @if($orders->isEmpty())
-                <div class="text-center py-5">
-                    <i class="bi bi-inbox fs-1 text-muted d-block mb-3"></i>
+                <div class="empty-state">
+                    <i class="bi bi-inbox fs-1 d-block mb-3"></i>
                     @if(request('search') || (request('status') && request('status') != 'all'))
-                        <p class="text-muted">No transactions found matching your search criteria.</p>
+                        <p>No transactions found matching your search criteria.</p>
                         <a href="{{ route('transactions.index') }}" class="btn btn-secondary mt-2">
                             <i class="bi bi-arrow-left"></i> View All Transactions
                         </a>
                     @else
-                        <p class="text-muted">No transactions found. Start taking orders!</p>
+                        <p>No transactions found. Start taking orders!</p>
                         <a href="{{ route('orders.create') }}" class="btn btn-primary mt-2">
                             <i class="bi bi-plus-circle"></i> Create First Order
                         </a>
@@ -158,7 +437,7 @@
             @else
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
-                        <thead class="table-light">
+                        <thead>
                             <tr>
                                 <th>Order ID</th>
                                 <th>Customer</th>
@@ -172,50 +451,50 @@
                         <tbody>
                             @foreach($orders as $order)
                                 <tr>
-                                    <td class="fw-semibold">
+                                    <td class="fw-semibold" style="color: var(--dark-autumn);">
                                         <i class="bi bi-hash"></i>{{ str_pad($order->id, 5, '0', STR_PAD_LEFT) }}
                                     </td>
                                     <td>
                                         @if($order->customer)
                                             <div>
-                                                <strong>{{ $order->customer->name }}</strong>
+                                                <strong style="color: var(--dark-autumn);">{{ $order->customer->name }}</strong>
                                                 @if($order->customer->phone)
-                                                    <br><small class="text-muted">{{ $order->customer->phone }}</small>
+                                                    <br><small style="color: var(--dusty-rose);">{{ $order->customer->phone }}</small>
                                                 @endif
                                             </div>
                                         @else
-                                            <span class="text-muted">Walk-in Customer</span>
+                                            <span style="color: var(--dusty-rose);">Walk-in Customer</span>
                                         @endif
                                     </td>
                                     <td>
-                                        <div>
+                                        <div style="color: var(--dark-autumn);">
                                             <i class="bi bi-calendar3"></i> {{ $order->ordered_at->format('M d, Y') }}
-                                            <br><small class="text-muted"><i class="bi bi-clock"></i> {{ $order->ordered_at->format('h:i A') }}</small>
+                                            <br><small style="color: var(--dusty-rose);"><i class="bi bi-clock"></i> {{ $order->ordered_at->format('h:i A') }}</small>
                                         </div>
                                     </td>
                                     <td>
                                         <span class="badge bg-secondary">{{ $order->items->count() }} items</span>
                                     </td>
-                                    <td class="fw-bold text-success">
+                                    <td class="fw-bold" style="color: var(--autumn-primary);">
                                         ₱{{ number_format($order->total_amount, 2) }}
                                     </td>
                                     <td>
-                                        @php
-                                            $statusColors = [
-                                                'pending' => 'warning',
-                                                'completed' => 'success',
-                                                'cancelled' => 'danger'
-                                            ];
-                                            $color = $statusColors[$order->status] ?? 'secondary';
-                                        @endphp
-                                        <span class="badge bg-{{ $color }}">
-                                            {{ ucfirst($order->status) }}
-                                        </span>
+                                        @if($order->status === 'pending')
+                                            <span class="badge status-pending">
+                                                <i class="bi bi-clock-history"></i> Pending
+                                            </span>
+                                        @elseif($order->status === 'completed')
+                                            <span class="badge status-completed">
+                                                <i class="bi bi-check-circle-fill"></i> Completed
+                                            </span>
+                                        @else
+                                            <span class="badge status-cancelled">
+                                                <i class="bi bi-x-circle-fill"></i> Cancelled
+                                            </span>
+                                        @endif
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ route('transactions.show', $order) }}" 
-                                           class="btn btn-sm btn-outline-primary"
-                                           title="View Details">
+                                        <a href="{{ route('transactions.show', $order) }}" class="btn btn-info btn-sm">
                                             <i class="bi bi-eye"></i> View Details
                                         </a>
                                     </td>
@@ -226,48 +505,20 @@
                 </div>
 
                 <!-- Pagination -->
-                <div class="mt-4">
-                    {{ $orders->links() }}
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <div>
+                        <small style="color: var(--pale-autumn);">
+                            Showing {{ $orders->firstItem() ?? 0 }} to {{ $orders->lastItem() ?? 0 }} of {{ $orders->total() }} transactions
+                        </small>
+                    </div>
+                    <div>
+                        {{ $orders->links() }}
+                    </div>
                 </div>
             @endif
         </div>
     </div>
 </div>
-
-<!-- Success Modal -->
-<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-success text-white">
-                <h5 class="modal-title" id="successModalLabel">
-                    <i class="bi bi-check-circle-fill"></i> Success
-                </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p class="mb-0">{{ session('success') }}</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-@if(session('success'))
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const modalElement = document.getElementById('successModal');
-        const successModal = new bootstrap.Modal(modalElement);
-        successModal.show();
-        
-        modalElement.addEventListener('hidden.bs.modal', function () {
-            document.body.classList.remove('modal-open');
-            document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
-        });
-    });
-</script>
-@endif
 
 <script>
     // Auto-refresh every 10 seconds for smooth user experience

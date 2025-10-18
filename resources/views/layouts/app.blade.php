@@ -89,6 +89,81 @@
       border-top: none;
       padding: 20px 25px;
     }
+
+    /* Modal Styles - Autumn Café Theme */
+    .modal-content {
+      border-radius: 20px;
+      border: none;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+      padding: 1.5rem 2rem;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .modal-header.bg-success {
+      background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+    }
+
+    .modal-header.bg-danger {
+      background: linear-gradient(135deg, #dc3545 0%, #c82333 100%) !important;
+    }
+
+    .modal-header.bg-warning {
+      background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%) !important;
+    }
+
+    .modal-header.bg-primary {
+      background: linear-gradient(135deg, var(--pale-autumn) 0%, var(--autumn-primary) 100%) !important;
+    }
+
+    .modal-title {
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
+    .modal-body {
+      padding: 2rem;
+      color: var(--dark-autumn);
+    }
+
+    .modal-footer {
+      border-top: 1px solid var(--beige);
+      padding: 1.5rem 2rem;
+      background: var(--warm-cream);
+    }
+
+    .modal-footer .btn {
+      border-radius: 10px;
+      padding: 0.5rem 1.5rem;
+      font-weight: 600;
+    }
+
+    .modal-backdrop {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-backdrop.show {
+      opacity: 0.6;
+    }
+
+    /* Delete Modal Specific Styles */
+    .delete-modal-content {
+      border-top: 5px solid #dc3545;
+    }
+
+    .delete-modal-content .modal-body {
+      padding: 2rem;
+    }
+
+    .delete-modal-content .alert {
+      border-radius: 10px;
+      border: 2px solid #ffc107;
+      background: #fff3cd;
+    }
   </style>
 </head>
 <body>
@@ -132,23 +207,63 @@
                   <p class="mb-0">{{ session('error') }}</p>
               </div>
               <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
               </div>
           </div>
       </div>
   </div>
 
+  <!-- Universal Modal Cleanup Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to properly clean up modal backdrops
+        function cleanupModals() {
+            document.body.classList.remove('modal-open');
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+            const backdrops = document.querySelectorAll('.modal-backdrop');
+            backdrops.forEach(backdrop => backdrop.remove());
+        }
+
+        // Add cleanup to all modals on the page
+        const allModals = document.querySelectorAll('.modal');
+        allModals.forEach(function(modalElement) {
+            modalElement.addEventListener('hidden.bs.modal', function () {
+                // Small delay to ensure Bootstrap completes its cleanup
+                setTimeout(cleanupModals, 100);
+            });
+
+            // Also cleanup on show if there are lingering backdrops
+            modalElement.addEventListener('show.bs.modal', function () {
+                // Remove any existing backdrops before showing new modal
+                const oldBackdrops = document.querySelectorAll('.modal-backdrop');
+                if (oldBackdrops.length > 1) {
+                    oldBackdrops.forEach((backdrop, index) => {
+                        if (index < oldBackdrops.length - 1) {
+                            backdrop.remove();
+                        }
+                    });
+                }
+            });
+        });
+
+        // Cleanup on ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                setTimeout(cleanupModals, 100);
+            }
+        });
+    });
+  </script>
+
   @if(session('success'))
   <script>
       document.addEventListener('DOMContentLoaded', function() {
           const modalElement = document.getElementById('successModal');
-          const successModal = new bootstrap.Modal(modalElement);
-          successModal.show();
-          
-          modalElement.addEventListener('hidden.bs.modal', function () {
-              document.body.classList.remove('modal-open');
-              document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
-          });
+          if (modalElement) {
+              const successModal = new bootstrap.Modal(modalElement);
+              successModal.show();
+          }
       });
   </script>
   @endif
@@ -157,13 +272,10 @@
   <script>
       document.addEventListener('DOMContentLoaded', function() {
           const modalElement = document.getElementById('errorModal');
-          const errorModal = new bootstrap.Modal(modalElement);
-          errorModal.show();
-          
-          modalElement.addEventListener('hidden.bs.modal', function () {
-              document.body.classList.remove('modal-open');
-              document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
-          });
+          if (modalElement) {
+              const errorModal = new bootstrap.Modal(modalElement);
+              errorModal.show();
+          }
       });
   </script>
   @endif
@@ -171,4 +283,3 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

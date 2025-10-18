@@ -1,365 +1,351 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Order - Autumn Café</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <style>
-        :root {
-            --autumn-orange: #E67E22;
-            --autumn-cream: #FFF9F3;
-            --autumn-brown: #3B2F2F;
-            --autumn-light-orange: #F39C12;
-            --beige: #dec3a6;
-            --pale-autumn: #d98b4c;
-            --autumn-primary: #bc5227;
-            --dark-autumn: #914420;
-            --green-brown: #914420;
-            --dark-brown: #352011;
-            --light: #faf3e9ff;
-            --light-beige: #f5e7d0;
-            --soft-apricot: #f2c198;
-            --dusty-rose: #e7b7a1;
-            --light-coral: #f08080;
-            --warm-cream:#fff3e2;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #FFF9F3 0%, #FFE8D6 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            padding-bottom: 50px;
-        }
-        
-        .navbar {
-            background: linear-gradient(135deg, var(--autumn-brown) 0%, #2C1810 100%);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        .container {
-             margin-top: 3rem !important;
-        }
-        
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 1.5rem;
-            color: var(--autumn-light-orange) !important;
-        }
-        
-        .navbar-brand i {
-            color: var(--autumn-orange);
-        }
-        
-        .nav-link {
-            color: var(--autumn-cream) !important;
-            transition: all 0.3s;
-        }
-        
-        .nav-link:hover {
-            color: var(--autumn-light-orange) !important;
-        }
-        
-        .page-header {
-            background: linear-gradient(135deg, var(--autumn-orange) 0%, var(--autumn-light-orange) 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(230, 126, 34, 0.3);
-            margin-bottom: 30px;
-        }
-        
-        .form-card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        
-        .menu-item-card {
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        
-        .menu-item-card:hover {
-            border-color: var(--autumn-orange);
-            box-shadow: 0 3px 10px rgba(230, 126, 34, 0.2);
-        }
-        
-        .menu-item-card.selected {
-            border-color: var(--autumn-orange);
-            background: var(--autumn-cream);
-        }
-        
-        .menu-item-image {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-        
-        .order-summary {
-            background: linear-gradient(135deg, var(--autumn-cream) 0%, #FFE8D6 100%);
-            border-radius: 15px;
-            padding: 25px;
-            position: sticky;
-            top: 20px;
-        }
-        
-        .summary-item {
-            padding: 10px 0;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        
-        .summary-item:last-child {
-            border-bottom: none;
-        }
-        
-        .total-row {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--autumn-orange);
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 2px solid var(--autumn-orange);
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--autumn-orange) 0%, var(--autumn-light-orange) 100%);
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
-        }
-        
-        .btn-secondary {
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-weight: 600;
-        }
-        
-        .quantity-input {
-            width: 80px;
-            text-align: center;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-        }
-        
-        .quantity-input:focus {
-            border-color: var(--autumn-orange);
-            box-shadow: 0 0 0 0.2rem rgba(230, 126, 34, 0.25);
-        }
-        
-        .stock-badge {
-            font-size: 0.85rem;
-            padding: 4px 10px;
-        }
-        
-        .category-badge {
-            background: var(--autumn-orange);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-        
-        .autumn-decoration {
-            position: fixed;
-            opacity: 0.08;
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        .leaf-1 {
-            top: 100px;
-            left: 50px;
-            font-size: 100px;
-            color: var(--autumn-orange);
-            transform: rotate(25deg);
-        }
-        
-        .leaf-2 {
-            bottom: 100px;
-            right: 50px;
-            font-size: 120px;
-            color: var(--autumn-light-orange);
-            transform: rotate(-20deg);
-        }
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.25rem !important;
-            margin-bottom: 2rem !important;
-            border-radius: 8px !important;
-            background-color: var(--dark-autumn) !important;
-            color: white !important;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.25s ease;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .back-btn:hover {
-            background-color: #6d3319 !important;
-            transform: translateX(-2px);
-            box-shadow: 0 4px 12px rgba(145, 68, 32, 0.25);
-        }
-    </style>
-</head>
-<body>
-    <!-- Autumn Decorations -->
-    <div class="autumn-decoration leaf-1">🍂</div>
-    <div class="autumn-decoration leaf-2">🍁</div>
-    
-   
-    <div class="container" style="position: relative; z-index: 1;">
-          <a href="{{ route('orders.index') }}" class="btn btn-secondary btn-sm shadow-sm back-btn">
-            <i class="bi bi-arrow-left"></i> Back to Order Management
-        </a>
+@extends('layouts.app')
 
-        <!-- Page Header -->
-        <div class="page-header">
-            <h1 class="mb-2">
-                <i class="bi bi-plus-circle-fill"></i> Create New Order
-            </h1>
-            <p class="mb-0 opacity-75">Select items and create an order for a customer</p>
-        </div>
+@section('content')
+<style>
+    :root {
+        --beige: #dec3a6;
+        --pale-autumn: #d98b4c;
+        --autumn-primary: #bc5227;
+        --dark-autumn: #914420;
+        --soft-apricot: #f2c198;
+        --dusty-rose: #e7b7a1;
+        --warm-cream: #fff3e2;
+        --light-beige: #f5e7d0;
+    }
 
-        <form id="orderForm" action="{{ route('orders.store') }}" method="POST">
-            @csrf
-            
-            <div class="row">
-                <div class="col-lg-8">
-                    <!-- Customer Selection -->
-                    <div class="form-card">
-                        <h4 class="mb-3" style="color: var(--autumn-orange);">
-                            <i class="bi bi-person-circle"></i> Customer Information
-                        </h4>
-                        
-                        <div class="mb-3">
-                            <label for="customer_id" class="form-label">Select Customer (Optional)</label>
-                            <select name="customer_id" id="customer_id" class="form-select">
-                                <option value="">Walk-in Customer</option>
-                                @foreach($customers as $customer)
-                                    <option value="{{ $customer->id }}" {{ old('customer_id') == $customer->id ? 'selected' : '' }}>
-                                        {{ $customer->name }} 
-                                        @if($customer->phone)
-                                            - {{ $customer->phone }}
-                                        @endif
-                                    </option>
-                                @endforeach
-                            </select>
-                            <small class="text-muted">
-                                <i class="bi bi-info-circle"></i> Leave blank for walk-in customers
-                            </small>
-                        </div>
-                    </div>
+    .order-header {
+        background: var(--warm-cream);
+        padding: 2rem;
+        border-radius: 20px;
+        border: 3px dashed var(--beige);
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
 
-                    <!-- Menu Items Selection -->
-                    <div class="form-card">
-                        <h4 class="mb-3" style="color: var(--autumn-orange);">
-                            <i class="bi bi-cart-plus"></i> Select Menu Items
-                        </h4>
-                        
-                        @if($menuItems->isEmpty())
-                            <div class="alert alert-warning">
-                                <i class="bi bi-exclamation-triangle"></i> No menu items available with stock. Please add items to the menu first.
-                            </div>
-                        @else
-                            <div id="menuItemsContainer">
-                                @foreach($menuItems as $item)
-                                    <div class="menu-item-card" data-item-id="{{ $item->id }}" data-price="{{ $item->price }}" data-stock="{{ $item->stock }}">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-6">
-                                                <div class="d-flex align-items-center">
-                                                    @if($item->image)
-                                                        <img src="{{ $item->image_url }}" alt="{{ $item->name }}" class="menu-item-image me-3">
-                                                    @else
-                                                        <div class="menu-item-image me-3 bg-light d-flex align-items-center justify-content-center">
-                                                            <i class="bi bi-cup-straw text-muted"></i>
-                                                        </div>
-                                                    @endif
-                                                    <div>
-                                                        <strong>{{ $item->name }}</strong>
-                                                        <br>
-                                                        <span class="category-badge">{{ $item->category }}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 text-center">
-                                                <strong style="color: var(--autumn-orange);">₱{{ number_format($item->price, 2) }}</strong>
-                                            </div>
-                                            <div class="col-md-2 text-center">
-                                                <span class="badge bg-secondary stock-badge">Stock: {{ $item->stock }}</span>
-                                            </div>
-                                            <div class="col-md-2 text-end">
-                                                <input type="number" 
-                                                       class="form-control quantity-input" 
-                                                       min="0" 
-                                                       max="{{ $item->stock }}" 
-                                                       value="0"
-                                                       data-item-id="{{ $item->id }}"
-                                                       placeholder="Qty">
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @endif
+    .order-header::before {
+        content: '🛒';
+        position: absolute;
+        font-size: 6rem;
+        opacity: 0.1;
+        right: -1rem;
+        top: -1rem;
+    }
+
+    .order-header h1 {
+        color: var(--dark-autumn);
+        font-weight: 700;
+        margin: 0;
+        font-size: 2rem;
+    }
+
+    .order-header .lead {
+        color: var(--pale-autumn);
+        margin: 0.5rem 0 0 0;
+        font-size: 1rem;
+    }
+
+    .form-card {
+        background: white;
+        border-radius: 20px;
+        border: none;
+        border-top: 8px solid var(--dusty-rose);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05),
+                    0 10px 20px rgba(0, 0, 0, 0.05),
+                    0 15px 30px rgba(0, 0, 0, 0.05);
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-card h4 {
+        color: var(--pale-autumn);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-select, .form-control {
+        border: 2px solid var(--beige);
+        border-radius: 10px;
+        padding: 0.75rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-select:focus, .form-control:focus {
+        border-color: var(--pale-autumn);
+        box-shadow: 0 0 0 0.2rem rgba(217, 139, 76, 0.25);
+    }
+
+    .menu-item-card {
+        border: 2px solid var(--beige);
+        border-radius: 15px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        background: white;
+    }
+
+    .menu-item-card:hover {
+        border-color: var(--pale-autumn);
+        box-shadow: 0 3px 10px rgba(217, 139, 76, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .menu-item-card.selected {
+        border-color: var(--autumn-primary);
+        background: var(--warm-cream);
+        box-shadow: 0 4px 12px rgba(188, 82, 39, 0.3);
+    }
+
+    .menu-item-image {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .category-badge {
+        background: linear-gradient(135deg, var(--soft-apricot) 0%, var(--dusty-rose) 100%);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 10px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .stock-badge {
+        background: var(--beige);
+        color: var(--dark-autumn);
+        padding: 0.25rem 0.75rem;
+        border-radius: 10px;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    .quantity-input {
+        width: 80px;
+        text-align: center;
+        border: 2px solid var(--beige);
+        border-radius: 10px;
+        font-weight: 600;
+    }
+
+    .quantity-input:focus {
+        border-color: var(--pale-autumn);
+        box-shadow: 0 0 0 0.2rem rgba(217, 139, 76, 0.25);
+    }
+
+    .order-summary {
+        background: linear-gradient(135deg, var(--warm-cream) 0%, var(--light-beige) 100%);
+        border-radius: 20px;
+        border: 3px solid var(--beige);
+        padding: 2rem;
+        position: sticky;
+        top: 20px;
+    }
+
+    .order-summary h4 {
+        color: var(--dark-autumn);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+    }
+
+    .summary-item {
+        padding: 0.75rem 0;
+        border-bottom: 1px dashed var(--beige);
+    }
+
+    .summary-item:last-child {
+        border-bottom: none;
+    }
+
+    .total-row {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--autumn-primary);
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 3px solid var(--autumn-primary);
+    }
+
+    .btn-create-order {
+        background: linear-gradient(135deg, var(--pale-autumn) 0%, var(--autumn-primary) 100%);
+        border: none;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 15px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-create-order:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(188, 82, 39, 0.4);
+        color: white;
+    }
+
+    .btn-create-order:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .btn-cancel {
+        background: white;
+        border: 2px solid var(--beige);
+        color: var(--dark-autumn);
+        padding: 1rem 2rem;
+        border-radius: 15px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-cancel:hover {
+        background: var(--warm-cream);
+        border-color: var(--pale-autumn);
+        color: var(--dark-autumn);
+    }
+
+    .empty-cart {
+        text-align: center;
+        padding: 2rem;
+        color: var(--pale-autumn);
+    }
+
+    .empty-cart i {
+        font-size: 3rem;
+        opacity: 0.3;
+        margin-bottom: 0.5rem;
+    }
+</style>
+
+<div class="container">
+    <!-- Page Header -->
+    <div class="order-header">
+        <h1>
+            <i class="bi bi-plus-circle-fill"></i> Create New Order
+        </h1>
+        <p class="lead">🛍️ Select items and create an order for a customer</p>
+    </div>
+
+    <form id="orderForm" action="{{ route('orders.store') }}" method="POST">
+        @csrf
+        
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Customer Selection -->
+                <div class="form-card">
+                    <h4>
+                        <i class="bi bi-person-circle"></i> Customer Information
+                    </h4>
+                    
+                    <div class="mb-3">
+                        <label for="customer_id" class="form-label" style="color: var(--dark-autumn); font-weight: 600;">Select Customer (Optional)</label>
+                        <select name="customer_id" id="customer_id" class="form-select">
+                            <option value="">Walk-in Customer</option>
+                            @foreach($customers as $customer)
+                                <option value="{{ $customer->id }}" {{ old('customer_id') == $customer->id ? 'selected' : '' }}>
+                                    {{ $customer->name }} 
+                                    @if($customer->phone)
+                                        - {{ $customer->phone }}
+                                    @endif
+                                </option>
+                            @endforeach
+                        </select>
+                        <small style="color: var(--pale-autumn);">
+                            <i class="bi bi-info-circle"></i> Leave blank for walk-in customers
+                        </small>
                     </div>
                 </div>
 
-                <!-- Order Summary -->
-                <div class="col-lg-4">
-                    <div class="order-summary">
-                        <h4 class="mb-4" style="color: var(--autumn-brown);">
-                            <i class="bi bi-receipt"></i> Order Summary
-                        </h4>
-                        
-                        <div id="summaryItems">
-                            <p class="text-muted text-center py-4">
-                                <i class="bi bi-cart-x" style="font-size: 2rem;"></i>
-                                <br>No items selected
-                            </p>
+                <!-- Menu Items Selection -->
+                <div class="form-card">
+                    <h4>
+                        <i class="bi bi-cart-plus"></i> Select Menu Items
+                    </h4>
+                    
+                    @if($menuItems->isEmpty())
+                        <div class="alert" style="background: var(--warm-cream); border: 2px solid var(--beige); color: var(--dark-autumn);">
+                            <i class="bi bi-exclamation-triangle"></i> No menu items available with stock. Please add items to the menu first.
                         </div>
-                        
-                        <div class="total-row">
-                            <div class="d-flex justify-content-between">
-                                <span>TOTAL:</span>
-                                <span id="totalAmount">₱0.00</span>
-                            </div>
+                    @else
+                        <div id="menuItemsContainer">
+                            @foreach($menuItems as $item)
+                                <div class="menu-item-card" data-item-id="{{ $item->id }}" data-price="{{ $item->price }}" data-stock="{{ $item->stock }}">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6">
+                                            <div class="d-flex align-items-center">
+                                                @if($item->image)
+                                                    <img src="{{ $item->image_url }}" alt="{{ $item->name }}" class="menu-item-image me-3">
+                                                @else
+                                                    <div class="menu-item-image me-3 d-flex align-items-center justify-content-center" style="background: var(--warm-cream);">
+                                                        <i class="bi bi-cup-straw" style="color: var(--pale-autumn); font-size: 1.5rem;"></i>
+                                                    </div>
+                                                @endif
+                                                <div>
+                                                    <strong style="color: var(--dark-autumn);">{{ $item->name }}</strong>
+                                                    <br>
+                                                    <span class="category-badge">{{ $item->category }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 text-center">
+                                            <strong style="color: var(--autumn-primary);">₱{{ number_format($item->price, 2) }}</strong>
+                                        </div>
+                                        <div class="col-md-2 text-center">
+                                            <span class="stock-badge">Stock: {{ $item->stock }}</span>
+                                        </div>
+                                        <div class="col-md-2 text-end">
+                                            <input type="number" 
+                                                   class="form-control quantity-input" 
+                                                   min="0" 
+                                                   max="{{ $item->stock }}" 
+                                                   value="0"
+                                                   data-item-id="{{ $item->id }}"
+                                                   placeholder="Qty">
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
-                        
-                        <div class="d-grid gap-2 mt-4">
-                            <button type="submit" class="btn btn-primary btn-lg" id="submitBtn" disabled>
-                                <i class="bi bi-check-circle"></i> Create Order
-                            </button>
-                            <a href="{{ route('orders.index') }}" class="btn btn-secondary">
-                                <i class="bi bi-x-circle"></i> Cancel
-                            </a>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="col-lg-4">
+                <div class="order-summary">
+                    <h4>
+                        <i class="bi bi-receipt"></i> Order Summary
+                    </h4>
+                    
+                    <div id="summaryItems">
+                        <div class="empty-cart">
+                            <i class="bi bi-cart-x d-block"></i>
+                            <p class="mb-0">No items selected</p>
                         </div>
+                    </div>
+                    
+                    <div class="total-row">
+                        <div class="d-flex justify-content-between">
+                            <span>TOTAL:</span>
+                            <span id="totalAmount">₱0.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-create-order" id="submitBtn" disabled>
+                            <i class="bi bi-check-circle"></i> Create Order
+                        </button>
+                        <a href="{{ route('orders.index') }}" class="btn btn-cancel">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </a>
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        </div>
+    </form>
+</div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const quantityInputs = document.querySelectorAll('.quantity-input');
@@ -397,10 +383,10 @@
                         itemsHtml += `
                             <div class="summary-item">
                                 <div class="d-flex justify-content-between mb-1">
-                                    <strong>${itemName}</strong>
-                                    <span>₱${subtotal.toFixed(2)}</span>
+                                    <strong style="color: var(--dark-autumn);">${itemName}</strong>
+                                    <span style="color: var(--autumn-primary); font-weight: 700;">₱${subtotal.toFixed(2)}</span>
                                 </div>
-                                <small class="text-muted">${quantity} × ₱${price.toFixed(2)}</small>
+                                <small style="color: var(--pale-autumn);">${quantity} × ₱${price.toFixed(2)}</small>
                             </div>
                         `;
                     } else {
@@ -414,10 +400,10 @@
                     submitBtn.disabled = false;
                 } else {
                     summaryItems.innerHTML = `
-                        <p class="text-muted text-center py-4">
-                            <i class="bi bi-cart-x" style="font-size: 2rem;"></i>
-                            <br>No items selected
-                        </p>
+                        <div class="empty-cart">
+                            <i class="bi bi-cart-x d-block"></i>
+                            <p class="mb-0">No items selected</p>
+                        </div>
                     `;
                     submitBtn.disabled = true;
                 }
@@ -485,7 +471,7 @@
                     @endif
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -495,15 +481,14 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const modalElement = document.getElementById('errorModal');
-            const errorModal = new bootstrap.Modal(modalElement);
-            errorModal.show();
-            
-            modalElement.addEventListener('hidden.bs.modal', function () {
-                document.body.classList.remove('modal-open');
-                document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
-            });
+            if (modalElement) {
+                const errorModal = new bootstrap.Modal(modalElement);
+                errorModal.show();
+            }
         });
     </script>
     @endif
-</body>
-</html>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+@endsection
