@@ -48,15 +48,15 @@
 </div>
 
 <style>
-    /* Modal Styles - Autumn Café Theme */
+    /* Modal Styles - Autumn Café Brown Theme */
     .modal-backdrop {
-        background-color: rgba(59, 47, 47, 0.6);
+        background-color: rgba(53, 45, 29, 0.65);
     }
     
     .modal-content {
         border-radius: 20px;
         border: none;
-        box-shadow: 0 15px 50px rgba(188, 82, 39, 0.3);
+        box-shadow: 0 15px 50px rgba(107, 86, 53, 0.4);
         overflow: hidden;
         animation: modalSlideIn 0.3s ease-out;
     }
@@ -98,6 +98,18 @@
         background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%) !important;
     }
 
+    .modal-header.bg-warning {
+        background: linear-gradient(135deg, #f39c12 0%, #d68910 100%) !important;
+    }
+
+    .modal-header.bg-info {
+        background: linear-gradient(135deg, #3498db 0%, #2980b9 100%) !important;
+    }
+
+    .modal-header.bg-primary {
+        background: linear-gradient(135deg, #8b6f47 0%, #6b5635 100%) !important;
+    }
+
     .modal-title {
         font-weight: 700;
         font-size: 1.4rem;
@@ -125,8 +137,8 @@
 
     .modal-body {
         padding: 2rem 2rem 1.5rem 2rem;
-        color: #3b2f2f;
-        background: linear-gradient(to bottom, #ffffff 0%, #fff9f3 100%);
+        color: #352b1d;
+        background: linear-gradient(to bottom, #ffffff 0%, #faf8f6 100%);
         font-size: 1.05rem;
         line-height: 1.6;
     }
@@ -143,10 +155,15 @@
         margin-bottom: 0.5rem;
     }
 
+    .modal-body strong {
+        color: #6b5635;
+        font-weight: 700;
+    }
+
     .modal-footer {
-        border-top: 2px solid #f5e7d0;
+        border-top: 2px solid #e8ddd2;
         padding: 1.5rem 2rem;
-        background: linear-gradient(to bottom, #fff3e2 0%, #f5e7d0 100%);
+        background: linear-gradient(to bottom, #f5f0eb 0%, #e8ddd2 100%);
         border-radius: 0 0 20px 20px;
     }
 
@@ -183,6 +200,28 @@
         transform: translateY(-2px);
     }
 
+    .modal-footer .btn-primary {
+        background: linear-gradient(135deg, #8b6f47 0%, #6b5635 100%);
+        box-shadow: 0 4px 15px rgba(139, 111, 71, 0.3);
+    }
+
+    .modal-footer .btn-primary:hover {
+        background: linear-gradient(135deg, #6b5635 0%, #4a3d28 100%);
+        box-shadow: 0 6px 20px rgba(139, 111, 71, 0.4);
+        transform: translateY(-2px);
+    }
+
+    .modal-footer .btn-secondary {
+        background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+        box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+    }
+
+    .modal-footer .btn-secondary:hover {
+        background: linear-gradient(135deg, #5a6268 0%, #494f54 100%);
+        box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+        transform: translateY(-2px);
+    }
+
     .btn-close {
         filter: brightness(0) invert(1);
         opacity: 0.8;
@@ -205,6 +244,10 @@
 
         .modal-title {
             font-size: 1.2rem;
+        }
+
+        .modal-title i {
+            font-size: 1.4rem;
         }
 
         .modal-footer .btn {

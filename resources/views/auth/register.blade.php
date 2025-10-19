@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <style>
     :root {
-      /* Monochromatic Brown Palette */
       --brown-50: #faf8f6;
       --brown-100: #f5f0eb;
       --brown-200: #e8ddd2;
@@ -22,7 +21,7 @@
     }
     
     body { 
-      background: linear-gradient(135deg, var(--brown-50) 0%, var(--brown-100) 100%);
+      background: linear-gradient(135deg, var(--brown-500) 0%, var(--brown-600) 50%, var(--brown-700) 100%);
       height: 100vh;
       display: flex;
       align-items: center;
@@ -36,7 +35,7 @@
       max-width: 400px;
       width: 90%;
       background: white;
-      border-radius: 20px;
+      border-radius: 30px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
       overflow: hidden;
       max-height: 95vh;
@@ -45,7 +44,7 @@
     }
     
     .auth-header {
-      background: linear-gradient(135deg, var(--brown-600) 0%, var(--brown-700) 100%);
+      background: linear-gradient(135deg, var(--brown-800) 0%, var(--brown-900) 100%);
       color: white;
       padding: 1.5rem;
       text-align: center;
@@ -56,17 +55,19 @@
       padding: 1.2rem 1.5rem;
       overflow-y: auto;
       flex: 1;
+      background-color: var(--brown-100) !important;
     }
     
     .btn-primary {
-      background: linear-gradient(135deg, var(--brown-500) 0%, var(--brown-600) 100%);
+      background: linear-gradient(135deg, var(--brown-700) 0%, var(--brown-800) 100%);
       border: none;
       padding: 10px;
       font-weight: 600;
+      border-radius: 20px;
     }
     
     .btn-primary:hover {
-      background: linear-gradient(135deg, var(--brown-600) 0%, var(--brown-700) 100%);
+      background: linear-gradient(135deg, var(--brown-800) 0%, var(--brown-900) 100%);
       transform: translateY(-2px);
     }
     
@@ -94,11 +95,14 @@
     .form-control {
       padding: 0.6rem 0.75rem;
       font-size: 0.9rem;
+      border-radius: 20px;
     }
     
     .form-label {
       font-size: 0.85rem;
       margin-bottom: 0.3rem;
+      color: var(--brown-900) !important;
+      font-weight: 500 !important;
     }
     
     .mb-3 {
@@ -113,6 +117,7 @@
       padding: 0 1.5rem 1.2rem;
       text-align: center;
       flex-shrink: 0;
+      background-color: var(--brown-100) !important; 
     }
     
     .divider {
@@ -130,12 +135,15 @@
     .btn-outline-secondary {
       color: var(--brown-600);
       border-color: var(--brown-300);
+      border-radius: 20px;
+      border: 2px solid var(--brown-600) !important;
+      font-weight: 500;
     }
     
     .btn-outline-secondary:hover {
-      background-color: var(--brown-100);
-      border-color: var(--brown-400);
-      color: var(--brown-700);
+      background-color: var(--brown-500);
+      border-color: var(--brown-700);
+      color: white;
     }
     
     .alert {

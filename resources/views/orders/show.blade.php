@@ -50,11 +50,13 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
             min-height: 100vh;
             padding: 2rem 0;
-            color: var(--autumn-brown);
+            color: var(--brown-900);
+            font-size: 16px;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
         }
         
         /* Improved navbar styling with better spacing and typography */
@@ -92,48 +94,63 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.75rem 1.25rem !important;
+            padding: 0.9rem 1.5rem !important;
             margin-bottom: 2rem !important;
-            border-radius: 8px !important;
-            background-color: var(--dark-autumn) !important;
+            border-radius: 12px !important;
+            background-color: var(--brown-600) !important;
             color: white !important;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             transition: all 0.25s ease;
             text-decoration: none;
             border: none;
             cursor: pointer;
+            box-shadow: 0 4px 12px rgba(107, 86, 53, 0.3);
         }
         
         .back-btn:hover {
-            background-color: #6d3319 !important;
+            background-color: var(--brown-700) !important;
             transform: translateX(-2px);
-            box-shadow: 0 4px 12px rgba(145, 68, 32, 0.25);
+            box-shadow: 0 6px 16px rgba(107, 86, 53, 0.4);
+        }
+        
+        .back-btn i {
+            font-size: 1.2rem;
         }
         
         /* Redesigned order header with better visual hierarchy */
         .order-header {
-            background: linear-gradient(135deg, var(--autumn-orange) 0%, var(--autumn-light-orange) 100%);
+            background: linear-gradient(135deg, var(--brown-600) 0%, var(--brown-700) 100%);
             color: white;
-            padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(230, 126, 34, 0.2);
-            margin-bottom: 2.5rem;
+            padding: 3rem 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(107, 86, 53, 0.35);
+            margin-bottom: 3rem;
         }
         
         .order-header h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
             letter-spacing: -0.5px;
+        }
+
+        .order-header h1 i {
+            font-size: 2.2rem;
+            margin-right: 0.5rem;
         }
         
         .order-header .order-date {
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             opacity: 0.95;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .order-header .order-date i {
+            font-size: 1.2rem;
         }
         
         .order-header-right {
@@ -146,94 +163,101 @@
         /* Improved info cards with better spacing and borders */
         .order-info-card {
             background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            margin-bottom: 1.5rem;
-            border-left: 5px solid var(--soft-apricot);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 6px 25px rgba(107, 86, 53, 0.12);
+            margin-bottom: 2rem;
+            border-left: 6px solid var(--brown-500);
             transition: all 0.25s ease;
         }
         
         .order-info-card:hover {
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 8px 35px rgba(107, 86, 53, 0.18);
+            transform: translateY(-3px);
         }
         
         .order-info-card h4 {
-            color: var(--pale-autumn);
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
+            color: var(--brown-700);
+            font-weight: 800;
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
             display: flex;
             align-items: center;
             gap: 0.75rem;
         }
         
         .order-info-card h4 i {
-            font-size: 1.3rem;
+            font-size: 1.6rem;
+            color: var(--brown-600);
         }
         
         /* Better info label and value styling */
         .info-label {
-            color: var(--soft-apricot);
-            font-weight: 700;
-            font-size: 0.8rem;
+            color: var(--brown-500);
+            font-weight: 800;
+            font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.6rem;
             display: block;
         }
         
         .info-value {
-            color: var(--pale-autumn);
-            font-weight: 600;
-            font-size: 1.05rem;
-            margin-bottom: 1.5rem;
+            color: var(--brown-900);
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 1.75rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
+            line-height: 1.4;
         }
         
         .info-value i {
-            color: var(--pale-autumn);
-            opacity: 0.8;
+            color: var(--brown-600);
+            font-size: 1.3rem;
         }
         
         .info-value small {
             display: block;
-            margin-left: 1.75rem;
-            font-size: 0.85rem;
-            color: var(--autumn-brown);
-            opacity: 0.8;
-            margin-top: 0.25rem;
+            margin-left: 1.9rem;
+            font-size: 1rem;
+            color: var(--brown-700);
+            opacity: 0.9;
+            margin-top: 0.3rem;
+            font-weight: 500;
         }
         
         /* Enhanced items table styling */
         .items-table {
             background: white;
-            border-radius: 12px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            border-top: 5px solid var(--dusty-rose);
+            box-shadow: 0 6px 25px rgba(107, 86, 53, 0.15);
+            border-top: 6px solid var(--brown-600);
         }
         
         .items-table thead {
-            background: linear-gradient(135deg, var(--autumn-orange) 0%, var(--autumn-light-orange) 100%);
+            background: linear-gradient(135deg, var(--brown-600) 0%, var(--brown-700) 100%);
             color: white;
         }
         
         .items-table th {
-            padding: 1.25rem;
-            font-weight: 700;
+            padding: 1.5rem 1.5rem;
+            font-weight: 800;
             border: none;
-            font-size: 0.95rem;
-            letter-spacing: 0.3px;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
         
         .items-table td {
-            padding: 1.25rem;
+            padding: 1.5rem 1.5rem;
             vertical-align: middle;
-            border-bottom: 1px solid #f5f0eb;
-            font-size: 0.95rem;
+            border-bottom: 2px solid var(--brown-100);
+            font-size: 1.1rem;
+            color: var(--brown-900);
+            font-weight: 500;
         }
         
         .items-table tbody tr:last-child td {
@@ -241,124 +265,152 @@
         }
         
         .items-table tbody tr:hover {
-            background-color: #faf7f3;
+            background-color: var(--brown-50);
         }
         
         /* Improved total row styling */
         .total-row {
-            background: linear-gradient(135deg, #FFF9F3 0%, #FFE8D6 100%);
-            font-weight: 700;
-            color: var(--autumn-brown);
+            background: linear-gradient(135deg, var(--brown-200) 0%, var(--brown-300) 100%);
+            font-weight: 800;
+            color: var(--brown-900);
         }
         
         .total-row td {
-            padding: 1.5rem 1.25rem;
-            border-top: 2px solid #f0e8df;
+            padding: 2rem 1.5rem;
+            border-top: 3px solid var(--brown-500);
+            font-size: 1.1rem;
         }
         
         .total-cost-label {
-            color: var(--pale-autumn);
-            font-size: 1rem;
+            color: var(--brown-800);
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+
+        .total-cost-label i {
+            font-size: 1.3rem;
+            margin-right: 0.5rem;
         }
         
         .total-cost-value {
-            font-size: 1.4rem;
-            color: var(--autumn-orange);
+            font-size: 1.8rem;
+            color: var(--brown-900);
+            font-weight: 900;
         }
         
         /* Better item image styling */
         .item-image {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-            border: 2px solid #f5f0eb;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border: 3px solid var(--brown-100);
         }
         
         .item-placeholder {
-            width: 70px;
-            height: 70px;
-            border-radius: 8px;
-            background: linear-gradient(135deg, #f5e7d0 0%, #f2c198 100%);
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--brown-200) 0%, var(--brown-300) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid #f0e8df;
+            border: 3px solid var(--brown-200);
+        }
+
+        .item-placeholder i {
+            font-size: 2rem;
+            color: var(--brown-600);
         }
         
         .item-name {
-            font-weight: 600;
-            color: var(--autumn-brown);
-            margin-bottom: 0.25rem;
+            font-weight: 700;
+            color: var(--brown-900);
+            margin-bottom: 0.4rem;
+            font-size: 1.15rem;
         }
         
         .item-category {
-            font-size: 0.85rem;
-            color: var(--soft-apricot);
+            font-size: 1rem;
+            color: var(--brown-600);
+            font-weight: 500;
         }
         
         /* Improved status badge styling */
         .status-badge {
-            padding: 0.6rem 1.2rem;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.85rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 1rem;
             display: inline-block;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         
         .status-pending {
             background: #FFF3CD;
             color: #856404;
+            border: 2px solid #FFE69C;
         }
         
         .status-paid {
             background: #D1ECF1;
             color: #0C5460;
+            border: 2px solid #BEE5EB;
         }
         
         .status-completed {
             background: #D4EDDA;
             color: #155724;
+            border: 2px solid #C3E6CB;
         }
         
         .status-cancelled {
             background: #F8D7DA;
             color: #721C24;
+            border: 2px solid #F5C6CB;
         }
         
         /* Enhanced action buttons with better styling */
         .action-buttons {
             display: flex;
-            gap: 1rem;
+            gap: 1.25rem;
             justify-content: center;
-            margin-top: 2.5rem;
+            margin-top: 3rem;
             flex-wrap: wrap;
         }
         
         .action-buttons .btn {
-            padding: 0.85rem 2rem;
-            border-radius: 8px;
-            font-weight: 700;
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 800;
             transition: all 0.25s ease;
             border: none;
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
             cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .action-buttons .btn i {
+            font-size: 1.2rem;
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, var(--autumn-orange) 0%, var(--autumn-light-orange) 100%);
+            background: linear-gradient(135deg, var(--brown-500) 0%, var(--brown-600) 100%);
             color: white;
         }
         
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(230, 126, 34, 0.3);
+            box-shadow: 0 6px 16px rgba(139, 111, 71, 0.4);
+            background: linear-gradient(135deg, var(--brown-600) 0%, var(--brown-700) 100%);
             color: white;
         }
         
@@ -398,54 +450,92 @@
         /* Improved modal styling */
         .modal-content {
             border: none;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            border-radius: 16px;
+            box-shadow: 0 15px 50px rgba(107, 86, 53, 0.4);
+            overflow: hidden;
         }
         
         .modal-header {
-            border-bottom: 2px solid #f5f0eb;
-            padding: 1.5rem;
+            border-bottom: none;
+            padding: 1.75rem 2rem 1rem 2rem;
+            position: relative;
+        }
+
+        .modal-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 2rem;
+            right: 2rem;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
         }
         
         .modal-header.bg-danger {
             background: linear-gradient(135deg, #E74C3C 0%, #C0392B 100%) !important;
         }
+
+        .modal-title {
+            font-weight: 700;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .modal-title i {
+            font-size: 1.5rem;
+        }
         
         .modal-body {
             padding: 2rem;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            color: var(--brown-800);
+            background: linear-gradient(to bottom, #ffffff 0%, #faf8f6 100%);
+            line-height: 1.6;
         }
         
         .modal-footer {
-            border-top: 1px solid #f5f0eb;
-            padding: 1.5rem;
+            border-top: 2px solid var(--brown-200);
+            padding: 1.5rem 2rem;
             gap: 0.75rem;
+            background: linear-gradient(to bottom, #f5f0eb 0%, #e8ddd2 100%);
+        }
+
+        .modal-footer .btn {
+            border-radius: 10px;
+            padding: 0.7rem 1.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
         }
         
         .form-label {
             font-weight: 700;
-            color: var(--autumn-brown);
+            color: var(--brown-800);
             margin-bottom: 0.75rem;
             font-size: 0.95rem;
         }
         
         .form-select {
-            border: 2px solid #f0e8df;
-            border-radius: 8px;
+            border: 2px solid var(--brown-200);
+            border-radius: 10px;
             padding: 0.75rem 1rem;
             font-size: 0.95rem;
             transition: all 0.25s ease;
+            color: var(--brown-800);
         }
         
         .form-select:focus {
-            border-color: var(--autumn-orange);
-            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
+            border-color: var(--brown-500);
+            box-shadow: 0 0 0 3px rgba(139, 111, 71, 0.15);
         }
         
         /* Decorative elements with better positioning */
         .autumn-decoration {
             position: fixed;
-            opacity: 0.08;
+            opacity: 0.05;
             pointer-events: none;
             z-index: 0;
         }
@@ -454,7 +544,7 @@
             top: 100px;
             left: 50px;
             font-size: 80px;
-            color: var(--autumn-orange);
+            color: var(--brown-500);
             transform: rotate(20deg);
         }
         
@@ -462,7 +552,7 @@
             bottom: 100px;
             right: 50px;
             font-size: 100px;
-            color: var(--autumn-light-orange);
+            color: var(--brown-400);
             transform: rotate(-30deg);
         }
         
@@ -588,9 +678,9 @@
                                 </div>
                             </div>
                         @endif
-                    @else
-                        <p style="color: var(--soft-apricot); font-weight: 600;">
-                            <i class="bi bi-person-dash"></i> Walk-in Customer
+                        @else
+                        <p style="color: var(--brown-600); font-weight: 600; font-size: 1.1rem;">
+                            <i class="bi bi-person-dash" style="font-size: 1.2rem; margin-right: 0.5rem;"></i> Walk-in Customer
                         </p>
                     @endif
                 </div>
@@ -622,7 +712,7 @@
                     
                     <div>
                         <span class="info-label">Total Cost</span>
-                        <div class="info-value" style="font-size: 1.3rem; color: var(--autumn-orange); font-weight: 700;">
+                        <div class="info-value" style="font-size: 1.5rem; color: var(--brown-900); font-weight: 900;">
                             <i class="bi bi-currency-dollar"></i>
                             ₱{{ number_format($order->total_amount, 2) }}
                         </div>
@@ -631,10 +721,10 @@
             </div>
         </div>
 
-        <!-- Order Items -->
+        /* Order Items */
         <div class="mt-4">
-            <h4 style="color: var(--dark-autumn); font-weight: 700; margin-bottom: 1.5rem;">
-                <i class="bi bi-cart3"></i> Items Ordered
+            <h4 style="color: var(--brown-800); font-weight: 800; margin-bottom: 2rem; font-size: 1.5rem;">
+                <i class="bi bi-cart3" style="font-size: 1.6rem; margin-right: 0.5rem;"></i> Items Ordered
             </h4>
             
             <div class="items-table">
@@ -658,7 +748,7 @@
                                                  class="item-image">
                                         @else
                                             <div class="item-placeholder">
-                                                <i class="bi bi-cup-straw" style="font-size: 1.5rem; color: var(--pale-autumn);"></i>
+                                                <i class="bi bi-cup-straw"></i>
                                             </div>
                                         @endif
                                         <div>
@@ -669,12 +759,12 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>₱{{ number_format($item->unit_price, 2) }}</td>
+                                <td><strong style="font-size: 1.15rem;">₱{{ number_format($item->unit_price, 2) }}</strong></td>
                                 <td class="text-center">
-                                    <span class="badge bg-secondary" style="padding: 0.5rem 0.75rem;">{{ $item->quantity }}</span>
+                                    <span class="badge" style="background: var(--brown-600); color: white; padding: 0.6rem 1rem; font-size: 1.05rem; font-weight: 700;">{{ $item->quantity }}</span>
                                 </td>
                                 <td class="text-end">
-                                    <strong>₱{{ number_format($item->subtotal, 2) }}</strong>
+                                    <strong style="font-size: 1.2rem; color: var(--brown-900);">₱{{ number_format($item->subtotal, 2) }}</strong>
                                 </td>
                             </tr>
                         @endforeach
@@ -719,7 +809,7 @@
     <div class="modal fade" id="statusModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header" style="background: linear-gradient(135deg, var(--autumn-orange) 0%, var(--autumn-light-orange) 100%); color: white;">
+                <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title">
                         <i class="bi bi-pencil-square"></i> Update Order Status
                     </h5>

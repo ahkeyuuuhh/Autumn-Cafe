@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <style>
     :root {
-      /* Monochromatic Brown Palette */
       --brown-50: #faf8f6;
       --brown-100: #f5f0eb;
       --brown-200: #e8ddd2;
@@ -22,7 +21,7 @@
     }
     
     body { 
-      background: linear-gradient(135deg, var(--brown-50) 0%, var(--brown-100) 100%);
+      background: linear-gradient(135deg, var(--brown-700) 0%, var(--brown-800) 50%, var(--brown-900) 100%);
       height: 100vh;
       display: flex;
       align-items: center;
@@ -36,7 +35,7 @@
       max-width: 400px;
       width: 90%;
       background: white;
-      border-radius: 20px;
+      border-radius: 30px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
       overflow: hidden;
     }
@@ -50,6 +49,7 @@
     
     .auth-body {
       padding: 1.5rem 1.5rem;
+      background-color: var(--brown-100) !important;
     }
     
     .btn-primary {
@@ -57,6 +57,7 @@
       border: none;
       padding: 10px;
       font-weight: 600;
+      border-radius: 20px;
     }
     
     .btn-primary:hover {
@@ -88,11 +89,14 @@
     .form-control {
       padding: 0.6rem 0.75rem;
       font-size: 0.95rem;
+      border-radius: 20px;
     }
     
     .form-label {
       font-size: 0.9rem;
       margin-bottom: 0.4rem;
+      color: var(--brown-700) !important;
+      font-weight: 500 !important; 
     }
     
     .mb-3 {
@@ -102,6 +106,7 @@
     .auth-footer {
       padding: 0 1.5rem 1.5rem;
       text-align: center;
+      background-color: var(--brown-100) !important;
     }
     
     .divider {
@@ -120,6 +125,7 @@
     .btn-outline-secondary {
       color: var(--brown-600);
       border-color: var(--brown-300);
+      border-radius: 20px;
     }
     
     .btn-outline-secondary:hover {

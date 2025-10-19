@@ -135,6 +135,16 @@
         font-weight: 600;
     }
 
+    .stock-badge.low-stock {
+        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        color: #92400e;
+    }
+
+    .stock-badge.out-of-stock {
+        background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
+        color: #991b1b;
+    }
+
     .quantity-input {
         width: 80px;
         text-align: center;
@@ -146,6 +156,54 @@
     .quantity-input:focus {
         border-color: var(--pale-autumn);
         box-shadow: 0 0 0 0.2rem rgba(217, 139, 76, 0.25);
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+        .menu-item-card .row {
+            flex-direction: column;
+        }
+
+        .menu-item-card .col-md-6,
+        .menu-item-card .col-md-2 {
+            width: 100%;
+            margin-bottom: 0.75rem;
+            text-align: left !important;
+        }
+
+        .menu-item-card .col-md-2:last-child {
+            text-align: center !important;
+        }
+
+        .stock-badge {
+            display: inline-block;
+        }
+
+        .quantity-input {
+            width: 100%;
+            max-width: 200px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .menu-item-card {
+            padding: 0.75rem;
+        }
+
+        .menu-item-image {
+            width: 50px;
+            height: 50px;
+        }
+
+        .stock-badge {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+        }
+
+        .category-badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+        }
     }
 
     .order-summary {
@@ -285,8 +343,8 @@
                         <div id="menuItemsContainer">
                             @foreach($menuItems as $item)
                                 <div class="menu-item-card" data-item-id="{{ $item->id }}" data-price="{{ $item->price }}" data-stock="{{ $item->stock }}">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-6">
+                                    <div class="row align-items-center g-3">
+                                        <div class="col-md-6 col-12">
                                             <div class="d-flex align-items-center">
                                                 @if($item->image)
                                                     <img src="{{ $item->image_url }}" alt="{{ $item->name }}" class="menu-item-image me-3">
@@ -302,20 +360,42 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-2 text-center">
+                                        <div class="col-md-2 col-6 text-md-center">
+                                            <div class="d-md-none">
+                                                <small style="color: var(--pale-autumn); font-weight: 600;">Price:</small>
+                                            </div>
                                             <strong style="color: var(--autumn-primary);">₱{{ number_format($item->price, 2) }}</strong>
                                         </div>
-                                        <div class="col-md-2 text-center">
-                                            <span class="stock-badge">Stock: {{ $item->stock }}</span>
+                                        <div class="col-md-2 col-6 text-md-center">
+                                            <div class="d-md-none">
+                                                <small style="color: var(--pale-autumn); font-weight: 600;">Available:</small>
+                                            </div>
+                                            @php
+                                                $stockClass = '';
+                                                if ($item->stock <= 0) {
+                                                    $stockClass = 'out-of-stock';
+                                                } elseif ($item->stock <= 5) {
+                                                    $stockClass = 'low-stock';
+                                                }
+                                            @endphp
+                                            <span class="stock-badge {{ $stockClass }}">
+                                                <i class="bi bi-box-seam"></i> {{ $item->stock }}
+                                            </span>
                                         </div>
-                                        <div class="col-md-2 text-end">
-                                            <input type="number" 
-                                                   class="form-control quantity-input" 
-                                                   min="0" 
-                                                   max="{{ $item->stock }}" 
-                                                   value="0"
-                                                   data-item-id="{{ $item->id }}"
-                                                   placeholder="Qty">
+                                        <div class="col-md-2 col-12 text-md-end text-center">
+                                            @if($item->stock > 0)
+                                                <input type="number" 
+                                                       class="form-control quantity-input" 
+                                                       min="0" 
+                                                       max="{{ $item->stock }}" 
+                                                       value="0"
+                                                       data-item-id="{{ $item->id }}"
+                                                       placeholder="Qty">
+                                            @else
+                                                <button class="btn btn-sm btn-secondary" disabled style="border-radius: 8px; padding: 0.5rem 1rem;">
+                                                    <i class="bi bi-x-circle"></i> Out of Stock
+                                                </button>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

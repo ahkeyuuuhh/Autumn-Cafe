@@ -229,7 +229,6 @@
 
 <style>
      :root {
-      /* Monochromatic Brown Palette */
       --brown-50: #faf8f6;
       --brown-100: #f5f0eb;
       --brown-200: #e8ddd2;
@@ -240,20 +239,9 @@
       --brown-700: #4a3d28;
       --brown-800: #352b1d;
       --brown-900: #1f1710;
-      
-      /* Semantic naming for easy replacement */
-      --beige: #d4c4b5;
-      --pale-autumn: #b8a08a;
-      --autumn-primary: #8b6f47;
-      --dark-autumn: #6b5635;
-      --green-brown: #6b5635;
-      --dark-brown: #352b1d;
-      --light: #faf8f6;
-      --light-beige: #f5f0eb;
-      --soft-apricot: #e8ddd2;
-      --dusty-rose: #d4c4b5;
-      --light-coral: #b8a08a;
-      --warm-cream: #faf8f6;
+    }
+    body {
+        background-color: var(--brown-100) !important;
     }
     .hover-card {
         transition: all 0.3s ease;
@@ -280,17 +268,17 @@
     .welcome-header {
         position: relative;
         overflow: hidden;
-        background-color: var(--beige);
+        background-color: var(--brown-300);
         border: 2px dashed var(--dark-autumn) !important;
         border-radius: 20px !important;
     }
 
     .welcome-header p {
-        color: var(--pale-autumn) !important;
+        color: var(--brown-500) !important;
         font-weight: 500 !important; 
     }
     .welcome-header small {
-        color: var(--dark-brown) !important;
+        color: var(--brown-700) !important;
         font-weight: 400 !important;
     }
     .welcome-header::before {
@@ -312,29 +300,29 @@
         transform: rotate(15deg);
     }
     .stat-card {
-        background-color: var(--warm-cream) !important;
+        background-color: var(--brown-300) !important;
         border-radius: 20px !important;
-        border-top: 8px solid var(--dusty-rose) !important;
+        border-top: 8px solid var(--brown-600) !important;
     }
     .stat-card p{
-        color: var(--dusty-rose) !important;
+        color: var(--brown-500) !important;
         font-weight: 500 !important;
     }
     .stat-card h2 {
-        color: var(--soft-apricot) !important;
+        color: var(--brown-500) !important;
     }
     .stat-icon {
-        background-color: #e7b7a133 !important;
+        background-color: #e7b7a14a !important;
         border-radius: 20px !important;
     }
     .stat-icon i {
-        color: var(--soft-apricot) !important;
+        color: var(--brown-500) !important;
     }
     .stat-card small {
-        color: var(--dusty-rose) !important;
+        color: var(--brown-500) !important;
     }
     .quick-action-card {
-        background-color: var(--warm-cream) !important;
+        background-color: var(--brown-200) !important;
         border-radius: 20px !important;
     }
     .quick-action-card-title {
@@ -343,15 +331,15 @@
     .manage-menu-card a{
         border-radius: 20px !important;
         border: none !important;
-        border-left: 8px solid var(--pale-autumn) !important;
-        background-color: var(--soft-apricot) !important;
+        border-left: 8px solid var(--brown-500) !important;
+        background-color: var(--brown-400) !important;
     }
     .manage-menu-card i,
     .manage-menu-card span  {
         color: white !important;
     }
     .manage-menu-card a:hover{
-        background-color: var(--pale-autumn) !important;
+        background-color: var(--brown-500) !important;
     }
     .manage-menu-card a:hover i,
     .manage-menu-card a:hover span {
@@ -360,15 +348,15 @@
     .new-order-card a {
         border-radius: 20px !important;
         border: none !important;
-        border-left: 8px solid var(--dark-autumn) !important;
-        background-color: var(--pale-autumn) !important;
+        border-left: 8px solid var(--brown-500) !important;
+        background-color: var(--brown-400) !important;
     }
     .new-order-card i,
     .new-order-card span{
         color: white !important;
     }
     .new-order-card a:hover {
-        background-color: var(--dark-autumn) !important;
+        background-color: var(--brown-500) !important;
     }
     .new-order-card a:hover i,
     .new-order-card a:hover span {
@@ -377,15 +365,16 @@
     .view-transactions-card a {
         background-color: var(--dusty-rose) !important;
         border-radius: 20px !important;
-        border: none !important;
-        border-left: 8px solid var(--light-coral) !important;
+        border: none;
+        border-left: 8px solid var(--brown-500) !important;
+        background-color: var(--brown-400) !important;
     }
     .view-transactions-card i,
      .view-transactions-card span {
         color: white !important;
     }
     .view-transactions-card a:hover {
-        background-color: var(--light-coral) !important
+        background-color: var(--brown-500) !important;
     }
     .view-transactions-card a:hover i,
     .view-transactions-card a:hover span {
@@ -393,16 +382,17 @@
     }
     .manage-customers-card a {
         background-color: var(--autumn-primary) !important;
+        border:none;
         border-radius: 20px !important;
-        border: none !important;
-        border-left: 8px solid var(--dark-autumn) !important;
+        border-left: 8px solid var(--brown-500) !important;
+        background-color: var(--brown-400) !important;
     }
     .manage-customers-card i,
     .manage-customers-card span {
         color: white !important;
     }
     .manage-customers-card a:hover {
-        background-color: var(--dark-autumn) !important;
+        background-color: var(--brown-500) !important;
     }
     .manage-customers-card a:hover i,
     .manage-customers-card a:hover span {
@@ -411,7 +401,7 @@
     .overview-card {
         background-color: var(--light) !important;
         border-radius: 20px !important;
-        border-top: 8px solid var(--dusty-rose) !important;
+        border-top: 8px solid var(--brown-300) !important;
     }
     .overview-card-title {
         color: var(--pale-autumn) !important;
@@ -434,7 +424,7 @@
     .recent-orders-card {
         background-color: var(--light) !important;
         border-radius: 20px !important;
-        border-top: 8px solid var(--soft-apricot) !important;
+        border-top: 8px solid var(--brown-400) !important;
     }
     .recent-orders-card-title {
         color: var(--pale-autumn) !important;

@@ -55,33 +55,45 @@
     .status-pending {
         background: linear-gradient(135deg, #ffc107 0%, #ffb300 100%);
         color: white;
-        padding: 0.5rem 1.5rem;
-        border-radius: 15px;
-        font-weight: 600;
+        padding: 0.6rem 1.5rem;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        box-shadow: 0 3px 10px rgba(255, 193, 7, 0.3);
+        letter-spacing: 0.3px;
     }
 
     .status-completed {
         background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
         color: white;
-        padding: 0.5rem 1.5rem;
-        border-radius: 15px;
-        font-weight: 600;
+        padding: 0.6rem 1.5rem;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
+        letter-spacing: 0.3px;
     }
 
     .status-cancelled {
         background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
         color: white;
-        padding: 0.5rem 1.5rem;
-        border-radius: 15px;
-        font-weight: 600;
+        padding: 0.6rem 1.5rem;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        box-shadow: 0 3px 10px rgba(220, 53, 69, 0.3);
+        letter-spacing: 0.3px;
     }
 
     .status-paid {
         background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
         color: white;
-        padding: 0.5rem 1.5rem;
-        border-radius: 15px;
-        font-weight: 600;
+        padding: 0.6rem 1.5rem;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        box-shadow: 0 3px 10px rgba(23, 162, 184, 0.3);
+        letter-spacing: 0.3px;
     }
 
     .info-card {
@@ -327,22 +339,22 @@
                             </p>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="info-label">Status</label>
-                            <p>
+                            <label class="info-label">Order Status</label>
+                            <p class="info-value mt-2">
                                 @if($order->status === 'pending')
-                                    <span class="status-pending">
+                                    <span class="status-pending" style="display: inline-block;">
                                         <i class="bi bi-clock-history"></i> Pending
                                     </span>
                                 @elseif($order->status === 'paid')
-                                    <span class="status-paid">
+                                    <span class="status-paid" style="display: inline-block;">
                                         <i class="bi bi-credit-card"></i> Paid
                                     </span>
                                 @elseif($order->status === 'completed')
-                                    <span class="status-completed">
+                                    <span class="status-completed" style="display: inline-block;">
                                         <i class="bi bi-check-circle-fill"></i> Completed
                                     </span>
                                 @else
-                                    <span class="status-cancelled">
+                                    <span class="status-cancelled" style="display: inline-block;">
                                         <i class="bi bi-x-circle-fill"></i> Cancelled
                                     </span>
                                 @endif

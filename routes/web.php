@@ -55,6 +55,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('customers', App\Http\Controllers\CustomerController::class)->except(['show']);
     Route::resource('orders', App\Http\Controllers\OrderController::class);
     
+    // Order details API endpoint for modal
+    Route::get('orders/{order}/details', [App\Http\Controllers\OrderController::class, 'getDetails'])->name('orders.details');
+    Route::get('orders/{order}/print', [App\Http\Controllers\OrderController::class, 'print'])->name('orders.print');
+    
     // Transaction routes
     Route::get('transactions', [App\Http\Controllers\TransactionController::class, 'index'])->name('transactions.index');
     Route::get('transactions/{order}', [App\Http\Controllers\TransactionController::class, 'show'])->name('transactions.show');

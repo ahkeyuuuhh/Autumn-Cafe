@@ -33,7 +33,7 @@
     .transactions-header {
         position: relative;
         overflow: hidden;
-        background-color: var(--beige);
+        background-color: var(--brown-400);
         border: 2px dashed var(--dark-autumn) !important;
         border-radius: 20px !important;
         padding: 30px;
@@ -61,13 +61,13 @@
     }
 
     .transactions-header h1 {
-        color: var(--dark-autumn) !important;
+        color: var(--brown-700) !important;
         position: relative;
         z-index: 1;
     }
 
     .transactions-header .lead {
-        color: var(--pale-autumn) !important;
+        color: var(--brown-600) !important;
         font-weight: 500;
         position: relative;
         z-index: 1;
@@ -76,7 +76,7 @@
     .stat-card {
         background-color: var(--warm-cream) !important;
         border-radius: 20px !important;
-        border-top: 8px solid var(--dusty-rose) !important;
+        border-top: 8px solid var(--brown-500) !important;
         transition: all 0.3s ease;
         border-left: 4px solid transparent;
     }
@@ -88,12 +88,12 @@
     }
 
     .stat-card p {
-        color: var(--dusty-rose) !important;
+        color: var(--brown-400) !important;
         font-weight: 500 !important;
     }
 
     .stat-card h3, .stat-card h4 {
-        color: var(--soft-apricot) !important;
+        color: var(--brown-600) !important;
     }
 
     .stat-icon {
@@ -107,7 +107,7 @@
     }
 
     .stat-icon i {
-        color: var(--soft-apricot) !important;
+        color: var(--brown-600) !important;
     }
 
     .stat-card small {

@@ -113,6 +113,24 @@ class OrderController extends Controller
     }
 
     /**
+     * Get order details as JSON for modal display
+     */
+    public function getDetails(Order $order)
+    {
+        $order->load(['customer', 'items.menuItem']);
+        return response()->json($order);
+    }
+
+    /**
+     * Print order receipt
+     */
+    public function print(Order $order)
+    {
+        $order->load(['customer', 'items.menuItem']);
+        return view('orders.print', compact('order'));
+    }
+
+    /**
      * Show the form for editing the specified order
      */
     public function edit(Order $order)
