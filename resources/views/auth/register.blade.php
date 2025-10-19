@@ -8,68 +8,140 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <style>
     :root {
-      --primary: #E67E22;
-      --bg: #FFF9F3;
-      --nav: #3B2F2F;
+      /* Monochromatic Brown Palette */
+      --brown-50: #faf8f6;
+      --brown-100: #f5f0eb;
+      --brown-200: #e8ddd2;
+      --brown-300: #d4c4b5;
+      --brown-400: #b8a08a;
+      --brown-500: #8b6f47;
+      --brown-600: #6b5635;
+      --brown-700: #4a3d28;
+      --brown-800: #352b1d;
+      --brown-900: #1f1710;
     }
+    
     body { 
-      background: linear-gradient(135deg, #FFF9F3 0%, #FFE8D6 100%);
-      min-height: 100vh;
+      background: linear-gradient(135deg, var(--brown-50) 0%, var(--brown-100) 100%);
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
     }
+    
     .auth-card {
-      max-width: 450px;
-      width: 100%;
+      max-width: 400px;
+      width: 90%;
       background: white;
       border-radius: 20px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
       overflow: hidden;
+      max-height: 95vh;
+      display: flex;
+      flex-direction: column;
     }
+    
     .auth-header {
-      background: linear-gradient(135deg, #E67E22 0%, #D35400 100%);
+      background: linear-gradient(135deg, var(--brown-600) 0%, var(--brown-700) 100%);
       color: white;
-      padding: 40px 30px;
+      padding: 1.5rem;
       text-align: center;
+      flex-shrink: 0;
     }
+    
     .auth-body {
-      padding: 40px 30px;
+      padding: 1.2rem 1.5rem;
+      overflow-y: auto;
+      flex: 1;
     }
+    
     .btn-primary {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--brown-500) 0%, var(--brown-600) 100%);
       border: none;
-      padding: 12px;
+      padding: 10px;
       font-weight: 600;
     }
+    
     .btn-primary:hover {
-      background: #D35400;
+      background: linear-gradient(135deg, var(--brown-600) 0%, var(--brown-700) 100%);
+      transform: translateY(-2px);
     }
+    
     .form-control:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 0.2rem rgba(230, 126, 34, 0.25);
+      border-color: var(--brown-500);
+      box-shadow: 0 0 0 0.2rem rgba(139, 111, 71, 0.25);
     }
+    
     .autumn-icon {
-      font-size: 3rem;
-      margin-bottom: 10px;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
     }
-    .divider {
-      display: flex;
-      align-items: center;
-      text-align: center;
-      margin: 20px 0;
+    
+    .auth-header h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
     }
-    .divider::before,
-    .divider::after {
-      content: '';
-      flex: 1;
-      border-bottom: 1px solid #ddd;
-    }
-    .divider span {
-      padding: 0 10px;
-      color: #999;
+    
+    .auth-header p {
       font-size: 0.9rem;
+      margin: 0;
+      opacity: 0.9;
+    }
+    
+    .form-control {
+      padding: 0.6rem 0.75rem;
+      font-size: 0.9rem;
+    }
+    
+    .form-label {
+      font-size: 0.85rem;
+      margin-bottom: 0.3rem;
+    }
+    
+    .mb-3 {
+      margin-bottom: 0.8rem !important;
+    }
+    
+    .mb-4 {
+      margin-bottom: 1rem !important;
+    }
+    
+    .auth-footer {
+      padding: 0 1.5rem 1.2rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    
+    .divider {
+      margin: 0.8rem 0;
+    }
+    
+    .divider span {
+      font-size: 0.85rem;
+    }
+    
+    small.text-muted {
+      font-size: 0.75rem;
+    }
+    
+    .btn-outline-secondary {
+      color: var(--brown-600);
+      border-color: var(--brown-300);
+    }
+    
+    .btn-outline-secondary:hover {
+      background-color: var(--brown-100);
+      border-color: var(--brown-400);
+      color: var(--brown-700);
+    }
+    
+    .alert {
+      padding: 0.6rem;
+      font-size: 0.85rem;
+      margin-bottom: 0.8rem;
     }
   </style>
 </head>
@@ -174,8 +246,8 @@
       </form>
     </div>
 
-    <div class="text-center pb-4">
-      <small class="text-muted">🍂 Autumn Café Admin Portal 🍂</small>
+    <div class="auth-footer">
+      <small class="text-muted">🍂 Autumn Café Admin 🍂</small>
     </div>
   </div>
 

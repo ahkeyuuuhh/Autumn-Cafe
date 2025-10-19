@@ -81,11 +81,24 @@
 
 <style>
     :root {
-        --autumn-primary: #D2691E;
-        --autumn-secondary: #8B4513;
-        --autumn-accent: #CD853F;
-        --autumn-light: #F4A460;
-        --autumn-dark: #654321;
+        /* Monochromatic Brown Palette */
+        --brown-50: #faf8f6;
+        --brown-100: #f5f0eb;
+        --brown-200: #e8ddd2;
+        --brown-300: #d4c4b5;
+        --brown-400: #b8a08a;
+        --brown-500: #8b6f47;
+        --brown-600: #6b5635;
+        --brown-700: #4a3d28;
+        --brown-800: #352b1d;
+        --brown-900: #1f1710;
+        
+        /* Legacy naming */
+        --autumn-primary: #8b6f47;
+        --autumn-secondary: #6b5635;
+        --autumn-accent: #b8a08a;
+        --autumn-light: #d4c4b5;
+        --autumn-dark: #352b1d;
     }
 
     .navbar {

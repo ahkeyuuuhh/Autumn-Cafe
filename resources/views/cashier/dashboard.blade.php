@@ -8,15 +8,28 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         :root {
-            --autumn-primary: #D2691E;
-            --autumn-secondary: #8B4513;
-            --autumn-accent: #CD853F;
-            --autumn-light: #F4A460;
-            --autumn-dark: #654321;
+            /* Monochromatic Brown Palette */
+            --brown-50: #faf8f6;
+            --brown-100: #f5f0eb;
+            --brown-200: #e8ddd2;
+            --brown-300: #d4c4b5;
+            --brown-400: #b8a08a;
+            --brown-500: #8b6f47;
+            --brown-600: #6b5635;
+            --brown-700: #4a3d28;
+            --brown-800: #352b1d;
+            --brown-900: #1f1710;
+            
+            /* Legacy naming */
+            --autumn-primary: #8b6f47;
+            --autumn-secondary: #6b5635;
+            --autumn-accent: #b8a08a;
+            --autumn-light: #d4c4b5;
+            --autumn-dark: #352b1d;
         }
         
         body {
-            background-color: #f8f9fa;
+            background-color: #faf8f6;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
@@ -44,7 +57,7 @@
         }
         
         .stats-card.pending {
-            background: linear-gradient(135deg, #FFA726 0%, #FB8C00 100%);
+            background: linear-gradient(135deg, #b8a08a 0%, #8b6f47 100%);
             color: white;
         }
         

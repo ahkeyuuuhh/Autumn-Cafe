@@ -1,23 +1,47 @@
 <!-- Customer Navigation Component -->
 <style>
     :root {
-        --beige: #dec3a6;
-        --pale-autumn: #d98b4c;
-        --autumn-primary: #bc5227;
-        --dark-autumn: #914420;
-        --soft-apricot: #f2c198;
-        --dusty-rose: #e7b7a1;
-        --warm-cream: #fff3e2;
-        --light-beige: #f5e7d0;
+        /* Monochromatic Brown Palette */
+        --brown-50: #faf8f6;
+        --brown-100: #f5f0eb;
+        --brown-200: #e8ddd2;
+        --brown-300: #d4c4b5;
+        --brown-400: #b8a08a;
+        --brown-500: #8b6f47;
+        --brown-600: #6b5635;
+        --brown-700: #4a3d28;
+        --brown-800: #352b1d;
+        --brown-900: #1f1710;
+        
+        /* Semantic naming for easy replacement */
+        --beige: #d4c4b5;
+        --pale-autumn: #b8a08a;
+        --autumn-primary: #8b6f47;
+        --dark-autumn: #6b5635;
+        --soft-apricot: #e8ddd2;
+        --dusty-rose: #d4c4b5;
+        --warm-cream: #faf8f6;
+        --light-beige: #f5f0eb;
     }
 
     .customer-navbar {
         background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--dark-autumn) 100%);
-        box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.15);
         padding: 1rem 0;
-        position: sticky;
-        top: 0;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 40px);
+        max-width: 1400px;
         z-index: 1000;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+    }
+    
+    /* Add body padding to prevent content from hiding under fixed navbar */
+    body {
+        padding-top: 100px;
     }
 
     .customer-navbar .navbar-brand {

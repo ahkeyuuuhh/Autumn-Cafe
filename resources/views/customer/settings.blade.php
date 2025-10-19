@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/autumn-theme.css') }}">
     <style>
         body {
-            background: linear-gradient(135deg, #FFF9F3 0%, #FFE8D6 100%);
+            background: linear-gradient(135deg, #faf8f6 0%, #f5f0eb 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
         }

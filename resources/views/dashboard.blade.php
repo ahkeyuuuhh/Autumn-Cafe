@@ -4,7 +4,7 @@
 <div class="container-fluid py-4">
     <!-- HEADER -->
     <div class="welcome-header text-center mb-5 py-5 rounded-4 shadow-sm">
-        <h1 class="display-4 fw-bold mb-2" style="color: #8B4513;">
+        <h1 class="display-4 fw-bold mb-2" style="color: #6b5635;">
             <i class="bi bi-cup-hot-fill"></i> Welcome to Autumn Café Dashboard
         </h1>
         <p class="lead text-muted mb-0">☕ Managing your cozy café with warmth and efficiency</p>
@@ -229,18 +229,31 @@
 
 <style>
      :root {
-      --beige: #dec3a6;
-      --pale-autumn: #d98b4c;
-      --autumn-primary: #bc5227;
-      --dark-autumn: #914420;
-      --green-brown: #914420;
-      --dark-brown: #352011;
-      --light: #faf3e9ff;
-      --light-beige: #f5e7d0;
-      --soft-apricot: #f2c198;
-      --dusty-rose: #e7b7a1;
-      --light-coral: #f08080;
-      --warm-cream:#fff3e2;
+      /* Monochromatic Brown Palette */
+      --brown-50: #faf8f6;
+      --brown-100: #f5f0eb;
+      --brown-200: #e8ddd2;
+      --brown-300: #d4c4b5;
+      --brown-400: #b8a08a;
+      --brown-500: #8b6f47;
+      --brown-600: #6b5635;
+      --brown-700: #4a3d28;
+      --brown-800: #352b1d;
+      --brown-900: #1f1710;
+      
+      /* Semantic naming for easy replacement */
+      --beige: #d4c4b5;
+      --pale-autumn: #b8a08a;
+      --autumn-primary: #8b6f47;
+      --dark-autumn: #6b5635;
+      --green-brown: #6b5635;
+      --dark-brown: #352b1d;
+      --light: #faf8f6;
+      --light-beige: #f5f0eb;
+      --soft-apricot: #e8ddd2;
+      --dusty-rose: #d4c4b5;
+      --light-coral: #b8a08a;
+      --warm-cream: #faf8f6;
     }
     .hover-card {
         transition: all 0.3s ease;

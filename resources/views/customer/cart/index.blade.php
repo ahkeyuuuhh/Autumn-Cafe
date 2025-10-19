@@ -8,20 +8,33 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         :root {
-            --autumn-orange: #E67E22;
-            --autumn-cream: #FFF9F3;
-            --autumn-brown: #3B2F2F;
-            --autumn-light-orange: #F39C12;
+            /* Monochromatic Brown Palette */
+            --brown-50: #faf8f6;
+            --brown-100: #f5f0eb;
+            --brown-200: #e8ddd2;
+            --brown-300: #d4c4b5;
+            --brown-400: #b8a08a;
+            --brown-500: #8b6f47;
+            --brown-600: #6b5635;
+            --brown-700: #4a3d28;
+            --brown-800: #352b1d;
+            --brown-900: #1f1710;
+            
+            /* Legacy naming */
+            --autumn-orange: #8b6f47;
+            --autumn-cream: #faf8f6;
+            --autumn-brown: #352b1d;
+            --autumn-light-orange: #b8a08a;
         }
         
         body {
-            background: linear-gradient(135deg, #FFF9F3 0%, #FFE8D6 100%);
+            background: linear-gradient(135deg, #faf8f6 0%, #f5f0eb 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
         }
         
         .navbar {
-            background: linear-gradient(135deg, var(--autumn-brown) 0%, #2C1810 100%);
+            background: linear-gradient(135deg, var(--brown-700) 0%, var(--brown-800) 100%);
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         

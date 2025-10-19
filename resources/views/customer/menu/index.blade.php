@@ -8,18 +8,31 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         :root {
-            --beige: #dec3a6;
-            --pale-autumn: #d98b4c;
-            --autumn-primary: #bc5227;
-            --dark-autumn: #914420;
-            --green-brown: #914420;
-            --dark-brown: #352011;
-            --light: #faf3e9ff;
-            --light-beige: #f5e7d0;
-            --soft-apricot: #f2c198;
-            --dusty-rose: #e7b7a1;
-            --light-coral: #f08080;
-            --warm-cream: #fff3e2;
+            /* Monochromatic Brown Palette */
+            --brown-50: #faf8f6;
+            --brown-100: #f5f0eb;
+            --brown-200: #e8ddd2;
+            --brown-300: #d4c4b5;
+            --brown-400: #b8a08a;
+            --brown-500: #8b6f47;
+            --brown-600: #6b5635;
+            --brown-700: #4a3d28;
+            --brown-800: #352b1d;
+            --brown-900: #1f1710;
+            
+            /* Semantic naming for easy replacement */
+            --beige: #d4c4b5;
+            --pale-autumn: #b8a08a;
+            --autumn-primary: #8b6f47;
+            --dark-autumn: #6b5635;
+            --green-brown: #6b5635;
+            --dark-brown: #352b1d;
+            --light: #faf8f6;
+            --light-beige: #f5f0eb;
+            --soft-apricot: #e8ddd2;
+            --dusty-rose: #d4c4b5;
+            --light-coral: #b8a08a;
+            --warm-cream: #faf8f6;
         }
         
         * {
@@ -609,11 +622,11 @@
 <body>
     @include('components.customer-nav')
 
-    <!-- Hero Section -->
-    <div class="hero-section">
+    <!-- Hero Section with Cafe Image -->
+    <div class="hero-section" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2047&auto=format&fit=crop') center/cover; min-height: 400px; display: flex; align-items: center; justify-content: center;">
         <div class="main-container">
-            <h1>🍂 Welcome to Autumn Café 🍁</h1>
-            <p>Discover our delicious menu and order your favorites!</p>
+            <h1 style="text-shadow: 0 4px 20px rgba(0,0,0,0.5);">🍂 Welcome to Autumn Café 🍁</h1>
+            <p style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">Discover our delicious menu and order your favorites!</p>
         </div>
     </div>
 
@@ -656,6 +669,15 @@
                         @foreach($categories as $cat)
                             <a href="{{ route('customer.menu', ['category' => $cat, 'search' => request('search')]) }}" 
                                class="category-pill {{ request('category') == $cat ? 'active' : '' }}">
+                                @if($cat == 'Pastries')
+                                    🥖
+                                @elseif($cat == 'Desserts')
+                                    🧁
+                                @elseif($cat == 'Coffee')
+                                    ☕
+                                @elseif($cat == 'Beverages')
+                                    🥤
+                                @endif
                                 {{ $cat }}
                             </a>
                         @endforeach
@@ -679,7 +701,18 @@
         @forelse($menuItems as $category => $items)
             <div class="category-section">
                 <h2 class="category-title">
-                    <i class="bi bi-cup-straw"></i> {{ $category }}
+                    @if($category == 'Pastries')
+                        🥖
+                    @elseif($category == 'Desserts')
+                        🧁
+                    @elseif($category == 'Coffee')
+                        ☕
+                    @elseif($category == 'Beverages')
+                        🥤
+                    @else
+                        <i class="bi bi-cup-straw"></i>
+                    @endif
+                    {{ $category }}
                 </h2>
                 
                 <div class="menu-grid">

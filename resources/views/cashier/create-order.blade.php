@@ -8,14 +8,27 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         :root {
-            --autumn-primary: #bc5227;
-            --dark-autumn: #914420;
-            --autumn-accent: #d98b4c;
-            --warm-cream: #fff3e2;
+            /* Monochromatic Brown Palette */
+            --brown-50: #faf8f6;
+            --brown-100: #f5f0eb;
+            --brown-200: #e8ddd2;
+            --brown-300: #d4c4b5;
+            --brown-400: #b8a08a;
+            --brown-500: #8b6f47;
+            --brown-600: #6b5635;
+            --brown-700: #4a3d28;
+            --brown-800: #352b1d;
+            --brown-900: #1f1710;
+            
+            /* Legacy naming */
+            --autumn-primary: #8b6f47;
+            --dark-autumn: #6b5635;
+            --autumn-accent: #b8a08a;
+            --warm-cream: #faf8f6;
         }
         
         body {
-            background: linear-gradient(135deg, #FFF9F3 0%, #FFE8D6 100%);
+            background: linear-gradient(135deg, #faf8f6 0%, #f5f0eb 100%);
             min-height: 100vh;
         }
         
