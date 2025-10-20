@@ -129,6 +129,19 @@
         font-weight: 600;
     }
 
+    .search-box {
+        border: 2px solid var(--beige);
+        border-radius: 15px;
+        padding: 0.75rem 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .search-box:focus {
+        border-color: var(--pale-autumn);
+        box-shadow: 0 0 0 0.2rem rgba(217, 139, 76, 0.25);
+        outline: none;
+    }
+
     .form-control, .form-select {
         border: 2px solid var(--light-beige);
         border-radius: 12px;
@@ -371,14 +384,10 @@
                     </label>
                     <input type="text" 
                            name="search" 
-                           class="form-control" 
-                           placeholder="Search by Order ID, Customer Name or Email..."
+                           class="form-control search-box" 
+                           placeholder="🔍 Search by Order ID, Customer Name or Email..."
                            value="{{ request('search') }}"
                            title="Examples: Type '5' for Order #5, 'John' for customer names, or 'gmail.com' for emails">
-                    <small style="color: var(--pale-autumn);">
-                        <i class="bi bi-info-circle"></i> 
-                        Try: Order # (e.g., "5"), Name (e.g., "John"), or Email
-                    </small>
                 </div>
                 <div class="col-md-2">
                     <label class="form-label small">

@@ -12,7 +12,7 @@ class UpdateCustomerRequest extends FormRequest
     public function authorize(): bool
     {
         // Only authenticated admin users can update customers
-        return session()->has('user_id');
+        return \Illuminate\Support\Facades\Auth::check();
     }
 
     /**

@@ -42,7 +42,7 @@
         }
         
         body {
-            background: var(--light);
+            background: var(--brown-300) !important;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             min-height: 100vh;
             color: var(--dark-brown);
@@ -103,53 +103,12 @@
             box-shadow: 0 2px 8px rgba(188, 82, 39, 0.3);
         }
         
-        /* Hero section redesigned with better spacing and typography */
-        .hero-section {
-            background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--dark-autumn) 100%);
-            color: white;
-            padding: 80px 0;
-            text-align: center;
-            margin-bottom: 60px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 50%);
-            pointer-events: none;
-        }
-        
-        .hero-section h1 {
-            font-size: 3.2rem;
-            font-weight: 800;
-            margin-bottom: 12px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            position: relative;
-            z-index: 1;
-            letter-spacing: -0.5px;
-        }
-
-        .hero-section p {
-            font-size: 1.2rem;
-            font-weight: 400;
-            opacity: 0.95;
-            position: relative;
-            z-index: 1;
-            letter-spacing: 0.2px;
-        }
-        
         /* Main container with better padding and spacing */
         .main-container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
+            margin-top: 10rem !important;
         }
         
         /* Search and filter section redesigned with cleaner layout */
@@ -157,6 +116,7 @@
             background: white;
             border-radius: 20px;
             padding: 40px;
+            margin-top: 3rem !important;
             margin-bottom: 60px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.08);
             border: 1px solid rgba(188, 82, 39, 0.06);
@@ -621,15 +581,6 @@
 </head>
 <body>
     @include('components.customer-nav')
-
-    <!-- Hero Section with Cafe Image -->
-    <div class="hero-section" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2047&auto=format&fit=crop') center/cover; min-height: 400px; display: flex; align-items: center; justify-content: center;">
-        <div class="main-container">
-            <h1 style="text-shadow: 0 4px 20px rgba(0,0,0,0.5);">🍂 Welcome to Autumn Café 🍁</h1>
-            <p style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">Discover our delicious menu and order your favorites!</p>
-        </div>
-    </div>
-
     <!-- Main Content -->
     <div class="container pb-5">
         <!-- Search and Filter Section -->
@@ -719,7 +670,7 @@
                     @foreach($items as $item)
                         <div class="menu-card">
                             @if($item->image)
-                                <img src="{{ $item->image_url }}" alt="{{ $item->name }}" class="menu-image">
+                                <img src="{{ $item->image_url }}" alt="{{ $item->name }}" class="menu-image img-fluid" style="width:100%; max-width:320px; height:auto!important; object-fit:contain!important; display:block; margin:0 auto;">
                             @else
                                 <div class="menu-image bg-light d-flex align-items-center justify-content-center">
                                     <i class="bi bi-cup-straw" style="font-size: 3.5rem; color: #ddd;"></i>

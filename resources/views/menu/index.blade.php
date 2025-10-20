@@ -331,7 +331,7 @@
                             </thead>
                             <tbody>
                                 @foreach($menuItems as $item)
-                                <tr>
+                                <tr class="menu-item-row" data-category="{{ $item->category ?? 'Other' }}">
                                     <td><img src="{{ $item->image_url }}" class="img-thumbnail" style="width:60px;height:60px;object-fit:cover;"></td>
                                     <td class="fw-semibold">{{ $item->name }}</td>
                                     <td><span class="badge bg-secondary">{{ $item->category ?? '-' }}</span></td>
@@ -420,15 +420,25 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('.category-tab');
-    const contents = document.querySelectorAll('.category-content');
+    const rows = document.querySelectorAll('.menu-item-row');
 
     tabs.forEach(tab => {
         tab.addEventListener('click', function() {
-            const category = this.dataset.category;
+            const selectedCategory = this.dataset.category;
+            
+            // Update active tab
             tabs.forEach(t => t.classList.remove('active'));
-            contents.forEach(c => c.classList.remove('active'));
             this.classList.add('active');
-            document.querySelector(`[data-category-content="${category}"]`)?.classList.add('active');
+            
+            // Filter rows based on category
+            rows.forEach(row => {
+                const rowCategory = row.dataset.category;
+                if (selectedCategory === 'all' || rowCategory === selectedCategory) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
         });
     });
 });

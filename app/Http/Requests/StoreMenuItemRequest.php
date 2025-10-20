@@ -12,7 +12,7 @@ class StoreMenuItemRequest extends FormRequest
     public function authorize(): bool
     {
         // Only authenticated admin users can create menu items
-        return session()->has('user_id');
+        return \Illuminate\Support\Facades\Auth::check();
     }
 
     /**
@@ -47,7 +47,7 @@ class StoreMenuItemRequest extends FormRequest
                 'nullable',
                 'string',
                 'max:100',
-                'in:Coffee,Tea,Pastries,Snacks,Beverages,Desserts,Other', // Whitelist categories
+                'in:Coffee,Tea,Pastries,Sandwiches,Beverages,Desserts,Other', // Whitelist categories
             ],
             'stock' => [
                 'required',
