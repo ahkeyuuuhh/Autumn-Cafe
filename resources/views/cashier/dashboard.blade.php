@@ -1,37 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cashier Dashboard - Autumn Café</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <style>
-        :root {
-            /* Monochromatic Brown Palette */
-            --brown-50: #faf8f6;
-            --brown-100: #f5f0eb;
-            --brown-200: #e8ddd2;
-            --brown-300: #d4c4b5;
-            --brown-400: #b8a08a;
-            --brown-500: #8b6f47;
-            --brown-600: #6b5635;
-            --brown-700: #4a3d28;
-            --brown-800: #352b1d;
-            --brown-900: #1f1710;
-            
-            /* Legacy naming */
-            --autumn-primary: #8b6f47;
-            --autumn-secondary: #6b5635;
-            --autumn-accent: #b8a08a;
-            --autumn-light: #d4c4b5;
-            --autumn-dark: #352b1d;
-        }
-        
-        body {
-            background-color: #faf8f6;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+@extends('layouts.cashier')
+
+@section('title', 'Cashier Dashboard')
+
+@section('styles')
+<style>
+    .welcome-header {
+        background: linear-gradient(135deg, var(--warm-cream) 0%, var(--light-beige) 100%);
+        border: 3px dashed var(--beige);
+        position: relative;
+        overflow: hidden;
+        padding: 50px;
+        margin-bottom: 30px;
+        border-radius: 20px;
+        animation: slideInDown 0.6s ease-out;
+    }
+    
+    .welcome-header::before {
+        content: '\F284';
+        font-family: 'bootstrap-icons';
+        position: absolute;
+        font-size: 8rem;
+        opacity: 0.1;
+        right: 2rem;
+        top: -1rem;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .welcome-header::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 25% 25%, rgba(139, 111, 71, 0.03) 2px, transparent 2px),
+            radial-gradient(circle at 75% 75%, rgba(139, 111, 71, 0.03) 2px, transparent 2px);
+        background-size: 50px 50px;
+        pointer-events: none;
+    }
+    
+    .welcome-header h1 {
+        color: var(--dark-autumn);
+        font-weight: 800;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        animation: fadeInUp 0.8s ease-out 0.2s both;
+        position: relative;
+        z-index: 1;
+    }
+
+    .welcome-header p {
+        animation: fadeInUp 0.8s ease-out 0.4s both;
+        position: relative;
+        z-index: 1;
+    }
         
         .navbar {
             background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--autumn-secondary) 100%);
@@ -76,123 +98,370 @@
             font-weight: 700;
             margin: 10px 0;
         }
-        
-        .stats-card i {
-            opacity: 0.9;
-        }
-        
-        .table-container {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-            margin-bottom: 30px;
-        }
-        
-        .table-container h4 {
-            color: var(--autumn-secondary);
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-        
-        .table {
-            margin-bottom: 0;
-        }
-        
-        .table thead {
-            background-color: #f8f9fa;
-            border-bottom: 2px solid var(--autumn-light);
-        }
-        
-        .table thead th {
-            color: var(--autumn-dark);
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
-            padding: 12px 15px;
-        }
-        
-        .table tbody tr {
-            border-bottom: 1px solid #f1f1f1;
-            transition: background-color 0.2s ease;
-        }
-        
-        .table tbody tr:hover {
-            background-color: #f8f9fa;
-        }
-        
-        .table tbody td {
-            padding: 15px;
-            vertical-align: middle;
-        }
-        
-        .badge-status {
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--autumn-secondary) 100%);
-            border: none;
-            border-radius: 8px;
-            padding: 8px 20px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(210, 105, 30, 0.4);
-        }
-        
-        .btn-success {
-            background: linear-gradient(135deg, #43A047 0%, #2E7D32 100%);
-            border: none;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-success:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(67, 160, 71, 0.4);
-        }
-        
-        .modal-content {
-            border-radius: 15px;
-            border: none;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        }
-        
-        .modal-header {
-            border-bottom: none;
-            border-radius: 15px 15px 0 0;
-            padding: 20px 25px;
-        }
-        
-        .modal-body {
-            padding: 25px;
-        }
-        
-        .modal-footer {
-            border-top: none;
-            padding: 20px 25px;
-        }
-        
-        .alert {
-            border-radius: 10px;
-            border: none;
-        }
-    </style>
-</head>
-<body>
-    @include('components.cashier-nav')
+    
+    .stats-card {
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        border: none;
+        position: relative;
+        overflow: hidden;
+        animation: scaleIn 0.5s ease-out backwards;
+    }
 
-    <div class="container-fluid py-4">
-        <!-- Stats Cards -->
+    .stats-card:nth-child(1) { animation-delay: 0.1s; }
+    .stats-card:nth-child(2) { animation-delay: 0.2s; }
+    .stats-card:nth-child(3) { animation-delay: 0.3s; }
+
+    .stats-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+            radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+        background-size: 30px 30px, 40px 40px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .stats-card:hover::before {
+        opacity: 1;
+    }
+
+    .stats-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+    }
+
+    .stats-card h3 {
+        transition: transform 0.3s ease;
+    }
+
+    .stats-card:hover h3 {
+        transform: scale(1.1);
+    }
+    
+    .stats-card.pending {
+        background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+        border-top: 4px solid var(--autumn-primary);
+    }
+
+    .stats-card.pending h3 {
+        color: var(--autumn-primary);
+    }
+
+    .stats-card.pending i {
+        color: var(--autumn-primary);
+    }
+    
+    .stats-card.revenue {
+        background: linear-gradient(135deg, #E8DDD2 0%, #D4C4B5 100%);
+        border-top: 4px solid var(--dark-autumn);
+    }
+
+    .stats-card.revenue h3 {
+        color: var(--dark-autumn);
+    }
+
+    .stats-card.revenue i {
+        color: var(--dark-autumn);
+    }
+    
+    .stats-card.completed {
+        background: linear-gradient(135deg, #F5F0EB 0%, #E8DDD2 100%);
+        border-top: 4px solid var(--pale-autumn);
+    }
+
+    .stats-card.completed h3 {
+        color: var(--pale-autumn);
+    }
+
+    .stats-card.completed i {
+        color: var(--pale-autumn);
+    }
+    
+    .stats-card h3 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 10px 0;
+    }
+    
+    .stats-card i {
+        opacity: 0.9;
+    }
+    
+    .table-container {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+        border-top: 8px solid var(--pale-autumn);
+        animation: fadeInUp 0.6s ease-out 0.5s backwards;
+    }
+
+    .table-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 15% 30%, rgba(139, 111, 71, 0.02) 2px, transparent 2px),
+            radial-gradient(circle at 85% 70%, rgba(139, 111, 71, 0.02) 2px, transparent 2px);
+        background-size: 60px 60px, 70px 70px;
+        pointer-events: none;
+        border-radius: 20px;
+    }
+    
+    .table-container h4 {
+        color: var(--autumn-secondary);
+        font-weight: 700;
+        margin-bottom: 25px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .table {
+        margin-bottom: 0;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .table thead {
+        background: linear-gradient(135deg, var(--light-beige) 0%, var(--warm-cream) 100%);
+        border-bottom: 2px solid var(--autumn-light);
+        position: relative;
+    }
+
+    .table thead::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(139, 111, 71, 0.02) 10px,
+                rgba(139, 111, 71, 0.02) 20px
+            );
+        pointer-events: none;
+    }
+    
+    .table thead th {
+        color: var(--autumn-dark);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+        padding: 15px;
+        position: relative;
+    }
+    
+    .table tbody tr {
+        border-bottom: 1px solid #f1f1f1;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .table tbody tr:hover {
+        background: linear-gradient(90deg, var(--warm-cream) 0%, transparent 100%);
+        transform: translateX(5px);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    .table tbody td {
+        padding: 15px;
+        vertical-align: middle;
+    }
+    
+    .badge-status {
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .badge-status::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .badge-status:hover::before {
+        left: 100%;
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--autumn-secondary) 100%);
+        border: none;
+        border-radius: 10px;
+        padding: 10px 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-primary::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    .btn-primary:hover::before {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(139, 111, 71, 0.5);
+    }
+
+    .btn-primary:active {
+        transform: translateY(-1px);
+    }
+    
+    .btn-success {
+        background: linear-gradient(135deg, var(--pale-autumn) 0%, var(--autumn-primary) 100%);
+        border: none;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        color: white;
+    }
+
+    .btn-success::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    .btn-success:hover::before {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .btn-success:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(139, 111, 71, 0.4);
+    }
+
+    /* Animations */
+    @keyframes slideInDown {
+        from {
+            transform: translateY(-30px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes scaleIn {
+        from {
+            transform: scale(0.9);
+            opacity: 0;
+        }
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-15px) rotate(5deg); }
+    }
+    
+    .modal-content {
+        border-radius: 20px;
+        border: none;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+    
+    .modal-header {
+        border-bottom: none;
+        border-radius: 20px 20px 0 0;
+        padding: 25px 30px;
+    }
+    
+    .modal-body {
+        padding: 30px;
+    }
+    
+    .modal-footer {
+        border-top: none;
+        padding: 20px 30px;
+    }
+    
+    .alert {
+        border-radius: 10px;
+        border: none;
+    }
+</style>
+@endsection
+
+@section('content')
+<!-- Page Header -->
+<div class="welcome-header">
+    <h1 class="mb-2">
+        <i class="bi bi-cash-register"></i> Cashier Dashboard
+    </h1>
+    <p class="lead text-muted mb-0">Process orders and manage transactions efficiently</p>
+</div>
+
+<!-- Stats Cards -->
         <div class="row">
             <div class="col-md-4">
                 <div class="stats-card pending">
@@ -221,7 +490,7 @@
         <div class="table-container">
             <h4 class="mb-3">
                 <i class="bi bi-clock-history me-2"></i>Pending Orders
-                <span class="badge bg-warning text-dark ms-2">{{ $pendingOrders->count() }}</span>
+                <span class="badge text-dark ms-2" style="background-color: var(--pale-autumn);">{{ $pendingOrders->count() }}</span>
             </h4>
             @if($pendingOrders->count() > 0)
                 <div class="table-responsive">
@@ -246,7 +515,7 @@
                                             {{ $order->items->count() }} item(s)
                                         </small>
                                     </td>
-                                    <td><strong class="text-success">₱{{ number_format($order->total_amount, 2) }}</strong></td>
+                                    <td><strong style="color: var(--dark-autumn);">₱{{ number_format($order->total_amount, 2) }}</strong></td>
                                     <td>
                                         <small>{{ $order->ordered_at->format('M d, Y') }}</small><br>
                                         <small class="text-muted">{{ $order->ordered_at->format('h:i A') }}</small>
@@ -572,6 +841,93 @@
         }
         
         startAutoRefresh();
+
+        // Enhanced interactivity - Ripple effects on buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.btn-primary, .btn-success, .btn-secondary');
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s ease-out';
+                    ripple.style.pointerEvents = 'none';
+                    
+                    this.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 600);
+                });
+            });
+
+            // Add ripple animation
+            if (!document.getElementById('ripple-animation')) {
+                const style = document.createElement('style');
+                style.id = 'ripple-animation';
+                style.textContent = `
+                    @keyframes ripple {
+                        to {
+                            transform: scale(2);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            // Scroll-triggered animations for table rows
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.animation = 'fadeInUp 0.5s ease-out forwards';
+                            entry.target.style.opacity = '1';
+                        }, index * 50);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.table tbody tr').forEach(row => {
+                row.style.opacity = '0';
+                observer.observe(row);
+            });
+
+            // 3D tilt effect for stat cards
+            const statCards = document.querySelectorAll('.stats-card');
+            statCards.forEach(card => {
+                card.addEventListener('mousemove', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+                    
+                    this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+                });
+            });
+        });
     </script>
-</body>
-</html>
+@endsection

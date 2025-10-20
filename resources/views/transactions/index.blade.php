@@ -41,7 +41,8 @@
     }
 
     .transactions-header::before {
-        content: '🧾';
+        content: '\F4C0';
+        font-family: 'bootstrap-icons';
         position: absolute;
         top: -20px;
         left: -20px;
@@ -51,7 +52,8 @@
     }
 
     .transactions-header::after {
-        content: '💰';
+        content: '\F332';
+        font-family: 'bootstrap-icons';
         position: absolute;
         bottom: -20px;
         right: -20px;

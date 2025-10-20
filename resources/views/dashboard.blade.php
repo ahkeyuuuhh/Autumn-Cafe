@@ -282,7 +282,8 @@
         font-weight: 400 !important;
     }
     .welcome-header::before {
-        content: '🍂';
+        content: '\F563';
+        font-family: 'bootstrap-icons';
         position: absolute;
         top: -20px;
         left: -20px;
@@ -291,7 +292,8 @@
         transform: rotate(-15deg);
     }
     .welcome-header::after {
-        content: '☕';
+        content: '\F284';
+        font-family: 'bootstrap-icons';
         position: absolute;
         bottom: -20px;
         right: -20px;

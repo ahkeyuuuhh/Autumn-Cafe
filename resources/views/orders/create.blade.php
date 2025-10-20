@@ -37,7 +37,8 @@
     }
 
     .order-header::before {
-        content: '🛒';
+        content: '\F5E4';
+        font-family: 'bootstrap-icons';
         position: absolute;
         font-size: 6rem;
         opacity: 0.1;

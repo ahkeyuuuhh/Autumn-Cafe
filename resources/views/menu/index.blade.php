@@ -45,7 +45,8 @@
     }
 
     .menu-header::before {
-        content: '☕';
+        content: '\F284';
+        font-family: 'bootstrap-icons';
         position: absolute;
         font-size: 6rem;
         opacity: 0.1;

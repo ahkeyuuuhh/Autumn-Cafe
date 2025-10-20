@@ -9,35 +9,100 @@
         border: 3px dashed var(--beige);
         position: relative;
         overflow: hidden;
+        padding: 50px;
+        animation: slideInDown 0.6s ease-out;
     }
     
     .welcome-header::before {
-        content: '☕';
+        content: '\F284';
+        font-family: 'bootstrap-icons';
         position: absolute;
         font-size: 8rem;
         opacity: 0.1;
         right: 2rem;
         top: -1rem;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    /* Coffee bean texture overlay for header */
+    .welcome-header::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 25% 25%, rgba(139, 111, 71, 0.03) 2px, transparent 2px),
+            radial-gradient(circle at 75% 75%, rgba(139, 111, 71, 0.03) 2px, transparent 2px);
+        background-size: 50px 50px;
+        pointer-events: none;
     }
     
     .welcome-header h1 {
         color: var(--dark-autumn);
+        font-weight: 800;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    .welcome-header p {
+        animation: fadeInUp 0.8s ease-out 0.4s both;
     }
     
     .stat-card {
         border-top: 4px solid;
+        position: relative;
+        overflow: hidden;
+        animation: scaleIn 0.5s ease-out backwards;
+    }
+
+    .stat-card:nth-child(1) { animation-delay: 0.1s; }
+    .stat-card:nth-child(2) { animation-delay: 0.2s; }
+    .stat-card:nth-child(3) { animation-delay: 0.3s; }
+
+    /* Texture overlay for stat cards */
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+            radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+        background-size: 30px 30px, 40px 40px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .stat-card:hover::before {
+        opacity: 1;
     }
     
     .stat-card.pending {
-        border-top-color: #FFA726;
+        border-top-color: var(--autumn-primary);
+        background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
     }
     
     .stat-card.revenue {
-        border-top-color: #66BB6A;
+        border-top-color: var(--dark-autumn);
+        background: linear-gradient(135deg, #E8DDD2 0%, #D4C4B5 100%);
     }
     
     .stat-card.completed {
-        border-top-color: #42A5F5;
+        border-top-color: var(--pale-autumn);
+        background: linear-gradient(135deg, #F5F0EB 0%, #E8DDD2 100%);
+    }
+
+    .stat-card h2 {
+        transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover h2 {
+        transform: scale(1.1);
     }
     
     .orders-card {
@@ -47,10 +112,48 @@
         border-top: 8px solid var(--dusty-rose);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05),
                     0 10px 20px rgba(0, 0, 0, 0.05);
+        position: relative;
+        animation: fadeInUp 0.6s ease-out 0.5s backwards;
+    }
+
+    /* Texture overlay for orders card */
+    .orders-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 15% 30%, rgba(139, 111, 71, 0.02) 2px, transparent 2px),
+            radial-gradient(circle at 85% 70%, rgba(139, 111, 71, 0.02) 2px, transparent 2px);
+        background-size: 60px 60px, 70px 70px;
+        pointer-events: none;
+        border-radius: 20px;
     }
     
     .orders-card .table thead {
         background: linear-gradient(135deg, var(--light-beige) 0%, var(--warm-cream) 100%);
+        position: relative;
+    }
+
+    /* Texture for table header */
+    .orders-card .table thead::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(139, 111, 71, 0.02) 10px,
+                rgba(139, 111, 71, 0.02) 20px
+            );
+        pointer-events: none;
     }
     
     .orders-card .table thead th {
@@ -61,15 +164,18 @@
         letter-spacing: 0.5px;
         border: none;
         padding: 1rem;
+        position: relative;
     }
     
     .orders-card .table tbody tr {
-        transition: all 0.2s ease;
+        transition: all 0.3s ease;
+        cursor: pointer;
     }
     
     .orders-card .table tbody tr:hover {
-        background: var(--warm-cream);
-        transform: scale(1.005);
+        background: linear-gradient(90deg, var(--warm-cream) 0%, transparent 100%);
+        transform: translateX(5px);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     
     .badge-status {
@@ -79,19 +185,119 @@
         font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .badge-status::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .badge-status:hover::before {
+        left: 100%;
     }
     
     .action-btn {
-        border-radius: 8px;
-        padding: 0.4rem 1rem;
+        border-radius: 10px;
+        padding: 0.5rem 1.2rem;
         font-size: 0.875rem;
-        font-weight: 500;
+        font-weight: 600;
         transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .action-btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    .action-btn:hover::before {
+        width: 300px;
+        height: 300px;
     }
     
     .action-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .action-btn:active {
+        transform: translateY(-1px);
+    }
+
+    /* Animations */
+    @keyframes slideInDown {
+        from {
+            transform: translateY(-30px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes scaleIn {
+        from {
+            transform: scale(0.9);
+            opacity: 0;
+        }
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-15px) rotate(5deg); }
+    }
+
+    /* Quick action card texture */
+    .card {
+        position: relative;
+    }
+
+    .card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 20% 30%, rgba(139, 111, 71, 0.01) 1px, transparent 1px),
+            radial-gradient(circle at 80% 70%, rgba(139, 111, 71, 0.01) 1px, transparent 1px);
+        background-size: 50px 50px, 60px 60px;
+        pointer-events: none;
+        border-radius: 20px;
     }
 </style>
 @endsection
@@ -115,10 +321,10 @@
                 <div class="d-flex justify-content-between align-items-start">
                     <div>
                         <p class="text-muted mb-1 small">Pending Orders</p>
-                        <h2 class="fw-bold mb-0" style="color: #FFA726;">{{ $stats['pending_count'] }}</h2>
+                        <h2 class="fw-bold mb-0" style="color: var(--autumn-primary);">{{ $stats['pending_count'] }}</h2>
                     </div>
-                    <div class="stat-icon rounded-3 p-3" style="background: rgba(255, 167, 38, 0.1);">
-                        <i class="bi bi-hourglass-split fs-3" style="color: #FFA726;"></i>
+                    <div class="stat-icon rounded-3 p-3" style="background: rgba(139, 111, 71, 0.1);">
+                        <i class="bi bi-hourglass-split fs-3" style="color: var(--autumn-primary);"></i>
                     </div>
                 </div>
                 <small class="text-muted">
@@ -135,10 +341,10 @@
                 <div class="d-flex justify-content-between align-items-start">
                     <div>
                         <p class="text-muted mb-1 small">Today's Revenue</p>
-                        <h2 class="fw-bold mb-0 text-success">₱{{ number_format($stats['today_revenue'], 2) }}</h2>
+                        <h2 class="fw-bold mb-0" style="color: var(--dark-autumn);">₱{{ number_format($stats['today_revenue'], 2) }}</h2>
                     </div>
-                    <div class="stat-icon rounded-3 p-3" style="background: rgba(102, 187, 106, 0.1);">
-                        <i class="bi bi-cash-stack fs-3 text-success"></i>
+                    <div class="stat-icon rounded-3 p-3" style="background: rgba(107, 86, 53, 0.1);">
+                        <i class="bi bi-cash-stack fs-3" style="color: var(--dark-autumn);"></i>
                     </div>
                 </div>
                 <small class="text-muted">
@@ -155,10 +361,10 @@
                 <div class="d-flex justify-content-between align-items-start">
                     <div>
                         <p class="text-muted mb-1 small">Completed Today</p>
-                        <h2 class="fw-bold mb-0 text-info">{{ $stats['today_completed'] }}</h2>
+                        <h2 class="fw-bold mb-0" style="color: var(--pale-autumn);">{{ $stats['today_completed'] }}</h2>
                     </div>
-                    <div class="stat-icon rounded-3 p-3" style="background: rgba(66, 165, 245, 0.1);">
-                        <i class="bi bi-check-circle-fill fs-3 text-info"></i>
+                    <div class="stat-icon rounded-3 p-3" style="background: rgba(184, 160, 138, 0.1);">
+                        <i class="bi bi-check-circle-fill fs-3" style="color: var(--pale-autumn);"></i>
                     </div>
                 </div>
                 <small class="text-muted">
@@ -175,7 +381,7 @@
         <div class="card border-0 shadow-sm">
             <div class="card-body p-4">
                 <h5 class="card-title fw-bold mb-4">
-                    <i class="bi bi-lightning-charge-fill text-warning"></i> Quick Action
+                    <i class="bi bi-lightning-charge-fill" style="color: var(--autumn-primary);"></i> Quick Action
                 </h5>
                 <div class="row g-3">
                     <div class="col-md-4">
@@ -191,7 +397,7 @@
                         </button>
                     </div>
                     <div class="col-md-4">
-                        <a href="{{ route('cashier.dashboard') }}" class="btn btn-outline-info w-100 py-3 action-btn">
+                        <a href="{{ route('cashier.dashboard') }}" class="btn btn-outline-secondary w-100 py-3 action-btn">
                             <i class="bi bi-receipt fs-4 d-block mb-2"></i>
                             <span class="fw-semibold">View All Orders</span>
                         </a>
@@ -478,6 +684,96 @@
         const statusModal = new bootstrap.Modal(document.getElementById('statusModal'));
         statusModal.show();
     }
+
+    // Interactive elements - Ripple effect on buttons
+    document.addEventListener('DOMContentLoaded', function() {
+        const buttons = document.querySelectorAll('.action-btn, .btn-primary, .btn-secondary, .btn-outline-primary, .btn-outline-secondary, .btn-outline-info');
+        
+        buttons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s ease-out';
+                ripple.style.pointerEvents = 'none';
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Add ripple animation style
+        if (!document.getElementById('ripple-style')) {
+            const style = document.createElement('style');
+            style.id = 'ripple-style';
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(2);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Scroll-triggered animations for table rows
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.animation = 'fadeInUp 0.5s ease-out forwards';
+                    }, index * 50);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.orders-card tbody tr').forEach(row => {
+            row.style.opacity = '0';
+            observer.observe(row);
+        });
+
+        // Interactive stat cards - tilt effect
+        const statCards = document.querySelectorAll('.stat-card');
+        statCards.forEach(card => {
+            card.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+            });
+        });
+    });
 
     // Auto-refresh functionality
     let autoRefreshTimer;
