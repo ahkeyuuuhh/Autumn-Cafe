@@ -182,8 +182,10 @@
                                    class="form-control" 
                                    id="password" 
                                    name="password"
-                                   placeholder="••••••••"
                                    required>
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword" style="border-color: var(--brown-200);">
+                                <i class="bi bi-eye" id="toggleIcon"></i>
+                            </button>
                         </div>
                     </div>
 
@@ -221,6 +223,22 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Toggle password visibility
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('bi-eye');
+                toggleIcon.classList.add('bi-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('bi-eye-slash');
+                toggleIcon.classList.add('bi-eye');
+            }
+        });
+
         @if(session('success'))
             const modal = new bootstrap.Modal(document.getElementById('successModal'));
             modal.show();

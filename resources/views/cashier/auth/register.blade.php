@@ -260,8 +260,10 @@
                                    class="form-control @error('password') is-invalid @enderror" 
                                    id="password" 
                                    name="password"
-                                   placeholder="••••••••"
                                    required>
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword" style="border-color: var(--brown-200);">
+                                <i class="bi bi-eye" id="toggleIcon"></i>
+                            </button>
                         </div>
                         <small class="text-muted">Min. 6 characters</small>
                         @error('password')
@@ -281,8 +283,10 @@
                                    class="form-control" 
                                    id="password_confirmation" 
                                    name="password_confirmation"
-                                   placeholder="••••••••"
                                    required>
+                            <button class="btn btn-outline-secondary" type="button" id="togglePasswordConfirm" style="border-color: var(--brown-200);">
+                                <i class="bi bi-eye" id="toggleIconConfirm"></i>
+                            </button>
                         </div>
                     </div>
 
@@ -308,6 +312,38 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Toggle password visibility
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('bi-eye');
+                toggleIcon.classList.add('bi-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('bi-eye-slash');
+                toggleIcon.classList.add('bi-eye');
+            }
+        });
+
+        // Toggle password confirmation visibility
+        document.getElementById('togglePasswordConfirm').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password_confirmation');
+            const toggleIcon = document.getElementById('toggleIconConfirm');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('bi-eye');
+                toggleIcon.classList.add('bi-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('bi-eye-slash');
+                toggleIcon.classList.add('bi-eye');
+            }
+        });
+
         @if($errors->any())
             const modal = new bootstrap.Modal(document.getElementById('errorModal'));
             modal.show();

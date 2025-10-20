@@ -279,14 +279,34 @@
     }
     
     .table tbody tr:hover {
-        background: linear-gradient(90deg, var(--warm-cream) 0%, transparent 100%);
-        transform: translateX(5px);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        background: linear-gradient(90deg, rgba(255, 243, 224, 0.4) 0%, transparent 100%) !important;
+        transform: translateX(8px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08) !important;
     }
     
     .table tbody td {
         padding: 15px;
         vertical-align: middle;
+        font-size: 0.95rem;
+    }
+    
+    /* Improved readability styles */
+    body {
+        font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        letter-spacing: 0.3px;
+        line-height: 1.6;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        letter-spacing: 0.5px;
+    }
+    
+    .table thead th {
+        letter-spacing: 0.8px;
+    }
+    
+    strong {
+        font-weight: 600;
     }
     
     .badge-status {
@@ -315,14 +335,16 @@
     }
     
     .btn-primary {
-        background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--autumn-secondary) 100%);
-        border: none;
+        background: linear-gradient(135deg, #8b6f47 0%, #6b5635 100%) !important;
+        border: none !important;
         border-radius: 10px;
         padding: 10px 25px;
         font-weight: 600;
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
+        color: white !important;
+        box-shadow: 0 2px 8px rgba(139, 111, 71, 0.3);
     }
 
     .btn-primary::before {
@@ -344,8 +366,10 @@
     }
     
     .btn-primary:hover {
+        background: linear-gradient(135deg, #6b5635 0%, #4a3d28 100%) !important;
         transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(139, 111, 71, 0.5);
+        box-shadow: 0 6px 20px rgba(139, 111, 71, 0.5) !important;
+        color: white !important;
     }
 
     .btn-primary:active {
@@ -353,13 +377,71 @@
     }
     
     .btn-success {
-        background: linear-gradient(135deg, var(--pale-autumn) 0%, var(--autumn-primary) 100%);
-        border: none;
+        background: linear-gradient(135deg, #4CAF50 0%, #45A049 100%) !important;
+        border: none !important;
         border-radius: 10px;
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
-        color: white;
+        color: white !important;
+        box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+    }
+
+    .btn-success::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    .btn-success:hover::before {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .btn-success:hover {
+        background: linear-gradient(135deg, #45A049 0%, #388E3C 100%) !important;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4) !important;
+        color: white !important;
+    }
+    
+    .btn-secondary {
+        background: linear-gradient(135deg, #757575 0%, #616161 100%) !important;
+        border: none !important;
+        color: white !important;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(117, 117, 117, 0.3);
+    }
+    
+    .btn-secondary:hover {
+        background: linear-gradient(135deg, #616161 0%, #424242 100%) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(117, 117, 117, 0.4) !important;
+        color: white !important;
+    }
+    
+    .btn-outline-secondary {
+        border: 2px solid #8b6f47 !important;
+        color: #8b6f47 !important;
+        background: white !important;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-outline-secondary:hover {
+        background: linear-gradient(135deg, #8b6f47 0%, #6b5635 100%) !important;
+        color: white !important;
+        border-color: #8b6f47 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(139, 111, 71, 0.3);
     }
 
     .btn-success::before {
@@ -434,6 +516,7 @@
         border-bottom: none;
         border-radius: 20px 20px 0 0;
         padding: 25px 30px;
+        background-color: brown !important;
     }
     
     .modal-body {
@@ -488,42 +571,61 @@
 
         <!-- Pending Orders -->
         <div class="table-container">
-            <h4 class="mb-3">
-                <i class="bi bi-clock-history me-2"></i>Pending Orders
-                <span class="badge text-dark ms-2" style="background-color: var(--pale-autumn);">{{ $pendingOrders->count() }}</span>
-            </h4>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="mb-0" style="color: var(--autumn-secondary); font-weight: 700; font-size: 1.5rem;">
+                    <i class="bi bi-clock-history me-2"></i>Pending Orders
+                </h4>
+                <span class="badge text-dark" style="background-color: var(--pale-autumn); padding: 10px 18px; font-size: 1rem; border-radius: 20px; font-weight: 600;">
+                    {{ $pendingOrders->count() }} {{ $pendingOrders->count() === 1 ? 'Order' : 'Orders' }}
+                </span>
+            </div>
+            
             @if($pendingOrders->count() > 0)
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover" style="border-collapse: separate; border-spacing: 0 10px;">
                         <thead>
                             <tr>
-                                <th>Order #</th>
-                                <th>Customer</th>
-                                <th>Items</th>
-                                <th>Total</th>
-                                <th>Ordered At</th>
-                                <th>Actions</th>
+                                <th style="padding: 18px 15px; font-size: 0.9rem;">Order #</th>
+                                <th style="padding: 18px 15px; font-size: 0.9rem;">Customer</th>
+                                <th style="padding: 18px 15px; font-size: 0.9rem;">Items</th>
+                                <th style="padding: 18px 15px; font-size: 0.9rem;">Total</th>
+                                <th style="padding: 18px 15px; font-size: 0.9rem;">Ordered At</th>
+                                <th style="padding: 18px 15px; font-size: 0.9rem;">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($pendingOrders as $order)
-                                <tr style="cursor: pointer;" onclick="showOrderDetails({{ $order->id }})">
-                                    <td><strong>#{{ $order->id }}</strong></td>
-                                    <td>{{ $order->customer ? $order->customer->name : 'Walk-in Customer' }}</td>
-                                    <td>
-                                        <small class="text-muted">
-                                            {{ $order->items->count() }} item(s)
-                                        </small>
+                                <tr style="cursor: pointer; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border-radius: 10px;" onclick="showOrderDetails({{ $order->id }})">
+                                    <td style="padding: 20px 15px; border: none; border-radius: 10px 0 0 10px;">
+                                        <strong style="color: var(--autumn-primary); font-size: 1.05rem;">#{{ str_pad($order->id, 4, '0', STR_PAD_LEFT) }}</strong>
                                     </td>
-                                    <td><strong style="color: var(--dark-autumn);">₱{{ number_format($order->total_amount, 2) }}</strong></td>
-                                    <td>
-                                        <small>{{ $order->ordered_at->format('M d, Y') }}</small><br>
-                                        <small class="text-muted">{{ $order->ordered_at->format('h:i A') }}</small>
+                                    <td style="padding: 20px 15px; border: none;">
+                                        <div>
+                                            <strong style="color: var(--autumn-dark); font-size: 0.95rem;">{{ $order->customer ? $order->customer->name : 'Walk-in Customer' }}</strong>
+                                            @if($order->customer && $order->customer->phone)
+                                                <br><small class="text-muted" style="font-size: 0.85rem;">{{ $order->customer->phone }}</small>
+                                            @endif
+                                        </div>
                                     </td>
-                                    <td>
+                                    <td style="padding: 20px 15px; border: none;">
+                                        <span class="badge" style="background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); color: var(--autumn-primary); padding: 8px 14px; font-weight: 600; border-radius: 20px;">
+                                            <i class="bi bi-basket me-1"></i>{{ $order->items->count() }} {{ $order->items->count() === 1 ? 'item' : 'items' }}
+                                        </span>
+                                    </td>
+                                    <td style="padding: 20px 15px; border: none;">
+                                        <strong style="color: var(--dark-autumn); font-size: 1.1rem;">₱{{ number_format($order->total_amount, 2) }}</strong>
+                                    </td>
+                                    <td style="padding: 20px 15px; border: none;">
+                                        <div style="line-height: 1.4;">
+                                            <strong style="color: var(--autumn-dark); font-size: 0.9rem;">{{ $order->ordered_at->format('M d, Y') }}</strong><br>
+                                            <small class="text-muted">{{ $order->ordered_at->format('h:i A') }}</small>
+                                        </div>
+                                    </td>
+                                    <td style="padding: 20px 15px; border: none; border-radius: 0 10px 10px 0;">
                                         <button class="btn btn-sm btn-primary" 
-                                                onclick="event.stopPropagation(); showStatusModal({{ $order->id }}, '{{ $order->customer ? $order->customer->name : 'Walk-in Customer' }}')">
-                                            <i class="bi bi-pencil-square me-1"></i>Update
+                                                onclick="event.stopPropagation(); showStatusModal({{ $order->id }}, '{{ $order->customer ? $order->customer->name : 'Walk-in Customer' }}')"
+                                                style="padding: 10px 20px; font-weight: 600; border-radius: 20px; font-size: 0.85rem; background: linear-gradient(135deg, #8b6f47 0%, #6b5635 100%) !important; color: white !important; border: none !important;">
+                                            <i class="bi bi-pencil-square me-1"></i>Update Status
                                         </button>
                                     </td>
                                 </tr>
@@ -532,145 +634,246 @@
                     </table>
                 </div>
             @else
-                <div class="alert alert-info">
-                    <i class="bi bi-info-circle me-2"></i>No pending orders at the moment.
+                <div class="alert" style="background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); border: none; border-radius: 15px; padding: 25px; border-left: 5px solid #2196F3;">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-info-circle" style="font-size: 2.5rem; color: #2196F3; margin-right: 20px;"></i>
+                        <div>
+                            <h5 style="color: #1976D2; margin-bottom: 5px; font-weight: 600;">All Caught Up!</h5>
+                            <p class="mb-0" style="color: #1565C0;">No pending orders at the moment. Great job!</p>
+                        </div>
+                    </div>
                 </div>
             @endif
         </div>
 
         <!-- Recent Transactions -->
         <div class="table-container">
-            <h4 class="mb-3">
-                <i class="bi bi-receipt me-2"></i>Recent Transactions
-            </h4>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="mb-0" style="color: var(--autumn-secondary); font-weight: 700; font-size: 1.5rem;">
+                    <i class="bi bi-receipt me-2"></i>Recent Transactions
+                </h4>
+                <span class="badge" style="background: linear-gradient(135deg, #E8DDD2 0%, #D4C4B5 100%); color: var(--dark-autumn); padding: 10px 18px; font-size: 1rem; border-radius: 20px; font-weight: 600;">
+                    Last {{ $recentTransactions->count() }} Orders
+                </span>
+            </div>
+            
             @if($recentTransactions->count() > 0)
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover" style="border-collapse: separate; border-spacing: 0 10px;">
                         <thead>
                             <tr>
-                                <th>Order #</th>
-                                <th>Customer</th>
-                                <th>Total</th>
-                                <th>Status</th>
-                                <th>Date</th>
+                                <th style="padding: 18px 15px; font-size: 0.9rem;">Order #</th>
+                                <th style="padding: 18px 15px; font-size: 0.9rem;">Customer</th>
+                                <th style="padding: 18px 15px; font-size: 0.9rem;">Total</th>
+                                <th style="padding: 18px 15px; font-size: 0.9rem;">Status</th>
+                                <th style="padding: 18px 15px; font-size: 0.9rem;">Date & Time</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($recentTransactions as $transaction)
-                                <tr>
-                                    <td><strong>#{{ $transaction->id }}</strong></td>
-                                    <td>{{ $transaction->customer ? $transaction->customer->name : 'Walk-in Customer' }}</td>
-                                    <td><strong>₱{{ number_format($transaction->total_amount, 2) }}</strong></td>
-                                    <td>
+                                <tr style="background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border-radius: 10px; transition: all 0.3s ease;">
+                                    <td style="padding: 20px 15px; border: none; border-radius: 10px 0 0 10px;">
+                                        <strong style="color: var(--autumn-primary); font-size: 1.05rem;">#{{ str_pad($transaction->id, 4, '0', STR_PAD_LEFT) }}</strong>
+                                    </td>
+                                    <td style="padding: 20px 15px; border: none;">
+                                        <strong style="color: var(--autumn-dark); font-size: 0.95rem;">{{ $transaction->customer ? $transaction->customer->name : 'Walk-in Customer' }}</strong>
+                                    </td>
+                                    <td style="padding: 20px 15px; border: none;">
+                                        <strong style="color: var(--dark-autumn); font-size: 1.05rem;">₱{{ number_format($transaction->total_amount, 2) }}</strong>
+                                    </td>
+                                    <td style="padding: 20px 15px; border: none;">
                                         @if($transaction->status == 'completed')
-                                            <span class="badge badge-status bg-success">Completed</span>
+                                            <span class="badge" style="background: linear-gradient(135deg, #4CAF50 0%, #45A049 100%); color: white; padding: 8px 16px; font-weight: 600; border-radius: 20px; font-size: 0.85rem;">
+                                                <i class="bi bi-check-circle-fill me-1"></i>Completed
+                                            </span>
                                         @elseif($transaction->status == 'cancelled')
-                                            <span class="badge badge-status bg-danger">Cancelled</span>
+                                            <span class="badge" style="background: linear-gradient(135deg, #F44336 0%, #E53935 100%); color: white; padding: 8px 16px; font-weight: 600; border-radius: 20px; font-size: 0.85rem;">
+                                                <i class="bi bi-x-circle-fill me-1"></i>Cancelled
+                                            </span>
                                         @else
-                                            <span class="badge badge-status bg-warning">Pending</span>
+                                            <span class="badge" style="background: linear-gradient(135deg, #FFC107 0%, #FFB300 100%); color: white; padding: 8px 16px; font-weight: 600; border-radius: 20px; font-size: 0.85rem;">
+                                                <i class="bi bi-clock-fill me-1"></i>Pending
+                                            </span>
                                         @endif
                                     </td>
-                                    <td>{{ $transaction->ordered_at->format('M d, Y h:i A') }}</td>
+                                    <td style="padding: 20px 15px; border: none; border-radius: 0 10px 10px 0;">
+                                        <div style="line-height: 1.4;">
+                                            <strong style="color: var(--autumn-dark); font-size: 0.9rem;">{{ $transaction->ordered_at->format('M d, Y') }}</strong><br>
+                                            <small class="text-muted">{{ $transaction->ordered_at->format('h:i A') }}</small>
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
             @else
-                <div class="alert alert-info">
-                    <i class="bi bi-info-circle me-2"></i>No recent transactions.
+                <div class="alert" style="background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); border: none; border-radius: 15px; padding: 25px; border-left: 5px solid #2196F3;">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-info-circle" style="font-size: 2.5rem; color: #2196F3; margin-right: 20px;"></i>
+                        <div>
+                            <h5 style="color: #1976D2; margin-bottom: 5px; font-weight: 600;">No Transactions Yet</h5>
+                            <p class="mb-0" style="color: #1565C0;">Recent transactions will appear here once orders are processed.</p>
+                        </div>
+                    </div>
                 </div>
             @endif
         </div>
     </div>
 
-    <!-- Update Status Modal -->
+    <!-- Update Status Modal - Enhanced -->
     <div class="modal fade" id="statusModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" style="border-radius: 20px; border: none; overflow: hidden;">
                 <form id="statusForm" method="POST">
                     @csrf
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title">
-                            <i class="bi bi-pencil-square me-2"></i>Update Order Status
-                        </h5>
+                    <div class="modal-header text-white" style="background: linear-gradient(135deg, #8b6f47 0%, #6b5635 100%); border: none; padding: 30px;">
+                        <div>
+                            <h5 class="modal-title mb-2" style="font-weight: 700; font-size: 1.3rem;">
+                                <i class="bi bi-pencil-square me-2"></i>Update Order Status
+                            </h5>
+                            <p class="mb-0" style="opacity: 0.95; font-size: 0.9rem;">Change the status of this order</p>
+                        </div>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
-                    <div class="modal-body">
-                        <p>Order for: <strong id="customerName"></strong></p>
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Select New Status</label>
-                            <select class="form-select" id="status" name="status" required>
+                    <div class="modal-body" style="padding: 30px;">
+                        <div style="background: linear-gradient(135deg, #FFF9F3 0%, #FFE8D6 100%); border-radius: 12px; padding: 20px; margin-bottom: 25px;">
+                            <p class="mb-0" style="color: var(--autumn-dark);">
+                                <i class="bi bi-person-circle me-2" style="color: var(--autumn-primary);"></i>
+                                <strong>Order for:</strong> <span id="customerName" style="color: var(--autumn-secondary); font-weight: 600;"></span>
+                            </p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="status" class="form-label" style="font-weight: 600; color: var(--autumn-secondary); font-size: 0.95rem; margin-bottom: 12px;">
+                                <i class="bi bi-tag me-1"></i>Select New Status
+                            </label>
+                            <select class="form-select" id="status" name="status" required style="padding: 14px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1rem;">
                                 <option value="">-- Choose Status --</option>
-                                <option value="completed">Completed</option>
-                                <option value="cancelled">Cancelled</option>
+                                <option value="completed">✓ Completed</option>
+                                <option value="cancelled">✗ Cancelled</option>
                             </select>
                         </div>
-                        <div class="alert alert-warning">
-                            <i class="bi bi-exclamation-triangle me-2"></i>
-                            <strong>Note:</strong> This action cannot be undone.
+                        
+                        <div class="alert" style="background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border: none; border-radius: 12px; padding: 18px; border-left: 4px solid #FF9800;">
+                            <div class="d-flex align-items-start">
+                                <i class="bi bi-exclamation-triangle-fill me-3" style="font-size: 1.5rem; color: #F57C00;"></i>
+                                <div>
+                                    <strong style="color: #E65100; font-size: 0.95rem;">Important Notice</strong>
+                                    <p class="mb-0 mt-1" style="color: #EF6C00; font-size: 0.85rem;">This action cannot be undone. Please confirm the status before updating.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Update Status</button>
+                    <div class="modal-footer" style="background: var(--warm-cream); border: none; padding: 20px 30px; gap: 10px;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="padding: 12px 30px; border-radius: 25px; font-weight: 600; background: linear-gradient(135deg, #757575 0%, #616161 100%) !important; color: white !important; border: none !important;">
+                            <i class="bi bi-x-circle me-1"></i>Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary" style="padding: 12px 30px; border-radius: 25px; font-weight: 600; background: linear-gradient(135deg, #8b6f47 0%, #6b5635 100%) !important; color: white !important; border: none !important;">
+                            <i class="bi bi-check-circle me-1"></i>Update Status
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Order Details Modal -->
+    <!-- Order Details Modal - Enhanced with Customer-Style UI -->
     <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header bg-autumn text-white">
-                    <h5 class="modal-title">
-                        <i class="bi bi-receipt me-2"></i>Order Details
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <p class="mb-1"><strong>Order #:</strong> <span id="modalOrderId"></span></p>
-                            <p class="mb-1"><strong>Customer:</strong> <span id="modalCustomerName"></span></p>
-                            <p class="mb-1"><strong>Contact:</strong> <span id="modalCustomerContact"></span></p>
+            <div class="modal-content" style="border-radius: 20px; border: none; overflow: hidden;">
+                <!-- Success-Style Header -->
+                <div class="modal-header" style="background: linear-gradient(135deg, #8b6f47 0%, #6b5635 100%); color: white; padding: 35px 30px; border: none;">
+                    <div class="w-100 text-center">
+                        <div style="font-size: 3rem; margin-bottom: 15px;">
+                            <i class="bi bi-receipt-cutoff"></i>
                         </div>
-                        <div class="col-md-6 text-md-end">
-                            <p class="mb-1"><strong>Status:</strong> <span id="modalOrderStatus" class="badge bg-warning"></span></p>
-                            <p class="mb-1"><strong>Ordered At:</strong> <span id="modalOrderDate"></span></p>
+                        <h4 class="modal-title mb-2" style="font-weight: 700;">Order Details</h4>
+                        <p class="mb-0" style="opacity: 0.95; font-size: 0.95rem;">
+                            Order <span id="modalOrderIdHeader" style="font-weight: 600;"></span>
+                        </p>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" style="position: absolute; top: 20px; right: 20px;"></button>
+                </div>
+                
+                <div class="modal-body" style="padding: 35px;">
+                    <!-- Order Information Card -->
+                    <div style="background: linear-gradient(135deg, #FFF9F3 0%, #FFE8D6 50%, #FFF9F3 100%); border-radius: 15px; padding: 25px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                        <h5 class="mb-4" style="color: var(--autumn-secondary); font-weight: 700;">
+                            <i class="bi bi-info-circle me-2"></i>Order Information
+                        </h5>
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div style="padding: 12px 0; border-bottom: 1px solid rgba(139, 111, 71, 0.15);">
+                                    <small class="text-muted d-block mb-1">Order Number</small>
+                                    <strong id="modalOrderId" style="color: var(--autumn-secondary); font-size: 1.1rem;"></strong>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div style="padding: 12px 0; border-bottom: 1px solid rgba(139, 111, 71, 0.15);">
+                                    <small class="text-muted d-block mb-1">Status</small>
+                                    <span id="modalOrderStatus" class="badge bg-warning" style="padding: 6px 14px; font-size: 0.85rem;"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div style="padding: 12px 0; border-bottom: 1px solid rgba(139, 111, 71, 0.15);">
+                                    <small class="text-muted d-block mb-1">Customer Name</small>
+                                    <strong id="modalCustomerName" style="color: var(--autumn-dark);"></strong>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div style="padding: 12px 0; border-bottom: 1px solid rgba(139, 111, 71, 0.15);">
+                                    <small class="text-muted d-block mb-1">Contact</small>
+                                    <strong id="modalCustomerContact" style="color: var(--autumn-dark);"></strong>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div style="padding: 12px 0;">
+                                    <small class="text-muted d-block mb-1">Order Date & Time</small>
+                                    <strong id="modalOrderDate" style="color: var(--autumn-dark);"></strong>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <hr>
-
-                    <h6 class="mb-3"><i class="bi bi-basket me-2"></i>Order Items</h6>
-                    <div class="table-responsive">
-                        <table class="table table-sm">
+                    <!-- Order Items Section -->
+                    <h5 class="mb-3" style="color: var(--autumn-secondary); font-weight: 700;">
+                        <i class="bi bi-basket me-2"></i>Order Summary
+                    </h5>
+                    
+                    <div class="table-responsive" style="border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                        <table class="table mb-0" style="border-collapse: separate; border-spacing: 0;">
                             <thead>
-                                <tr>
-                                    <th>Item</th>
-                                    <th class="text-center">Quantity</th>
-                                    <th class="text-end">Price</th>
-                                    <th class="text-end">Subtotal</th>
+                                <tr style="background: linear-gradient(135deg, var(--autumn-primary) 0%, var(--autumn-secondary) 100%);">
+                                    <th style="color: white; padding: 15px; font-weight: 600; border: none;">Item</th>
+                                    <th style="color: white; padding: 15px; font-weight: 600; border: none;">Price</th>
+                                    <th class="text-center" style="color: white; padding: 15px; font-weight: 600; border: none;">Qty</th>
+                                    <th class="text-end" style="color: white; padding: 15px; font-weight: 600; border: none;">Subtotal</th>
                                 </tr>
                             </thead>
-                            <tbody id="modalOrderItems">
+                            <tbody id="modalOrderItems" style="background: white;">
                                 <!-- Items will be loaded here -->
                             </tbody>
                             <tfoot>
-                                <tr class="table-active">
-                                    <th colspan="3" class="text-end">Total Amount:</th>
-                                    <th class="text-end text-success" id="modalTotalAmount"></th>
+                                <tr style="background: linear-gradient(135deg, #FFF9F3 0%, #FFE8D6 100%);">
+                                    <td colspan="3" class="text-end" style="padding: 20px; font-weight: 700; font-size: 1.15rem; color: var(--autumn-secondary); border: none;">
+                                        TOTAL AMOUNT:
+                                    </td>
+                                    <td class="text-end" style="padding: 20px; font-weight: 700; font-size: 1.3rem; border: none;">
+                                        <span id="modalTotalAmount" style="color: var(--autumn-primary);"></span>
+                                    </td>
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="showStatusModalFromDetails()">
+                
+                <div class="modal-footer" style="background: var(--warm-cream); border: none; padding: 25px 35px; gap: 10px;">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="border-radius: 25px; padding: 12px 30px; font-weight: 600; background: linear-gradient(135deg, #757575 0%, #616161 100%) !important; color: white !important; border: none !important;">
+                        <i class="bi bi-x-circle me-1"></i>Close
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="showStatusModalFromDetails()" style="border-radius: 25px; padding: 12px 30px; font-weight: 600; background: linear-gradient(135deg, #8b6f47 0%, #6b5635 100%) !important; color: white !important; border: none !important;">
                         <i class="bi bi-pencil-square me-1"></i>Update Status
                     </button>
                 </div>
@@ -731,8 +934,11 @@
             currentOrderId = orderId;
             currentCustomerName = order.customer ? order.customer.name : 'Walk-in Customer';
             
-            // Populate modal
-            document.getElementById('modalOrderId').textContent = '#' + order.id;
+            // Populate modal - Header
+            document.getElementById('modalOrderIdHeader').textContent = '#' + String(order.id).padStart(4, '0');
+            
+            // Populate modal - Order Info
+            document.getElementById('modalOrderId').textContent = '#' + String(order.id).padStart(4, '0');
             document.getElementById('modalCustomerName').textContent = currentCustomerName;
             
             // Customer contact
@@ -743,11 +949,12 @@
             const statusBadge = document.getElementById('modalOrderStatus');
             statusBadge.textContent = 'Pending';
             statusBadge.className = 'badge bg-warning';
+            statusBadge.style.cssText = 'padding: 6px 14px; font-size: 0.85rem;';
             
             // Format date
             const orderDate = new Date(order.ordered_at);
             document.getElementById('modalOrderDate').textContent = orderDate.toLocaleString('en-US', {
-                month: 'short',
+                month: 'long',
                 day: 'numeric',
                 year: 'numeric',
                 hour: 'numeric',
@@ -761,15 +968,16 @@
             
             order.items.forEach(item => {
                 const subtotal = item.quantity * item.price;
-                const row = `
-                    <tr>
-                        <td>${item.menu_item.name}</td>
-                        <td class="text-center">${item.quantity}</td>
-                        <td class="text-end">₱${parseFloat(item.price).toFixed(2)}</td>
-                        <td class="text-end">₱${subtotal.toFixed(2)}</td>
-                    </tr>
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="padding: 15px; border-bottom: 1px solid #f0f0f0; font-weight: 500; color: var(--autumn-dark);">${item.menu_item.name}</td>
+                    <td style="padding: 15px; border-bottom: 1px solid #f0f0f0; color: var(--autumn-dark);">₱${parseFloat(item.price).toFixed(2)}</td>
+                    <td class="text-center" style="padding: 15px; border-bottom: 1px solid #f0f0f0;">
+                        <span style="background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); color: var(--autumn-primary); padding: 5px 12px; border-radius: 15px; font-weight: 600;">${item.quantity}</span>
+                    </td>
+                    <td class="text-end" style="padding: 15px; border-bottom: 1px solid #f0f0f0; font-weight: 600; color: var(--dark-autumn);">₱${subtotal.toFixed(2)}</td>
                 `;
-                itemsContainer.innerHTML += row;
+                itemsContainer.appendChild(row);
             });
             
             // Total amount

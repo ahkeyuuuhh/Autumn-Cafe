@@ -5,7 +5,7 @@
     <!-- HEADER -->
     <div class="welcome-header text-center mb-5 py-5 rounded-4 shadow-sm">
         <h1 class="display-4 fw-bold mb-2" style="color: #6b5635;">
-            <i class="bi bi-cup-hot-fill"></i> Welcome to Autumn Café Dashboard
+        Welcome to Autumn Café Dashboard
         </h1>
         <p class="lead text-muted mb-0">☕ Managing your cozy café with warmth and efficiency</p>
         <small class="text-muted">{{ now()->format('l, F j, Y - g:i A') }}</small>

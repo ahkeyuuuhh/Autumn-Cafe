@@ -314,6 +314,7 @@
             letter-spacing: -0.5px;
             text-shadow: 0 2px 10px rgba(0,0,0,0.2);
             animation: fadeInUp 0.8s ease-out;
+            color: white !important;
         }
 
         .page-header p {

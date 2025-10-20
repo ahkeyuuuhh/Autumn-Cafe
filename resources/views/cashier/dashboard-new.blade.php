@@ -4,6 +4,19 @@
 
 @section('styles')
 <style>
+    :root {
+        /* Monochromatic Brown Palette */
+        --brown-50: #faf8f6;
+        --brown-100: #f5f0eb;
+        --brown-200: #e8ddd2;
+        --brown-300: #d4c4b5;
+        --brown-400: #b8a08a;
+        --brown-500: #8b6f47;
+        --brown-600: #6b5635;
+        --brown-700: #4a3d28;
+        --brown-800: #352b1d;
+        --brown-900: #1f1710;
+    }
     .welcome-header {
         background: linear-gradient(135deg, var(--warm-cream) 0%, var(--light-beige) 100%);
         border: 3px dashed var(--beige);
@@ -12,6 +25,9 @@
         padding: 50px;
         animation: slideInDown 0.6s ease-out;
     }
+     .header-subtitle {
+        color: var(--brown-600) !important;
+     }
     
     .welcome-header::before {
         content: '\F284';
@@ -308,7 +324,7 @@
     <h1 class="display-5 fw-bold mb-2">
         <i class="bi bi-cash-register"></i> Cashier Dashboard
     </h1>
-    <p class="lead text-muted mb-0">Process orders and manage transactions efficiently</p>
+    <p class="lead mb-0 header-subtitle ">Process orders and manage transactions efficiently</p>
     <small class="text-muted">{{ now()->format('l, F j, Y - g:i A') }}</small>
 </div>
 
@@ -510,7 +526,7 @@
         <div class="modal-content">
             <form id="statusForm" method="POST">
                 @csrf
-                <div class="modal-header" style="background: linear-gradient(135deg, var(--pale-autumn), var(--autumn-primary)); color: white;">
+                <div class="modal-header" style="background: linear-gradient(135deg, var(--brown-500), var(--brown-600)); color: white;">
                     <h5 class="modal-title">
                         <i class="bi bi-pencil-square me-2"></i>Update Order Status
                     </h5>

@@ -1,343 +1,254 @@
-<!-- Mobile Toggle Button -->
-<button class="sidebar-toggle" id="sidebarToggle">
-    <i class="bi bi-list"></i>
-</button>
-
-<!-- Floating Sidebar -->
-<nav class="admin-sidebar glassy" id="adminSidebar">
-    <div class="sidebar-header">
-        <a href="{{ route('dashboard') }}" class="sidebar-brand">
-            <i class="bi bi-cup-hot-fill"></i>
-            <span class="brand-text">Autumn Café</span>
-        </a>
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-brand">
+        <h3><i class="bi bi-cup-hot-fill"></i> Autumn Café</h3>
+        <small>Admin Panel</small>
     </div>
 
-    <div class="sidebar-menu">
-        <a class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
-            <i class="bi bi-speedometer2"></i>
-            <span class="link-text">Dashboard</span>
-        </a>
-        
-        <a class="sidebar-link {{ request()->routeIs('menu.*') ? 'active' : '' }}" href="{{ route('menu.index') }}">
-            <i class="bi bi-grid-3x3-gap"></i>
-            <span class="link-text">Menu</span>
-        </a>
-        
-        <a class="sidebar-link {{ request()->routeIs('orders.*') ? 'active' : '' }}" href="{{ route('orders.index') }}">
-            <i class="bi bi-card-list"></i>
-            <span class="link-text">Order Management</span>
-        </a>
-
-        <a class="sidebar-link {{ request()->routeIs('transactions.*') ? 'active' : '' }}" href="{{ route('transactions.index') }}">
-            <i class="bi bi-receipt"></i>
-            <span class="link-text">Transactions</span>
-        </a>
-        
-        <a class="sidebar-link {{ request()->routeIs('customers.*') ? 'active' : '' }}" href="{{ route('customers.index') }}">
-            <i class="bi bi-people"></i>
-            <span class="link-text">Customers</span>
-        </a>
-    </div>
+    <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+            <a href="{{ route('dashboard') }}" class="sidebar-nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                <i class="bi bi-speedometer2"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="sidebar-nav-item">
+            <a href="{{ route('menu.index') }}" class="sidebar-nav-link {{ request()->routeIs('menu.*') ? 'active' : '' }}">
+                <i class="bi bi-grid-3x3-gap"></i>
+                <span>Menu</span>
+            </a>
+        </li>
+        <li class="sidebar-nav-item">
+            <a href="{{ route('orders.index') }}" class="sidebar-nav-link {{ request()->routeIs('orders.*') ? 'active' : '' }}">
+                <i class="bi bi-card-list"></i>
+                <span>Order Management</span>
+            </a>
+        </li>
+        <li class="sidebar-nav-item">
+            <a href="{{ route('transactions.index') }}" class="sidebar-nav-link {{ request()->routeIs('transactions.*') ? 'active' : '' }}">
+                <i class="bi bi-receipt"></i>
+                <span>Transactions</span>
+            </a>
+        </li>
+        <li class="sidebar-nav-item">
+            <a href="{{ route('customers.index') }}" class="sidebar-nav-link {{ request()->routeIs('customers.*') ? 'active' : '' }}">
+                <i class="bi bi-people"></i>
+                <span>Customers</span>
+            </a>
+        </li>
+    </ul>
 
     @auth
-    <div class="sidebar-footer">
-        <div class="user-info">
-            <div class="user-avatar">
-                <i class="bi bi-person-circle"></i>
-            </div>
-            <div class="user-details">
-                <div class="user-name">{{ Auth::user()->name }}</div>
-                <div class="user-role">{{ ucfirst(Auth::user()->role) }}</div>
-            </div>
+    <div class="sidebar-user">
+        <div class="sidebar-user-info">
+            <strong><i class="bi bi-person-circle"></i> {{ Auth::user()->name }}</strong>
+            <small>{{ ucfirst(Auth::user()->role) }}</small>
         </div>
         <form action="{{ route('logout') }}" method="POST">
             @csrf
-            <button type="submit" class="logout-btn" title="Logout">
-                <i class="bi bi-box-arrow-right"></i>
-                <span class="link-text">Logout</span>
+            <button type="submit" class="btn-logout">
+                <i class="bi bi-box-arrow-right"></i> Logout
             </button>
         </form>
     </div>
     @endauth
-</nav>
-
-<!-- Overlay for mobile -->
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
+</div>
 
 <style>
     :root {
-        --brown-50: #fdfbf9;
-        --brown-100: #f8f1ea;
-        --brown-200: #e7d5c6;
-        --brown-300: #d2b18a;
-        --brown-400: #b8824e;
-        --brown-500: #8f5a2d;
-        --brown-600: #704320;
-        --brown-700: #513019;
-        --brown-800: #382113;
-        --brown-900: #24160d;
-        --accent: #f3b37d;
-        --sidebar-width: 260px;
+        --brown-50: #faf8f6;
+        --brown-100: #f5f0eb;
+        --brown-200: #e8ddd2;
+        --brown-300: #d4c4b5;
+        --brown-400: #b8a08a;
+        --brown-500: #8b6f47;
+        --brown-600: #6b5635;
+        --brown-700: #4a3d28;
+        --brown-800: #352b1d;
+        --brown-900: #1f1710;
+        
+        --beige: #d4c4b5;
+        --pale-autumn: #b8a08a;
+        --autumn-primary: #8b6f47;
+        --dark-autumn: #6b5635;
+        --dark-brown: #352b1d;
     }
 
-    /* Glassy Sidebar */
-    .glassy {
-        backdrop-filter: blur(10px);
-        background: rgba(73, 44, 22, 0.92);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    /* Toggle Button */
-    .sidebar-toggle {
+    /* Sidebar Styling */
+    .sidebar {
         position: fixed;
-        top: 18px;
-        left: 18px;
-        z-index: 1100;
-        background: linear-gradient(135deg, var(--brown-400), var(--brown-600));
-        border: none;
-        width: 48px;
-        height: 48px;
-        border-radius: 14px;
-        color: #fff;
-        font-size: 1.6rem;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
-        cursor: pointer;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 280px;
+        background: linear-gradient(180deg, var(--dark-brown) 0%, var(--brown-800) 100%);
+        padding: 20px 0;
+        z-index: 1000;
+        overflow-y: auto;
+        box-shadow: 4px 0 20px rgba(0,0,0,0.15);
         transition: all 0.3s ease;
     }
 
-    .sidebar-toggle:hover {
-        transform: scale(1.08);
-        background: linear-gradient(145deg, var(--brown-500), var(--brown-400));
-    }
-
-    /* Sidebar Structure */
-    .admin-sidebar {
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        bottom: 20px;
-        width: var(--sidebar-width);
-        border-radius: 20px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
-        display: flex;
-        flex-direction: column;
-        transition: all 0.3s ease;
-        overflow: hidden;
-    }
-
-    .sidebar-header {
-        padding: 1.8rem 1.2rem;
-        text-align: center;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    .sidebar::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.02) 10px,
+                rgba(255, 255, 255, 0.02) 20px
+            );
+        pointer-events: none;
     }
 
     .sidebar-brand {
-        color: #fff;
-        text-decoration: none;
+        padding: 20px 25px;
+        text-align: center;
+        border-bottom: 2px solid rgba(255,255,255,0.1);
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .sidebar-brand h3 {
+        color: white;
+        font-weight: 800;
+        font-size: 1.5rem;
+        margin: 0;
+        letter-spacing: -0.5px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .sidebar-brand small {
+        color: rgba(255,255,255,0.7);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .sidebar-nav {
+        padding: 0;
+        list-style: none;
+        position: relative;
+        z-index: 1;
+    }
+
+    .sidebar-nav-item {
+        margin-bottom: 5px;
+    }
+
+    .sidebar-nav-link {
         display: flex;
         align-items: center;
-        justify-content: center;
-        font-size: 1.6rem;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        transition: all 0.3s ease;
-    }
-
-    .sidebar-brand i {
-        font-size: 2.1rem;
-        margin-right: 10px;
-        color: var(--accent);
-        filter: drop-shadow(0 0 3px rgba(243, 179, 125, 0.6));
-    }
-
-    .sidebar-brand:hover {
-        color: var(--accent);
-        transform: scale(1.05);
-    }
-
-    /* Sidebar Links */
-    .sidebar-menu {
-        flex: 1;
-        padding: 1.5rem 1rem;
-        overflow-y: auto;
-    }
-
-    .sidebar-link {
-        display: flex;
-        align-items: center;
-        padding: 0.85rem 1rem;
-        color: rgba(255, 255, 255, 0.85);
+        padding: 15px 25px;
+        color: rgba(255,255,255,0.8);
         text-decoration: none;
-        border-radius: 12px;
-        font-weight: 500;
-        margin-bottom: 0.6rem;
         transition: all 0.3s ease;
         position: relative;
+        overflow: hidden;
     }
 
-    .sidebar-link i {
-        font-size: 1.3rem;
-        margin-right: 12px;
-        color: var(--accent);
-        transition: all 0.3s ease;
-    }
-
-    .sidebar-link:hover {
-        background: rgba(255, 255, 255, 0.08);
-        transform: translateX(5px);
-        color: #fff;
-    }
-
-    .sidebar-link:hover i {
-        transform: scale(1.2);
-    }
-
-    .sidebar-link.active {
-        background: linear-gradient(135deg, var(--brown-500), var(--brown-400));
-        color: #fff;
-        font-weight: 600;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .sidebar-link.active::before {
+    .sidebar-nav-link::before {
         content: '';
         position: absolute;
-        left: -8px;
-        top: 50%;
-        transform: translateY(-50%);
+        left: 0;
+        top: 0;
+        bottom: 0;
         width: 4px;
-        height: 60%;
-        background: var(--accent);
-        border-radius: 0 4px 4px 0;
+        background: var(--pale-autumn);
+        transform: scaleY(0);
+        transition: transform 0.3s ease;
     }
 
-    /* User Section */
-    .sidebar-footer {
-        padding: 1.2rem;
-        background: rgba(255, 255, 255, 0.05);
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    .sidebar-nav-link i {
+        font-size: 1.2rem;
+        margin-right: 15px;
+        width: 25px;
+        text-align: center;
     }
 
-    .user-info {
-        display: flex;
-        align-items: center;
-        margin-bottom: 1rem;
-        background: rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
-        padding: 0.7rem;
+    .sidebar-nav-link:hover {
+        background: rgba(255,255,255,0.1);
+        color: white;
+        padding-left: 30px;
     }
 
-    .user-avatar {
-        font-size: 2.4rem;
-        color: var(--accent);
-        margin-right: 10px;
+    .sidebar-nav-link:hover::before {
+        transform: scaleY(1);
     }
 
-    .user-name {
-        color: #fff;
+    .sidebar-nav-link.active {
+        background: rgba(255,255,255,0.15);
+        color: white;
         font-weight: 600;
+        border-left: 4px solid var(--pale-autumn);
+    }
+
+    .sidebar-user {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px 25px;
+        border-top: 2px solid rgba(255,255,255,0.1);
+        background: rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .sidebar-user-info {
+        color: white;
+        margin-bottom: 10px;
+    }
+
+    .sidebar-user-info strong {
+        display: block;
         font-size: 0.95rem;
     }
 
-    .user-role {
-        color: var(--brown-200);
+    .sidebar-user-info small {
+        color: rgba(255,255,255,0.7);
         font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.6px;
     }
 
-    .logout-btn {
+    .btn-logout {
         width: 100%;
-        background: rgba(220, 38, 38, 0.15);
-        border: 1px solid rgba(220, 38, 38, 0.3);
-        color: #fca5a5;
-        padding: 0.75rem;
-        border-radius: 10px;
+        background: rgba(220, 53, 69, 0.2);
+        border: 2px solid rgba(220, 53, 69, 0.5);
+        color: white;
+        padding: 10px;
+        border-radius: 8px;
         font-weight: 600;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         transition: all 0.3s ease;
     }
 
-    .logout-btn:hover {
-        background: rgba(220, 38, 38, 0.35);
-        color: #fff;
+    .btn-logout:hover {
+        background: #dc3545;
+        border-color: #dc3545;
+        color: white;
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
-    }
-
-    .logout-btn i {
-        margin-right: 8px;
-    }
-
-    /* Overlay */
-    .sidebar-overlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 999;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    .sidebar-overlay.active {
-        display: block;
-        opacity: 1;
+        box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
     }
 
     /* Responsive */
     @media (max-width: 768px) {
-        .sidebar-toggle {
-            display: flex;
+        .sidebar {
+            transform: translateX(-100%);
         }
 
-        .admin-sidebar {
-            left: -100%;
-            top: 0;
-            bottom: 0;
-            width: 270px;
-            border-radius: 0 18px 18px 0;
-        }
-
-        .admin-sidebar.active {
-            left: 0;
-        }
-
-        .sidebar-overlay.active {
-            display: block;
+        .sidebar.show {
+            transform: translateX(0);
         }
     }
 
     @media (min-width: 769px) {
         body {
-            padding-left: calc(var(--sidebar-width) + 40px);
+            padding-left: 280px;
         }
     }
 </style>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const sidebar = document.getElementById('adminSidebar');
-        const overlay = document.getElementById('sidebarOverlay');
-
-        function toggleSidebar() {
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
-
-        sidebarToggle?.addEventListener('click', toggleSidebar);
-        overlay?.addEventListener('click', toggleSidebar);
-
-        document.querySelectorAll('.sidebar-link').forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth <= 768) toggleSidebar();
-            });
-        });
-    });
-</script>

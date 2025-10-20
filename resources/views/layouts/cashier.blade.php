@@ -274,6 +274,26 @@
             transition: margin-left 0.3s ease;
         }
 
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
         /* Card Styling */
         .card {
             border: none;
@@ -378,26 +398,6 @@
 
         .text-info {
             color: var(--pale-autumn) !important;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.show {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-        }
-
-        /* Smooth scroll */
-        html {
-            scroll-behavior: smooth;
         }
 
         @yield('styles')

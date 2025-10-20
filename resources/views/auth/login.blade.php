@@ -168,14 +168,18 @@
           <label for="password" class="form-label">
             <i class="bi bi-lock"></i> Password
           </label>
-          <input type="password" 
-                 class="form-control @error('password') is-invalid @enderror" 
-                 id="password" 
-                 name="password" 
-                 required
-                 placeholder="Enter your password">
+          <div class="input-group">
+            <input type="password" 
+                   class="form-control @error('password') is-invalid @enderror" 
+                   id="password" 
+                   name="password" 
+                   required>
+            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+              <i class="bi bi-eye" id="toggleIcon"></i>
+            </button>
+          </div>
           @error('password')
-            <div class="invalid-feedback">{{ $message }}</div>
+            <div class="invalid-feedback d-block">{{ $message }}</div>
           @enderror
         </div>
 
@@ -285,5 +289,22 @@
   @endif
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Toggle password visibility
+    document.getElementById('togglePassword').addEventListener('click', function() {
+        const passwordInput = document.getElementById('password');
+        const toggleIcon = document.getElementById('toggleIcon');
+        
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggleIcon.classList.remove('bi-eye');
+            toggleIcon.classList.add('bi-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            toggleIcon.classList.remove('bi-eye-slash');
+            toggleIcon.classList.add('bi-eye');
+        }
+    });
+  </script>
 </body>
 </html>
